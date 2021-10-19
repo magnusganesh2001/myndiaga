@@ -1,13 +1,1042 @@
-
-<ion-header [translucent]="true">
+<ion-header class="bg-myndia-primary">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
+
 <ion-content [fullscreen]="true">
-  <ion-toolbar collapse="condense">
-    <ion-title>home Page</ion-title>
-  </ion-toolbar>
+  <div class="container-fluid p-0">
+    <div class="" style="">
+      
+        <div class="scrollingSystem  custom-scrollbar pt-2  bg-white w-100 overflow-hidden"
+            style="top:90px;z-index:1000; height: 92px;">
+            <!--tabs wrapper-->
+            <div class='transition display-flex transition-1' style="overflow: auto;">
+
+                <!-- [routerLink]="['/',item.sub_category_name]" [queryParams]="{scid:item.scid}" -->
+                <div class="card mx-2 cardFull border-0" *ngFor="let item of outerCategory; index as i"
+                    [routerLink]="['/',item.outer_Category_name.split('b').join('-')]"
+                    [queryParams]="{outCid:item.outCid}">
+                    <div class="card-header rounded-circle bg-white border  text-center p-0" style="height: 50px;">
+                        <img [src]="item.out_cat_image? baseUrl+item.out_cat_image : '../../assets/image/dummy-product_2.png'"
+                            alt="" style="height:50px; width:50px !important; object-fit:center !important" alt="catImg"
+                            width="100%" height="100%">
+                    </div>
+                    <span>{{item.outer_Category_name | titlecase}}</span>
+                </div>
+                <!-- <div class="card mx-2 text-center cardFull border-0">
+                        <div class=" bg-white  text-center">
+                            <img src="assets/image/food.png" alt=""><br/>
+                        </div>
+                        <span>Grocery</span>
+                    </div>
+                    <div class="card mx-2 text-center cardFull border-0">
+                        <div class=" bg-white  text-center">
+                            <img src="assets/image/iphone.png" alt=""><br/>
+                        </div>
+                        <span>Mobiles</span>
+                    </div>
+                    <div class="card mx-2 text-center cardFull border-0">
+                        <div class=" bg-white  text-center">
+                            <img src="assets/image/clothes-rack.png" alt=""><br/>
+                        </div>
+                        <span>Fashion</span>
+                    </div>
+                    <div class="card mx-2 text-center cardFull border-0">
+                        <div class=" bg-white  text-center">
+                            <img src="assets/image/computer.png" alt=""><br/>
+                        </div>
+                        <span>Electronics</span>
+                    </div>
+                    <div class="card mx-2 text-center cardFull border-0">
+                        <div class=" bg-white  text-center">
+                            <img src="assets/image/furniture.png" alt=""><br/>
+                        </div>
+                        <span>Home</span>
+                    </div>
+                    <div class="card mx-2 text-center cardFull border-0">
+                        <div class=" bg-white  text-center">
+                            <img src="assets/image/cosmetics.png" alt=""><br/>
+                        </div>
+                        <span>Beauty</span>
+                    </div>
+                    <div class="card mx-2 text-center cardFull border-0">
+                        <div class=" bg-white  text-center">
+                            <img src="assets/image/washing-machine.png" alt=""><br/>
+                        </div>
+                        <span>Appliances</span>
+                    </div>
+                    <div class="card mx-2 text-center cardFull border-0">
+                        <div class=" bg-white  text-center">
+                            <img src="assets/image/toys.png" alt=""><br/>
+                        </div>
+                        <span>Toys</span>
+                    </div>
+                    <div class="card mx-2 text-center cardFull border-0">
+                        <div class=" bg-white  text-center">
+                            <img src="assets/image/sport.png" alt=""><br/>
+                        </div>
+                        <span>Sports</span>
+                    </div> -->
+                <!-- <app-all-category #catalog [categories]="this.outerCategory"></app-all-category> -->
+            </div>
+            <!--end of tabs wrapper-->
+        </div>
+
+        <!-- first top page -->
+        <div class="mb-3">
+            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+
+                    <div class="carousel-item {{i==0?'active':''}}" *ngFor="let slide of slider; index as i">
+                        <a *ngIf="slide?.url_link" [href]="slide.url_link">
+                            <img [src]="'https://seller.myndia.in/homePageImagesUpload'+slide.slider_img" alt=""
+                                class="w-100" height="200" style="object-fit: cover;">
+                        </a>
+                        <img *ngIf="!slide?.url_link"
+                            [src]="'https://seller.myndia.in/homePageImagesUpload'+slide.slider_img" alt=""
+                            class="w-100" height="200" style="object-fit: cover;">
+                    </div>
+
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </a>
+            </div>
+        </div>
+        <!-- dael of the day -->
+        <div class="my-3">
+            <div class="card bg-transparent border-0">
+                <div class="card-header  bg-transparent p-2 border-0">
+                    <div class="d-flex justify-content-between">
+                        <div class="p-2 bd-highlight">
+                            <p class="heading m-0 font-weight-bold">Deal Of The Day</p>
+                            <div class="discount__countdown" id="countdown-time"
+                                *ngIf="discountTime && discountTime.total>0">
+                                <div class="countdown__item d-flex ">
+                                    <span>{{discountTime?.days}}</span>
+                                    <p class="mx-1 mb-0">Days</p>
+                                </div>
+                                <div class="countdown__item d-flex ">
+                                    <span>{{discountTime?.hours}}</span>
+                                    <p class="mx-1 mb-0">Hour</p>
+                                </div>
+                                <div class="countdown__item d-flex ">
+                                    <span>{{discountTime?.minutes}}</span>
+                                    <p class="mx-1 mb-0">Min</p>
+                                </div>
+                                <div class="countdown__item d-flex">
+                                    <span>{{discountTime?.seconds}}</span>
+                                    <p class="mx-1 mb-0">Sec</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-2 bd-highlight pt-3">
+                          <button class="btn bg-myndia-secondary btn-sm text-white " type="button" [routerLink]="['/all-products','deal-of-the-day',2]">View All</button>
+                            <!-- <a class="btn btn-sm bg-myndia-primary text-white  buttonFont bg-myndia-primary  mx-2"
+                                href="#dealOfThDay" role="button" data-bs-slide="prev">
+                                <i class="fa fa-arrow-left heading"></i>
+                            </a>
+                            <a class="btn btn-sm bg-myndia-primary buttonFont text-white  mx-2" href="#dealOfThDay"
+                                role="button" data-bs-slide="next">
+                                <i class="fa fa-arrow-right heading"></i>
+                            </a> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body bg-transparent px-4 py-2 border-0" *ngIf="products.length">
+                    <div id="dealOfThDay" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class=" {{i==0?'active':''}} {{i%2==0?'carousel-item':'d-none'}}"
+                                *ngFor="let product of products; index as i">
+                                <div class="d-flex ">
+                                    <div class="w-50 p-2">
+                                        <div class=" card cardBorder w-100">
+                                            <a class="card-header bg-white cardHeaderTop p-2 bg-white mx-auto"
+                                                style="height: 130px;"
+                                                [routerLink]="['/',products[i].outer_Category_name,products[i].category_name,products[i].sub_category_name,products[i]?.product_url]"
+                                                [queryParams]="{prtid:products[i]?.prtid,msn:products[i]?.msn,pcolorId:products[i]?.pcolorId}">
+                                                <img [src]="'https://seller.myndia.in/productImages'+products[i].imgurl"
+                                                    style="width: 100%; height: 100%; object-fit: cover;" alt="">
+                                            </a>
+                                            <div class="card-body p-1">
+                                                <h6 class="text-center "><a
+                                                        class="text-dark text-decoration-none text-elipsis"
+                                                        [routerLink]="['/',products[i].outer_Category_name,products[i].category_name,products[i].sub_category_name,products[i]?.product_url]"
+                                                        [queryParams]="{prtid:products[i]?.prtid,msn:products[i]?.msn,pcolorId:products[i]?.pcolorId}">{{products[i].p_name}}</a>
+                                                </h6>
+                                                <div class="d-flex">
+                                                    <div class="w-30">
+                                                        <div class="text-left ">
+                                                            <span
+                                                                class="bg-success rounded text-white font-12 text-left p-1">
+                                                                <span
+                                                                    class="font-Bold">{{products[i].rating_count}}</span>
+                                                                <span> <i class="fa fa-star mx-1 font-12"></i>
+                                                                </span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="w-70 text-right">
+                                                        <a (click)="postMsn(products[i].msn,products[i].prtid)"
+                                                            class=" bg-myndia-secondary p-1 px-2 text-white text-decoration-none rounded font-12">Add
+                                                            To Cart</a>
+                                                    </div>
+                                                </div>
+                                                <div class=" text-left mt-2">
+                                                    <span class="font-14"> <i class="fa text-dark fa-inr"></i> </span>
+                                                    {{(products[i].total_price_after_tax).toFixed(2)}}
+                                                    <span class="font-12 mx-2">
+                                                        <s><i class="fa text-grey fa-inr"></i>
+                                                            {{(products[i].original_price).toFixed(2)}}</s>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="w-50 p-2" *ngIf="products?.length-1 >= i+1">
+                                        <div class=" card cardBorder w-100">
+                                            <a [routerLink]="['/',products[i+1].outer_Category_name,products[i+1].category_name,products[i+1].sub_category_name,products[i+1]?.product_url]"
+                                                [queryParams]="{prtid:products[i+1]?.prtid,msn:products[i+1]?.msn,pcolorId:products[i+1]?.pcolorId}"
+                                                class="card-header bg-white cardHeaderTop p-2 bg-white mx-auto"
+                                                style="height: 130px;">
+                                                <img [src]="'https://seller.myndia.in/productImages'+products[i+1].imgurl"
+                                                    style="width: 100%; height: 100%; object-fit: cover;" alt="">
+                                            </a>
+                                            <div class="card-body p-1">
+                                                <h6 class="text-center "><a
+                                                        class="text-dark text-decoration-none text-elipsis product_title"
+                                                        [routerLink]="['/',products[i+1].outer_Category_name,products[i+1].category_name,products[i+1].sub_category_name,products[i+1]?.product_url]"
+                                                        [queryParams]="{prtid:products[i+1]?.prtid,msn:products[i+1]?.msn,pcolorId:products[i+1]?.pcolorId}">{{products[i+1].p_name}}</a>
+                                                </h6>
+                                                <div class="d-flex">
+                                                    <div class="w-30">
+                                                        <div class="text-left ">
+                                                            <span
+                                                                class="bg-success rounded text-white font-12 text-left p-1">
+                                                                <span
+                                                                    class="font-Bold">{{products[i+1].rating_count}}</span>
+                                                                <span> <i class="fa fa-star mx-1 font-12"></i>
+                                                                </span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="w-70 text-right">
+                                                        <a (click)="postMsn(products[i+1].msn,products[i+1].prtid)"
+                                                            class=" bg-myndia-secondary p-1 px-2 text-white text-decoration-none rounded font-12">Add
+                                                            To Cart</a>
+                                                    </div>
+                                                </div>
+                                                <div class=" text-left mt-2">
+                                                    <span class="font-14"> <i class="fa text-dark fa-inr"></i> </span>
+                                                    {{(products[i+1].total_price_after_tax).toFixed(2)}}
+                                                    <span class="font-12 mx-2">
+                                                        <s><i class="fa text-grey fa-inr"></i>
+                                                            {{(products[i+1].original_price).toFixed(2)}}</s>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- customer support -->
+        <div class="my-3">
+            <div class="card border-0">
+                <div class="card-body bg-light">
+                    <div class="d-flex">
+                        <div class="w-50">
+                            <div class="text-center">
+                                <i class="fas fa-truck text-myndia-primary text-center font-25 my-2"></i>
+                            </div>
+                            <div class="text-center">
+                                <h6 class="m-0 font-14">FREE DELIVERY </h6>
+                                <p class="m-0 font-12">When Ordeing Above Rs 700</p>
+                            </div>
+                        </div>
+                        <div class="w-50 ">
+                            <div class="text-center">
+                                <i class="fas fa-history text-myndia-primary font-25 my-2"></i>
+                            </div>
+                            <div class="text-center">
+                                <h6 class="m-0 font-14">UPTO 30 DAYS RETURN </h6>
+                                <p class="m-0 font-12">If Good Have Problem</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex my-2">
+                        <div class="w-50 ">
+                            <div class="text-center">
+                                <i class="fas fa-money-check font-25 my-2 text-myndia-primary"></i>
+                            </div>
+                            <div class=" text-center">
+                                <h6 class="m-0 font-14">SECURE PAYMENT</h6>
+                                <p class="m-0 font-12">100% SECURE PAYMENT</p>
+                            </div>
+                        </div>
+                        <div class="w-50">
+                            <div class="text-center">
+                                <i class="far fa-comments font-25 my-2 text-myndia-primary"></i>
+                            </div>
+                            <div class=" text-center">
+                                <h6 class="m-0 font-14">24/7 SUPPORT </h6>
+                                <p class="m-0 font-12"> Dedicated Support</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="my-3 linearBlue">
+            <div class="card bg-transparent">
+                <div class="card-body px-2 pt-0">
+                    <div class="row">
+                        <div class="col-12 my-2">
+                            <div class="card ">
+                                <div class="card-header cardHeaderTop bg-white">
+                                    <h5>Home Essentials | Myndia Brands And More</h5>
+                                </div>
+                                <div class="card-body pb-0 px-2 cardBorderBottom">
+                                    <div class="row">
+                                        <div class="col-6" *ngFor="let subcat of homeEssential"
+                                            [routerLink]="['/',subcat.outer_Category_name.split(' ').join('-'),subcat.category_name.split(' ').join('-'),subcat.sub_category_name]"
+                                            [queryParams]="{scid:subcat.scid}">
+                                            <div class="card my-2 rounded">
+                                                <div class="card-header p-0 bg-white text-center">
+                                                    <img [src]="'https://seller.myndia.in/sub_category'+subcat.sub_cat_image"
+                                                        alt="" class="mx-auto w-100" height="120"
+                                                        style="object-fit:contain !important;">
+                                                </div>
+                                                <div class="card-body p-1 text-center">
+                                                    <p class="m-0" style="font-size: 15px;">{{subcat.sub_category_name |
+                                                        titlecase}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-12 my-2">
+                            <div class="card">
+                                <div class="card-header bg-white cardHeaderTop">
+                                    <h5>Style For Womens | Myndia Brands And More</h5>
+                                </div>
+                                <div class="card-body pb-0">
+                                    <div class="row">
+                                        <div class="col-6" *ngFor="let women of womenStyle"
+                                            [routerLink]="['/',women.outer_Category_name.split(' ').join('-'),women.category_name.split(' ').join('-'),women.sub_category_name]"
+                                            [queryParams]="{scid:women.scid}">
+                                            <div class="card my-2">
+                                                <div class="card-header p-0 bg-white text-center">
+                                                    <img [src]="'https://seller.myndia.in/sub_category'+women.sub_cat_image"
+                                                        alt="{{women.sub_category_name}}" class="w-100 mx-auto"
+                                                        height="120" style="object-fit:contain !important;">
+                                                </div>
+                                                <div class="card-body p-1">
+                                                    <p class="m-0 text-center" style="font-size: 15px;">
+                                                        {{women.sub_category_name | titlecase}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-12 my-2">
+                            <div class="card">
+                                <div class="card-header h-100 bg-white cardBorder">
+                                    <h5>Top Pick From Your Home | Myndia Brands And More</h5>
+
+                                </div>
+                                <div class="card-body h-100 pb-0 ">
+                                    <div class="row">
+                                        <div class="col-6" *ngFor="let toppic of topPicksHome"
+                                            [routerLink]="['/',toppic.outer_Category_name.split(' ').join('-'),toppic.category_name.split(' ').join('-'),toppic.sub_category_name]"
+                                            [queryParams]="{scid:toppic.scid}">
+                                            <div class="card my-2">
+                                                <div class="card-header p-0 bg-white text-center">
+                                                    <img [src]="'https://seller.myndia.in/sub_category'+toppic.sub_cat_image"
+                                                        alt="" class="w-100 mx-auto" height="120"
+                                                        style="object-fit:contain !important;">
+                                                </div>
+                                                <div class="card-body p-1">
+                                                    <p class="m-0 text-center" style="font-size: 15px;">
+                                                        {{toppic.sub_category_name | titlecase}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-12 my-2">
+                            <div class="card">
+                                <div class="card-header bg-white cardBorder">
+                                    <h5>Style For Mens | Myndia Brands And More</h5>
+                                </div>
+                                <div class="card-body pb-0">
+                                    <div class="row">
+                                        <div class="col-6" *ngFor="let men of menStyle"
+                                            [routerLink]="['/',men.outer_Category_name.split(' ').join('-'),men.category_name.split(' ').join('-'),men.sub_category_name]"
+                                            [queryParams]="{scid:men.scid}">
+                                            <div class="card my-2">
+                                                <div class="card-header p-0 bg-white text-center">
+                                                    <img [src]="'https://seller.myndia.in/sub_category'+men.sub_cat_image"
+                                                        alt="" class="w-100 mx-auto" height="120"
+                                                        style="object-fit:contain !important;">
+                                                </div>
+                                                <div class="card-body p-1">
+                                                    <p class="m-0 text-center" style="font-size: 15px;">
+                                                        {{men.sub_category_name | titlecase}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- new products -->
+        <div class="my-3 ">
+            <div class="card  border-0">
+                <div class="card-header  bg-white p-2 border-0">
+                    <div class="d-flex justify-content-between">
+                        <div class="p-2 bd-highlight">
+                            <h6 class=" m-0 ">New Products</h6>
+                        </div>
+                        <div class="p-2 bd-highlight">
+                          <button class="btn bg-myndia-secondary btn-sm text-white " [routerLink]="['/all-products','new-products',7]">View All</button>
+                            <!-- <a class="btn bg-myndia-primary text-white  buttonFont bg-myndia-primary  mx-2"
+                                href="#newProducts" role="button" data-bs-slide="prev">
+                                <i class="fa fa-arrow-left heading"></i>
+                            </a>
+                            <a class="btn bg-myndia-primary buttonFont text-white  mx-2" href="#newProducts"
+                                role="button" data-bs-slide="next">
+                                <i class="fa fa-arrow-right heading"></i>
+                            </a> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body bg-transparent px-4 py-2 border-0" *ngIf="products7section.length">
+                    <div id="dealOfThDay" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class=" {{i==0?'active':''}} {{i%2==0?'carousel-item':'d-none'}}"
+                                *ngFor="let product of products7section; index as i">
+                                <div class="d-flex ">
+                                    <div class="w-50 p-2">
+                                        <div class=" card cardBorder w-100">
+                                            <a [routerLink]="['/',products7section[i].outer_Category_name,products7section[i].category_name,products7section[i].sub_category_name,products7section[i]?.product_url]"
+                                                [queryParams]="{prtid:products7section[i]?.prtid,msn:products7section[i]?.msn,pcolorId:products7section[i]?.pcolorId}"
+                                                class="card-header bg-white cardHeaderTop p-2 bg-white mx-auto"
+                                                style="height: 130px;">
+                                                <img [src]="'https://seller.myndia.in/productImages'+products7section[i].imgurl"
+                                                    style="width: 100%; height: 100%; object-fit: cover;" alt="">
+                                            </a>
+                                            <div class="card-body p-1">
+                                                <h6 class="text-center "><a
+                                                        class="text-dark text-decoration-none text-elipsis"
+                                                        [routerLink]="['/',products7section[i].outer_Category_name,products7section[i].category_name,products7section[i].sub_category_name,products7section[i]?.product_url]"
+                                                        [queryParams]="{prtid:products7section[i]?.prtid,msn:products7section[i]?.msn,pcolorId:products7section[i]?.pcolorId}">{{products7section[i].p_name}}</a>
+                                                </h6>
+                                                <div class="d-flex">
+                                                    <div class="w-30">
+                                                        <div class="text-left ">
+                                                            <span
+                                                                class="bg-success rounded text-white font-12 text-left p-1">
+                                                                <span
+                                                                    class="font-Bold">{{products7section[i].rating_count}}</span>
+                                                                <span> <i class="fa fa-star mx-1 font-12"></i>
+                                                                </span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="w-70 text-right">
+                                                        <a (click)="postMsn(products7section[i].msn,products7section[i].prtid)"
+                                                            class=" bg-myndia-secondary p-1 px-2 text-white text-decoration-none rounded font-12">Add
+                                                            To Cart</a>
+                                                    </div>
+                                                </div>
+                                                <div class=" text-left mt-2">
+                                                    <span class="font-14"> <i class="fa text-dark fa-inr"></i> </span>
+                                                    {{(products7section[i].total_price_after_tax).toFixed(2)}}
+                                                    <span class="font-12 mx-2">
+                                                        <s><i class="fa text-grey fa-inr"></i>
+                                                            {{(products7section[i].original_price).toFixed(2)}}</s>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="w-50 p-2" *ngIf="products7section?.length-1 >= i+1">
+                                        <div class=" card cardBorder w-100">
+                                            <a [routerLink]="['/',products7section[i+1].outer_Category_name,products7section[i+1].category_name,products7section[i+1].sub_category_name,products7section[i+1]?.product_url]"
+                                                [queryParams]="{prtid:products7section[i+1]?.prtid,msn:products7section[i+1]?.msn,pcolorId:products7section[i+1]?.pcolorId}"
+                                                class="card-header bg-white cardHeaderTop p-2 bg-white mx-auto"
+                                                style="height: 130px;">
+                                                <img [src]="'https://seller.myndia.in/productImages'+products7section[i+1].imgurl"
+                                                    style="width: 100%; height: 100%; object-fit: cover;" alt="">
+                                            </a>
+                                            <div class="card-body p-1">
+                                                <h6 class="text-center "><a
+                                                        class="text-dark text-decoration-none text-elipsis product_title"
+                                                        [routerLink]="['/',products7section[i+1].outer_Category_name,products7section[i+1].category_name,products7section[i+1].sub_category_name,products7section[i+1]?.product_url]"
+                                                        [queryParams]="{prtid:products7section[i+1]?.prtid,msn:products7section[i+1]?.msn,pcolorId:products7section[i+1]?.pcolorId}">{{products7section[i+1].p_name}}</a>
+                                                </h6>
+                                                <div class="d-flex">
+                                                    <div class="w-30">
+                                                        <div class="text-left ">
+                                                            <span
+                                                                class="bg-success rounded text-white font-12 text-left p-1">
+                                                                <span
+                                                                    class="font-Bold">{{products7section[i+1].rating_count}}</span>
+                                                                <span> <i class="fa fa-star mx-1 font-12"></i>
+                                                                </span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="w-70 text-right">
+                                                        <a (click)="postMsn(products[i+1].msn,products7section[i+1].prtid)"
+                                                            class=" bg-myndia-secondary p-1 px-2 text-white text-decoration-none rounded font-12">Add
+                                                            To Cart</a>
+                                                    </div>
+                                                </div>
+                                                <div class=" text-left mt-2">
+                                                    <span class="font-14"> <i class="fa text-dark fa-inr"></i> </span>
+                                                    {{(products7section[i+1].total_price_after_tax).toFixed(2)}}
+                                                    <span class="font-12 mx-2">
+                                                        <s><i class="fa text-grey fa-inr"></i>
+                                                            {{(products7section[i+1].original_price).toFixed(2)}}</s>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!--banners-->
+        <div class="w-100 my-4 px-2">
+            <div class="row">
+                <div class="col-12 box-sizing-border-box mr-3" *ngFor="let img of section8Images">
+                    <img [src]="'https://seller.myndia.in/homePageImagesUpload'+img.slider_img" alt=""
+                        class="w-100 my-2">
+                </div>
+
+            </div>
+        </div>
+        <!--end of banners-->
+        <!-- myndia best sellers -->
+        <div class="my-4 ">
+            <div class="card border-0 bg-light">
+                <div class="card-header border-0 bg-white">
+                    <div class="text-center">
+                        <h4>MYNDIA Bestsellers</h4>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn bg-myndia-secondary btn-sm text-white " [routerLink]="['/all-products','best-seller',9]">View All</button>
+                    </div>
+                </div>
+                <div class="card-body border-0">
+                    <div class="d-flex ">
+
+                        <div class="w-50 p-2">
+                            <div class=" card  cardBorder w-100">
+                                <a class="card-header bg-white cardHeaderTop p-0 bg-white   p-0 mx-auto"
+                                    [routerLink]="['/',bestSellerProduct[0]?.outer_Category_name,bestSellerProduct[0]?.category_name,bestSellerProduct[0]?.sub_category_name,bestSellerProduct[0]?.product_url]"
+                                    [queryParams]="{prtid:bestSellerProduct[0]?.prtid,msn:bestSellerProduct[0]?.msn,pcolorId:bestSellerProduct[0]?.pcolorId}"
+                                    style="height: 130px;">
+                                    <img [src]="'https://seller.myndia.in/productImages'+bestSellerProduct[0]?.imgurl"
+                                        height="100%" alt="" style="width: 100%; object-fit: cover;">
+                                </a>
+                                <div class="card-body p-1">
+                                    <h6 class="text-center product_title"><a
+                                            [routerLink]="['/',bestSellerProduct[0]?.outer_Category_name,bestSellerProduct[0]?.category_name,bestSellerProduct[0]?.sub_category_name,bestSellerProduct[0]?.product_url]"
+                                            [queryParams]="{prtid:bestSellerProduct[0]?.prtid,msn:bestSellerProduct[0]?.msn,pcolorId:bestSellerProduct[0]?.pcolorId}"
+                                            class="text-dark font-weight-bold product_title">{{bestSellerProduct[0]?.p_name}}</a>
+                                    </h6>
+                                    <div class="d-flex">
+                                        <div class="w-30">
+                                            <div class="text-left ">
+                                                <span class="bg-success rounded text-white font-12 text-left p-1">
+                                                    <span
+                                                        class="font-Bold">{{bestSellerProduct[0]?.rating_count}}</span>
+                                                    <span> <i class="fa fa-star mx-1 font-12"></i>
+                                                    </span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="w-70 text-right">
+                                            <a (click)="postMsn(bestSellerProduct[0]?.msn,bestSellerProduct[0]?.prtid)"
+                                                class=" bg-myndia-secondary p-1 px-2 text-white text-decoration-none rounded font-12">Add
+                                                To Cart</a>
+                                        </div>
+                                    </div>
+                                    <div class=" text-left mt-2">
+                                        <span class="font-14"> <i class="fa text-dark fa-inr"></i> </span>
+                                        {{(bestSellerProduct[0]?.total_price_after_tax).toFixed(0)}}
+                                        <span class="font-12 mx-2">
+                                            <s><i class="fa text-grey fa-inr"></i>
+                                                {{(bestSellerProduct[0]?.original_price).toFixed(0)}}</s>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-50 p-2">
+                            <div class=" card  cardBorder w-100">
+                                <a [routerLink]="['/',bestSellerProduct[1]?.outer_Category_name,bestSellerProduct[1]?.category_name,bestSellerProduct[1]?.sub_category_name,bestSellerProduct[1]?.product_url]"
+                                    [queryParams]="{prtid:bestSellerProduct[1]?.prtid,msn:bestSellerProduct[1]?.msn,pcolorId:bestSellerProduct[1]?.pcolorId}"
+                                    class="card-header bg-white cardHeaderTop p-0 bg-white   p-0 mx-auto"
+                                    style="height: 130px;">
+                                    <img [src]="'https://seller.myndia.in/productImages'+bestSellerProduct[1]?.imgurl"
+                                        height="100%" alt="" style="width: 100%; object-fit: cover;">
+                                </a>
+                                <div class="card-body p-1">
+                                    <h6 class="text-center "><a
+                                            [routerLink]="['/',bestSellerProduct[1]?.outer_Category_name,bestSellerProduct[1]?.category_name,bestSellerProduct[1]?.sub_category_name,bestSellerProduct[1]?.product_url]"
+                                            [queryParams]="{prtid:bestSellerProduct[1]?.prtid,msn:bestSellerProduct[1]?.msn,pcolorId:bestSellerProduct[1]?.pcolorId}"
+                                            class="text-dark font-weight-bold product_title">{{bestSellerProduct[1]?.p_name}}</a>
+                                    </h6>
+                                    <div class="d-flex">
+                                        <div class="w-30">
+                                            <div class="text-left ">
+                                                <span class="bg-success rounded text-white font-12 text-left p-1">
+                                                    <span
+                                                        class="font-Bold">{{bestSellerProduct[1]?.rating_count}}</span>
+                                                    <span> <i class="fa fa-star mx-1 font-12"></i>
+                                                    </span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="w-70 text-right">
+                                            <a (click)="postMsn(bestSellerProduct[1]?.msn,bestSellerProduct[1]?.prtid)"
+                                                class=" bg-myndia-secondary p-1 px-2 text-white text-decoration-none rounded font-12">Add
+                                                To Cart</a>
+                                        </div>
+                                    </div>
+                                    <div class=" text-left mt-2">
+                                        <span class="font-14"> <i class="fa text-dark fa-inr"></i> </span>
+                                        {{(bestSellerProduct[1]?.total_price_after_tax).toFixed(0)}}
+                                        <span class="font-12 mx-2">
+                                            <s><i class="fa text-grey fa-inr"></i>
+                                                {{(bestSellerProduct[1]?.original_price).toFixed(0)}}</s>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="d-flex ">
+
+                        <div class="w-50 p-2">
+                            <div class=" card  cardBorder w-100">
+                                <a [routerLink]="['/',bestSellerProduct[2]?.outer_Category_name,bestSellerProduct[2]?.category_name,bestSellerProduct[2]?.sub_category_name,bestSellerProduct[2]?.product_url]"
+                                    [queryParams]="{prtid:bestSellerProduct[2]?.prtid,msn:bestSellerProduct[2]?.msn,pcolorId:bestSellerProduct[2]?.pcolorId}"
+                                    class="card-header bg-white cardHeaderTop p-0 bg-white   p-0 mx-auto"
+                                    style="height: 130px;">
+                                    <img [src]="'https://seller.myndia.in/productImages'+bestSellerProduct[2]?.imgurl"
+                                        height="100%" alt="" style="width: 100%; object-fit: cover;">
+                                </a>
+                                <div class="card-body p-1">
+                                    <h6 class="text-center "><a
+                                            [routerLink]="['/',bestSellerProduct[2]?.outer_Category_name,bestSellerProduct[2]?.category_name,bestSellerProduct[2]?.sub_category_name,bestSellerProduct[2]?.product_url]"
+                                            [queryParams]="{prtid:bestSellerProduct[2]?.prtid,msn:bestSellerProduct[2]?.msn,pcolorId:bestSellerProduct[2]?.pcolorId}"
+                                            class="text-dark font-weight-bold product_title">{{bestSellerProduct[2]?.p_name}}</a>
+                                    </h6>
+                                    <div class="d-flex">
+                                        <div class="w-30">
+                                            <div class="text-left ">
+                                                <span class="bg-success rounded text-white font-12 text-left p-1">
+                                                    <span
+                                                        class="font-Bold">{{bestSellerProduct[2]?.rating_count}}</span>
+                                                    <span> <i class="fa fa-star mx-1 font-12"></i>
+                                                    </span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="w-70 text-right">
+                                            <a (click)="postMsn(bestSellerProduct[2]?.msn,bestSellerProduct[2]?.prtid)"
+                                                class=" bg-myndia-secondary p-1 px-2 text-white text-decoration-none rounded font-12">Add
+                                                To Cart</a>
+                                        </div>
+                                    </div>
+                                    <div class=" text-left mt-2">
+                                        <span class="font-14"> <i class="fa text-dark fa-inr"></i> </span>
+                                        {{(bestSellerProduct[2]?.total_price_after_tax).toFixed(0)}}
+                                        <span class="font-12 mx-2">
+                                            <s><i class="fa text-grey fa-inr"></i>
+                                                {{(bestSellerProduct[2]?.original_price).toFixed(0)}}</s>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-50 p-2">
+                            <div class=" card  cardBorder w-100">
+                                <a [routerLink]="['/',bestSellerProduct[3]?.outer_Category_name,bestSellerProduct[3]?.category_name,bestSellerProduct[3]?.sub_category_name,bestSellerProduct[3]?.product_url]"
+                                    [queryParams]="{prtid:bestSellerProduct[3]?.prtid,msn:bestSellerProduct[3]?.msn,pcolorId:bestSellerProduct[3]?.pcolorId}"
+                                    class="card-header bg-white cardHeaderTop p-0 bg-white   p-0 mx-auto"
+                                    style="height: 130px;">
+                                    <img [src]="'https://seller.myndia.in/productImages'+bestSellerProduct[3]?.imgurl"
+                                        height="100%" alt="" style="width: 100%; object-fit: cover;">
+                                </a>
+                                <div class="card-body p-1">
+                                    <h6 class="text-center "><a
+                                            [routerLink]="['/',bestSellerProduct[3]?.outer_Category_name,bestSellerProduct[3]?.category_name,bestSellerProduct[3]?.sub_category_name,bestSellerProduct[3]?.product_url]"
+                                            [queryParams]="{prtid:bestSellerProduct[3]?.prtid,msn:bestSellerProduct[3]?.msn,pcolorId:bestSellerProduct[3]?.pcolorId}"
+                                            class="text-dark font-weight-bold product_title">{{bestSellerProduct[3]?.p_name}}</a>
+                                    </h6>
+                                    <div class="d-flex">
+                                        <div class="w-30">
+                                            <div class="text-left ">
+                                                <span class="bg-success rounded text-white font-12 text-left p-1">
+                                                    <span
+                                                        class="font-Bold">{{bestSellerProduct[3]?.rating_count}}</span>
+                                                    <span> <i class="fa fa-star mx-1 font-12"></i>
+                                                    </span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="w-70 text-right">
+                                            <a (click)="postMsn(bestSellerProduct[3]?.msn,bestSellerProduct[3]?.prtid)"
+                                                class=" bg-myndia-secondary p-1 px-2 text-white text-decoration-none rounded font-12">Add
+                                                To Cart</a>
+                                        </div>
+                                    </div>
+                                    <div class=" text-left mt-2">
+                                        <span class="font-14"> <i class="fa text-dark fa-inr"></i> </span>
+                                        {{(bestSellerProduct[3]?.total_price_after_tax).toFixed(0)}}
+                                        <span class="font-12 mx-2">
+                                            <s><i class="fa text-grey fa-inr"></i>
+                                                {{(bestSellerProduct[3]?.original_price).toFixed(0)}}</s>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="my-3">
+                        <div class="card  border-0 rounded">
+                            <div class="card-header bg-white  p-2 border-0">
+                                <div class="d-flex justify-content-between">
+                                    <div class="p-2 bd-highlight">
+                                        <h6 class=" m-0 font-weight-bold">Myndia Top Select</h6>
+                                    </div>
+                                    <div class="p-2 bd-highlight ">
+                                        <a class="btn btn-sm bg-myndia-primary text-white  buttonFont bg-myndia-primary  mx-2"
+                                            href="#myndiaTopPick" role="button" data-bs-slide="prev">
+                                            <i class="fa fa-arrow-left heading"></i>
+                                        </a>
+                                        <a class="btn btn-sm bg-myndia-primary buttonFont text-white  mx-2"
+                                            href="#myndiaTopPick" role="button" data-bs-slide="next">
+                                            <i class="fa fa-arrow-right heading"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body bg-transparent px-4 py-2 border-0">
+                                <div id="myndiaTopPick" class="carousel slide" data-bs-ride="carousel">
+                                    <div class="carousel-inner">
+                                        <div class="carousel-item {{i==0?'active':''}}"
+                                            *ngFor="let product of topPicksProduct; index as i">
+                                            <div class="card cardBorder">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="p-2 bd-highlight w-25">
+                                                        <img [src]="'https://seller.myndia.in/productImages'+product.imgurl"
+                                                            alt="" class="w-100">
+                                                    </div>
+                                                    <div class="p-2 bd-highlight w-75">
+                                                        <a [routerLink]="['/',product.outer_Category_name,product.category_name,product.sub_category_name,product?.product_url]"
+                                                            [queryParams]="{prtid:product?.prtid,msn:product?.msn,pcolorId:product?.pcolorId}"
+                                                            class="m-0 nounderline productFont text-dark product_title">{{product.p_name}}</a>
+                                                        <p class="m-0 productFont text-orange font-weight-bold">
+                                                            Rs {{(product.total_price_after_tax).toFixed(0)}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <!-- electronics products -->
+        <!-- <div class="my-3 ">
+            <div class="card  border-0">
+                <div class="card-header  bg-white p-2 border-0">
+                    <div class="d-flex justify-content-between">
+                        <div class="p-2 bd-highlight">
+                            <h6 class=" m-0 ">Best Of Electronics</h6>
+                        </div>
+                        <div class="p-2 bd-highlight">
+                            <a class="btn bg-myndia-primary text-white  buttonFont bg-myndia-primary  mx-2" href="#electronicsProducts" role="button" data-bs-slide="prev">
+                                <i class="fa fa-arrow-left heading"></i>
+                            </a>
+                            <a class="btn bg-myndia-primary buttonFont text-white  mx-2" href="#electronicsProducts" role="button" data-bs-slide="next">
+                                <i class="fa fa-arrow-right heading"></i>
+                            </a>
+                        </div>
+                        </div>
+                </div>
+                <div class="card-body px-4 py-2 border-0">
+                    <div id="electronicsProducts" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="d-flex ">
+
+                                    <div class="w-50 p-2">
+                                        <div class=" card  cardBorder w-100">
+                                        <div class="card-header bg-white cardHeaderTop p-0 bg-white electronic1  p-0 mx-auto" style="height: 130px;">
+                                        </div>
+                                        <div class="card-body p-1">
+                                            <h6 class="text-center "><a class="text-dark text-decoration-none" href="#">Striped Shirt</a></h6>
+                                            <div class="d-flex">
+                                                <div class="w-30">
+                                                    <div class="text-left ">
+                                                        <span class="bg-success rounded text-white font-12 text-left p-1">
+                                                            <span class="font-Bold">4</span> <span>                                           <i class="fa fa-star mx-1 font-12"></i>
+                                                            </span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="w-70 text-right">
+                                                    <a href="" class=" bg-myndia-primary p-1 px-2 text-white text-decoration-none rounded font-12">Add To Cart</a>
+                                                </div>
+                                            </div>
+                                            <div class=" text-left mt-2">
+                                                <span class="font-14"> <i class="fa text-dark fa-inr"></i> </span> 499.0
+                                                <span class="font-12 mx-2">
+                                                    <s><i class="fa text-grey fa-inr"></i> 800 </s>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <div class="w-50 p-2">
+                                    <div class=" card cardBorder w-100">
+                                        <div class="card-header bg-white cardHeaderTop p-0 bg-white blazerBg  p-0 mx-auto" style="height: 130px;">
+                                        </div>
+                                        <div class="card-body p-1">
+                                            <h6 class="text-center "><a class="text-dark text-decoration-none" href="#">Striped Shirt</a></h6>
+                                            <div class="d-flex">
+                                                <div class="w-30">
+                                                    <div class="text-left ">
+                                                        <span class="bg-success rounded text-white font-12 text-left p-1">
+                                                            <span class="font-Bold">4</span> <span>                                           <i class="fa fa-star mx-1 font-12"></i>
+                                                            </span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="w-70 text-right">
+                                                    <a href="" class=" bg-myndia-primary p-1 px-2 text-white text-decoration-none rounded font-12">Add To Cart</a>
+                                                </div>
+                                            </div>
+                                            <div class=" text-left mt-2">
+                                                <span class="font-14"> <i class="fa text-dark fa-inr"></i> </span> 499.0
+                                                <span class="font-12 mx-2">
+                                                    <s><i class="fa text-grey fa-inr"></i> 800 </s>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item ">
+                                <div class="d-flex ">
+
+                                    <div class="w-50 p-2">
+                                        <div class=" card cardBorder w-100">
+                                            <div class="card-header bg-white cardHeaderTop p-0 bg-white blazerBg  p-0 mx-auto" style="height: 130px;">
+                                            </div>
+                                            <div class="card-body p-1">
+                                                <h6 class="text-center "><a class="text-dark text-decoration-none" href="#">Striped Shirt</a></h6>
+                                                <div class="d-flex">
+                                                    <div class="w-30">
+                                                        <div class="text-left ">
+                                                            <span class="bg-success rounded text-white font-12 text-left p-1">
+                                                                <span class="font-Bold">4</span> <span>                                           <i class="fa fa-star mx-1 font-12"></i>
+                                                                </span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="w-70 text-right">
+                                                        <a href="" class=" bg-myndia-primary p-1 px-2 text-white text-decoration-none rounded font-12">Add To Cart</a>
+                                                    </div>
+                                                </div>
+                                                <div class=" text-left mt-2">
+                                                    <span class="font-14"> <i class="fa text-dark fa-inr"></i> </span> 499.0
+                                                    <span class="font-12 mx-2">
+                                                        <s><i class="fa text-grey fa-inr"></i> 800 </s>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="w-50 p-2">
+                                        <div class=" card cardBorder w-100">
+                                            <div class="card-header bg-white cardHeaderTop p-0 bg-white blazerBg  p-0 mx-auto" style="height: 130px;">
+                                            </div>
+                                            <div class="card-body p-1">
+                                                <h6 class="text-center "><a class="text-dark text-decoration-none" href="#">Striped Shirt</a></h6>
+                                                <div class="d-flex">
+                                                    <div class="w-30">
+                                                        <div class="text-left ">
+                                                            <span class="bg-success rounded text-white font-12 text-left p-1">
+                                                                <span class="font-Bold">4</span> <span>                                           <i class="fa fa-star mx-1 font-12"></i>
+                                                                </span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="w-70 text-right">
+                                                        <a href="" class=" bg-myndia-primary p-1 px-2 text-white text-decoration-none rounded font-12">Add To Cart</a>
+                                                    </div>
+                                                </div>
+                                                <div class=" text-left mt-2">
+                                                    <span class="font-14"> <i class="fa text-dark fa-inr"></i> </span> 499.0
+                                                    <span class="font-12 mx-2">
+                                                        <s><i class="fa text-grey fa-inr"></i> 800 </s>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="carousel-item ">
+                                <div class="d-flex ">
+
+                                    <div class="w-50 p-2">
+                                        <div class=" card cardBorder w-100">
+                                            <div class="card-header bg-white cardHeaderTop p-0 bg-white blazerBg  p-0 mx-auto" style="height: 130px;">
+                                            </div>
+                                            <div class="card-body p-1">
+                                                <h6 class="text-center "><a class="text-dark text-decoration-none" href="#">Striped Shirt</a></h6>
+                                                <div class="d-flex">
+                                                    <div class="w-30">
+                                                        <div class="text-left ">
+                                                            <span class="bg-success rounded text-white font-12 text-left p-1">
+                                                                <span class="font-Bold">4</span> <span>                                           <i class="fa fa-star mx-1 font-12"></i>
+                                                                </span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="w-70 text-right">
+                                                        <a href="" class=" bg-myndia-primary p-1 px-2 text-white text-decoration-none rounded font-12">Add To Cart</a>
+                                                    </div>
+                                                </div>
+                                                <div class=" text-left mt-2">
+                                                    <span class="font-14"> <i class="fa text-dark fa-inr"></i> </span> 499.0
+                                                    <span class="font-12 mx-2">
+                                                        <s><i class="fa text-grey fa-inr"></i> 800 </s>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="w-50 p-2">
+                                        <div class=" card cardBorder w-100">
+                                            <div class="card-header bg-white cardHeaderTop p-0 bg-white blazerBg  p-0 mx-auto" style="height: 130px;">
+                                            </div>
+                                            <div class="card-body p-1">
+                                                <h6 class="text-center "><a class="text-dark text-decoration-none" href="#">Striped Shirt</a></h6>
+                                                <div class="d-flex">
+                                                    <div class="w-30">
+                                                        <div class="text-left ">
+                                                            <span class="bg-success rounded text-white font-12 text-left p-1">
+                                                                <span class="font-Bold">4</span> <span>                                           <i class="fa fa-star mx-1 font-12"></i>
+                                                                </span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="w-70 text-right">
+                                                        <a href="" class=" bg-myndia-primary p-1 px-2 text-white text-decoration-none rounded font-12">Add To Cart</a>
+                                                    </div>
+                                                </div>
+                                                <div class=" text-left mt-2">
+                                                    <span class="font-14"> <i class="fa text-dark fa-inr"></i> </span> 499.0
+                                                    <span class="font-12 mx-2">
+                                                        <s><i class="fa text-grey fa-inr"></i> 800 </s>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div> -->
+
+        <!-- brands -->
+        <!-- <div class="my-3 linearOrange2">
+            <div class="card bg-transparent">
+                <div class="card-body bg-transparent">
+                    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                          <div class="carousel-item active">
+                            <img src="https://i.pinimg.com/originals/ee/b3/6d/eeb36dda667bf08932467a21b80cf810.jpg" class="d-block w-100" alt="..." height="183">
+                          </div>
+                          <div class="carousel-item">
+                            <img src="https://www.logixcreative.com/wp-content/uploads/2016/01/LOGIX500rebateLogixWebsiteBlogArticle_LOGIX.jpg" class="d-block w-100" alt="..." height="183">
+                          </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExample" role="button" data-bs-slide="prev">
+                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExample" role="button" data-bs-slide="next">
+                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Next</span>
+                        </a>
+                      </div>
+                </div>
+            </div>
+        </div> -->
+    </div>
+</div>  
 </ion-content>

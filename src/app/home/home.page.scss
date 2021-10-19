@@ -1,0 +1,165 @@
+.heading{
+    font-size: 15px;
+}
+.linearOrange{
+	background-image: linear-gradient(180deg, #ff9f00 , #ffda9d);
+}
+.outerRadius{
+	border-radius: 0.5rem;
+}
+.font-weight-bold{
+	font-weight: 500;
+}
+
+/* deal of the day */
+
+.discount__countdown {
+	text-align: center;
+	margin-bottom: 10px;
+}
+.countdown__item {
+	float: left;
+}
+
+.countdown__item:last-child {
+	margin-right: 0;
+}
+.toolbar-background{
+    background-color:#036de4 !important ;
+}
+.countdown__item span {
+	font-size: 13px;
+	font-weight: 600;
+	color: white;
+	display: inline-block;
+}
+
+.countdown__item p {
+	color: black;
+	margin-bottom: 0 px;
+	display: inline-block;
+    font-weight: 500;
+    font-size: 13px;
+}
+.buttonFont{
+    font-size: 12px;
+}
+
+.cardBorder{
+    border-radius: 0.9rem;
+}
+.cardHeaderTop{
+	border-top-right-radius: 0.9rem;
+	border-top-left-radius: 0.9rem;
+
+}
+
+.product_title{
+  display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    font-size: 12px;
+}
+.cardBodyDown{
+	border-bottom-right-radius: 0.9rem;
+	border-bottom-left-radius: 0.9rem;
+
+}
+
+
+.font-12{
+    font-size: 12px;
+}
+.font-14{
+    font-size: 14px;
+}
+.font-25{
+    font-size: 25px;
+}
+.linearBlue{
+	background-image: linear-gradient(180deg, #2874f0 , #699ef5);
+}
+
+
+.linearOrange2{
+	background-image: linear-gradient(180deg, #ffda9d , #ff9f00);
+	/* background-image: radial-gradient(circle, #2874f0, #ffda9d, #ff9f00); */
+}
+
+.Aa201929030959At_{
+    position:relative;
+ }
+ .Aa201903290955Au_{
+    padding-left:0px !important;
+}
+
+@media (max-width:768px){
+
+    .cardFull {
+      width: 50px;
+    }
+    .cardFull >div{
+       overflow: hidden;
+     }
+     .cardFull img{
+       object-fit: cover;
+     }
+     .font-20{
+         font-size: 25px;
+     }
+     .font-12{
+         font-size: 12px;;
+     }
+     .transition{
+         display:flex;
+         width:fit-content;
+         left:2px;
+         position:relative;
+     }
+
+     .text-elipsis{
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 12px;
+      }
+     .scrollingSystem::-webkit-scrollbar {
+            width: 0px;
+     }
+
+     .scrollingSystem{
+        scrollbar-color: rgba(0,0,0,0.0) transparent;
+        scrollbar-width: thin;
+        scrollbar-base-color: white;
+        scrollbar-face-color: grey;
+        scrollbar-3dlight-color: white;
+        scrollbar-highlight-color: white;
+        scrollbar-track-color: white;
+        scrollbar-arrow-color: white;
+        scrollbar-shadow-color: white;
+        scrollbar-darkshadow-color: white;
+    }
+     .scrollingSystem{
+         overflow-x:scroll !important;
+     }
+     .scrollingSystem::-webkit-scrollbar-thumb {
+            background-color: rgba(0,0,0,0);
+            border-radius: 0px;
+            height: 0px;
+        }
+     .scrollingSystem::-webkit-scrollbar-track {
+        background-color: rgba(0,0,0,0);
+    }
+    .scrollingSystem  span{
+        text-align: center;
+        font-size: 10px;
+    }
+}
+
+.clientNameDashboard{
+padding-right: 70px !important;
+}
+/* clinet phone dp */
