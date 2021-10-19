@@ -1,0 +1,27 @@
+<ion-header class="bg-myndia-primary">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <section class=" {{this.open?'active':''}}">
+    <div class="inner_cat">
+        <!-- <div class="catheader bg-blue">
+            <a (click)="open = false">
+                <i class="fas fa-chevron-left"></i>&nbsp; Go back
+            </a>
+        </div> -->
+        <div class="category">
+            <div class="card cardFull" *ngFor="let item of categories" [routerLink]="['/',item.outer_Category_name.split(' ').join('-')]" [queryParams]="{outCid:item.outCid}">
+                <img [src]="item.out_cat_image? baseUrl+item.out_cat_image : '../../assets/image/dummy-product_2.png'" alt="" >
+                <p>{{item.outer_Category_name | titlecase}}</p>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+</ion-content>

@@ -13,6 +13,10 @@ const routes: Routes = [
   },  {
     path: 'navbar',
     loadChildren: () => import('./navbar/navbar.module').then( m => m.NavbarPageModule)
+  },
+  {
+    path: 'all-category',
+    loadChildren: () => import('./all-category/all-category.module').then( m => m.AllCategoryPageModule)
   }
 
 ];
