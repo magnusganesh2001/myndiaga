@@ -1,0 +1,7 @@
+{
+  "name": "Myndia",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
