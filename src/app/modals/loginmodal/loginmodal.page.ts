@@ -1,58 +1,28 @@
 import { ModalController } from '@ionic/angular';
-import { LoginmodalPage } from './modals/loginmodal/loginmodal.page';
-import { NavService } from './services/nav.service';
 import { Router } from '@angular/router';
-import {loginUp, phonenumber, resetPassword, signupData} from './class/post';
+import {loginUp, phonenumber, resetPassword, signupData} from 'src/app/class/post';
 import { Location } from '@angular/common';
 import { CommunicateService } from 'src/app/services/communicate.service';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-
+import { NavService } from 'src/app/services/nav.service';
+import {NgForm} from '@angular/forms';
 @Component({
-  selector: 'app-root',
-  templateUrl: 'app.component.html',
-  styleUrls: ['app.component.scss'],
+  selector: 'app-loginmodal',
+  templateUrl: './loginmodal.page.html',
+  styleUrls: ['./loginmodal.page.scss'],
 })
-export class AppComponent {
-  @ViewChild('loginBtn') loginBtn :any;
-  @ViewChild('continue') continueBtn:any;
-  
-  public appPages = [
-    { title: 'Home', url: '/home', icon: 'home' },
-    { title: 'All Category', url: '/all-category', icon: 'grid' },
-    { title: 'My Orders', url: '/folder/Favorites', icon: 'push' },
-    { title: 'My Cart', url: '/folder/Archived', icon: 'cart' },
-    { title: 'My Wishlist', url: '/folder/Trash', icon: 'heart' },
-    { title: 'My Account', url: '/folder/Spam', icon: 'person' },
+export class LoginmodalPage implements OnInit {
+  continueBtn: any;
 
-    { title: 'Pan Card', url: '/folder/pan', icon: 'card' },
-    { title: 'Change Password', url: '/folder/password', icon: 'key' },
 
-    { title: 'Address', url: '/folder/address', icon: 'locate' },
-    { title: 'Bank Details', url: '/folder/cash', icon: 'cash' },
-    { title: 'Rating And Reviews', url: '/folder/rating', icon: 'star' },
-  ];
   constructor(public modalController: ModalController,private _nav:NavService,private router :Router,private _location:Location, public _communicate:CommunicateService,private _ApiServiceService:NavService,) {}
 
-  dataReturned: any;
-  async openModal() {
-    const modal = await this.modalController.create({
-      component: LoginmodalPage,
-      componentProps: {
-        "paramID": 123,
-        "paramTitle": "Test Title"
-      }
-    });
-
-    modal.onDidDismiss().then((dataReturned) => {
-      if (dataReturned !== null) {
-        this.dataReturned = dataReturned.data;
-        //alert('Modal Sent Data :'+ dataReturned);
-      }
-    });
-
-    return await modal.present();
+  async closeModal() {
+    const onClosedData: string = "Wrapped Up!";
+    await this.modalController.dismiss(onClosedData);
   }
 
+  
 
 
   signUp: any;
@@ -73,9 +43,7 @@ this._location.onUrlChange(()=>{
 })
     // show outercat
     this.showOuterCategory();
-this._communicate.navbarOpen.subscribe(res=>{
-  if(res) this.loginBtn.nativeElement.click();
-})
+
 
   }
 
@@ -219,7 +187,7 @@ this.router.navigate(['search',product.productName.split(' ').join('-')]);
     login.phone = val;
     this._ApiServiceService.postPhone(login).subscribe(
       res=>{
-        this.continueBtn.nativeElement.style.display = "none";
+        // this.continueBtn.nativeElement.style.display = "none";
         this.response = res;
         if(res.phone != null)
         {
@@ -228,8 +196,9 @@ this.router.navigate(['search',product.productName.split(' ').join('-')]);
           // this.toastr.warning('You Are Already Registered With This Number');
         }
         else{
+          console.log("No phone");
+          document.getElementById("contnueBtn")?.classList.add('display-none');
           document.querySelector('.signup')?.classList.remove('display-none');
-          document.querySelector('.continue')?.classList.add('display-none');
           var phone= <HTMLElement>document.querySelector('.phone');
           phone.remove();
           localStorage.setItem('phone',val);
@@ -347,5 +316,4 @@ this.router.navigate(['search',product.productName.split(' ').join('-')]);
     document.querySelector('.createAccount')?.classList.add('display-none');
     document.querySelector('.loginPart')?.classList.add('display-none');
   }
-
 }
