@@ -1,0 +1,17 @@
+<section >
+  <div class="inner_cat">
+      <!-- <div class="catheader bg-blue">
+          <a (click)="goback()">
+              <i class="fas fa-chevron-left"></i>&nbsp; Go back
+          </a>
+      </div> -->
+      <div class="category">
+          <a style="color: #000;" class="card border-0 cardFull border-0 text-center " *ngFor="let item of subCategory" [routerLink]="['/',catName,subCatName,item.sub_category_name]" [queryParams]="{scid:item.scid}" >
+              <!-- <img [src]="item.sub_cat_image || '../../assets/image/dummy-product_2.png'" alt="" > -->
+              <img [src]="item.sub_cat_image? baseUrl+item.sub_cat_image : '../../assets/image/dummy-product_2.png'" alt="" class="rounded-circle mx-auto" style="height:70px; width:70px !important ;object-fit:center !important">
+              <p>{{item.sub_category_name | titlecase}}</p>
+          </a>
+      </div>
+  </div>
+
+</section>

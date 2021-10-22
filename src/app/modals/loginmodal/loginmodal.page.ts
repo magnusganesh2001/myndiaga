@@ -6,6 +6,9 @@ import { CommunicateService } from 'src/app/services/communicate.service';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { NavService } from 'src/app/services/nav.service';
 import {NgForm} from '@angular/forms';
+
+import { FormsModule } from '@angular/forms';
+
 @Component({
   selector: 'app-loginmodal',
   templateUrl: './loginmodal.page.html',

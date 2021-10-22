@@ -13,14 +13,23 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },
   {
-    path: 'navbar',
-    loadChildren: () => import('./navbar/navbar.module').then( m => m.NavbarPageModule)
-  },
-  {
     path: 'all-category',
-    canActivate: [ AuthGuard ],
     loadChildren: () => import('./all-category/all-category.module').then( m => m.AllCategoryPageModule)
   },
+  {
+    path: ':category', 
+    loadChildren: () => import('./category/category.module').then( m => m.CategoryPageModule)
+  },
+  {
+    path: ':category/:subcategory',
+    loadChildren: () => import('./sub-category/sub-category.module').then( m => m.SubCategoryPageModule)
+  },
+  {
+    path: ':category/:subcategory/:productList',
+    loadChildren: () => import('./product-list/product-list.module').then( m => m.ProductListPageModule)
+  },
+
+
 
 ];
 

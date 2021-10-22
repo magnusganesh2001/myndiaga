@@ -6,14 +6,14 @@ import {loginUp, phonenumber, resetPassword, signupData} from './class/post';
 import { Location } from '@angular/common';
 import { CommunicateService } from 'src/app/services/communicate.service';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  @ViewChild('loginBtn') loginBtn :any;
+  // @ViewChild('loginBtn') loginBtn :any;
   @ViewChild('continue') continueBtn:any;
   
   public appPages = [
@@ -74,7 +74,7 @@ this._location.onUrlChange(()=>{
     // show outercat
     this.showOuterCategory();
 this._communicate.navbarOpen.subscribe(res=>{
-  if(res) this.loginBtn.nativeElement.click();
+  // if(res) this.loginBtn.nativeElement.click();
 })
 
   }

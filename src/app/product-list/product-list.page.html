@@ -1,0 +1,284 @@
+<div class="container-fluid px-0 pb-6 bg-light" >
+  <div class="pb-4 my-3 mt-0">
+    <div class="bg-blue text-white px-3 py-2">
+        <div class="row">
+            <div class="col" *ngIf="length">
+              <h5 class="m-0 py-2">{{this.productName  || '' | titlecase}} ({{length}})</h5>
+            </div>
+        </div>
+    </div>
+    <div class="card sortingSticky">
+        <div class="card-body p-0">
+            <div class="row w-100">
+                <!-- <div class="col border border-top-0 border-bottom-0 px-0 w-100  py-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                      <p class="text-dark mx-2 text-center m-0" ><span><i class="fas fa-sort-amount-up text-dark "></i></span> Sort</p>
+                </div> -->
+                <div class="col  px-0 w-100 text-center py-2"  data-bs-toggle="modal" data-bs-target="#filterModelBox">
+                      <p class="text-dark mx-2 my-0" > <span><i class="fas fa-filter"></i></span> Filter</p>
+              </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="my-2 px-1">
+        <div class="bg-white cardBorder border my-1 {{product?.stock_quantity ? '':'out'}}" *ngFor="let product of products">
+          <a [routerLink]="['/',catName,subCatName,productName,product?.product_url]" [queryParams]="{prtid:product?.prtid,msn:product?.msn,pcolorId:product?.pcolorId}" class="text-dark nounderline">
+              <div class="d-flex flex-row bd-highlight">
+                  <div class="p-2 bd-highlight w-40 h-25">
+                      <img [src]="imgUrl(product?.productImage[0]?.imgurl)" [alt]="product?.p_name" class="w-100">
+                  </div>
+                  <div class="p-2 bd-highlight w-60">
+                      <p class="orderHeadings m-0 ft-12">{{product?.p_name}}</p>
+                      <div class="my-2 " *ngIf="product?.rating == 0" style="color: white; text-shadow: 0 0 4px orange;">
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star"></span>
+                          <span class="fa fa-star "></span>
+                      </div>
+                      <div class="my-2 " *ngIf="product?.rating == 1" style="color: white; text-shadow: 0 0 4px orange;" >
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star"></span>
+                          <span class="fa fa-star"></span>
+                      </div>
+                      <div class="my-2 " *ngIf="product?.rating == 2" style="color: white; text-shadow: 0 0 4px orange;">
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star "></span>
+                          <span class="fa fa-star"></span>
+                          <span class="fa fa-star"></span>
+                      </div>
+                      <div class="my-2 " *ngIf="product?.rating == 3" style="color: white; text-shadow: 0 0 4px orange;">
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star"></span>
+                          <span class="fa fa-star"></span>
+                      </div>
+                      <div class="my-2 " *ngIf="product?.rating == 4" style="color: white; text-shadow: 0 0 4px orange;">
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star"></span>
+                      </div>
+                      <div class="my-2 " *ngIf="product?.rating == 5" style="color: white; text-shadow: 0 0 4px orange;">
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                      </div>
+                      <h6 class="ft-14">Rs {{product?.total_price_after_tax}} <span *ngIf='product?.original_price>0'> <s class="topP text-grey">Rs {{product?.original_price}}</s> </span> </h6>
+                      <p *ngIf="!product?.stock_quantity" class="text-danger px-2 mb-0 text-right w-100 ft-12">Out of Stock!</p>
+                      <p *ngIf="product?.low_stock_threshold > product?.stock_quantity" class="text-warning ft-12 px-2 mb-0 text-right w-100">few products are left!</p>
+                  </div>
+                </div>
+
+              </a>
+        </div>
+
+
+    </div>
+
+</div>
+</div>
+      <!-- Modal sorting-->
+      <div class="modal fade " id="staticBackdrop" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog ">
+          <div class="modal-content cardBorder">
+              <div class="modal-body">
+                  <h5 class="modal-title" id="exampleModalLabel">Sort By</h5>
+
+                  <form action="">
+                      <div class="my-2">
+                          <input type="radio" name="sortBy" value="Relevance">
+                          <label for="Relevance" class="mx-3">Relevance</label>
+                      </div>
+                      <div class="my-2">
+                          <input type="radio" name="sortBy" value="Popularity">
+                          <label for="Popularity" class="mx-3">Popularity</label>
+                      </div>
+                      <div class="my-2">
+                          <input type="radio" name="sortBy" value="Price -- Low to High">
+                          <label for="Price -- Low to High" class="mx-3">Price -- Low to High</label>
+                      </div>
+                      <div class="my-2">
+                          <input type="radio" name="sortBy" value="Price -- High to Low">
+                          <label for="Price -- High to Low" class="mx-3">Price -- High to Low</label>
+                      </div>
+                      <div class="my-2">
+                          <input type="radio" name="sortBy" value="Newest First">
+                          <label for="Newest First" class="mx-3">Newest First</label>
+                      </div>
+                  </form>
+              </div>
+          </div>
+          </div>
+      </div>
+
+      <!-- Modal filter -->
+      <div class="modal fade" id="filterModelBox" tabindex="-1" aria-labelledby="filterModelBox" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Filters</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+              <div class="modal-body p-1">
+                  <div class="card my-3  border-0 " >
+                      <!-- PRICE -->
+                      <div class="card-body bg-white">
+                          <h6>PRICE</h6>
+                          <div class="w-100">
+                            <ngx-slider [(value)]="minValue" [(highValue)]="priceing" (userChangeEnd)="postingFilters()" [options]="options"></ngx-slider>
+
+                            <p class="my-2"> <span class="p-2 border">Min Price 0</span>  to  <span  class="p-2 border">Rs <span id="maxPrice">0</span></span> </p>
+                          </div>
+                      </div>
+                      <!-- BRAND -->
+                      <div class="card-footer bg-white " >
+                          <div class="d-flex justify-content-between" data-bs-toggle="collapse" href="#brands" role="button" aria-expanded="false" aria-controls="brands">
+                              <div class="p-2 bd-highlight">
+                                  <h6 class="m-0">BRAND</h6>
+                              </div>
+                              <div class="px-2 bd-highlight">
+                                  <div class=" bd-highlight" >
+                                      <i class="fas fa-sort-down text-grey" style="font-size: 14px;"></i>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="collapse brandsParents" id="brands">
+                              <div class="border border-top-0 border-start-0 border-end-0">
+                                  <div class="d-flex flex-row bd-highlight ">
+                                      <div class="p-2 bd-highlight">
+                                          <i class="fas fa-search text-grey" style="font-size: 14px;"></i>
+                                      </div>
+                                      <form action="" method="POST">
+                                          <div class="p-2 bd-highlight">
+                                              <input type="search" name="brandSearch" class="border-0 w-100 " placeholder="Search Brand ....." style="font-size: 14px;">
+                                          </div>
+                                      </form>
+                                    </div>
+                              </div>
+                              <div class="my-2 brands" *ngFor="let branding of brand">
+                                  <input type="checkbox" name="{{branding.brand_name}}" class="brandsName projected-click"  value="{{branding.brandid}}" (change)="bandSelect($event , branding.brandid)">
+                                  <label for="{{branding.brand_name}}" class="mx-2">{{branding.brand_name}}</label>
+                              </div>
+                          </div>
+                      </div>
+                      <!-- RATINGS -->
+                      <!-- <div class="card-footer bg-white" >
+                          <div class="d-flex justify-content-between "  data-bs-toggle="collapse" href="#ratings" role="button" aria-expanded="false" aria-controls="ratings">
+                              <div class="p-2 bd-highlight">
+                                  <h6 class="m-0">CUSTOMER RATINGS</h6>
+                              </div>
+                              <div class="px-2 bd-highlight">
+                                  <div class=" bd-highlight">
+                                      <i class="fas fa-sort-down text-grey" style="font-size: 14px;"></i>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="collapse" id="ratings">
+                              <div class="my-2">
+                                  <input type="checkbox" name="4Star&Above" class="projected-click" data-projected-input="4 Star&Above">
+                                  <label for="" class="mx-2">4 <span><i class="fas fa-star"></i></span> & Above</label>
+                              </div>
+                              <div class="my-2">
+                                  <input type="checkbox" name="3Star&Above" class="projected-click" data-projected-input="3 Star&Above">
+                                  <label for="" class="mx-2">3 <span><i class="fas fa-star"></i></span> & Above</label>
+                              </div>
+                              <div class="my-2">
+                                  <input type="checkbox" name="2Star&Above" class="projected-click" data-projected-input="2 Star&Above">
+                                  <label for="" class="mx-2">2 <span><i class="fas fa-star"></i></span> & Above</label>
+                              </div>
+                              <div class="my-2">
+                                  <input type="checkbox" name="1Star&Above"  class="projected-click" data-projected-input="1 Star&Above">
+                                  <label for="" class="mx-2">1 <span><i class="fas fa-star"></i></span> & Above</label>
+                              </div>
+                          </div>
+
+                      </div> -->
+                      <!-- OFFERS -->
+                      <!-- <div class="card-footer bg-white" >
+                          <div class="d-flex justify-content-between " data-bs-toggle="collapse" href="#offers" role="button" aria-expanded="false" aria-controls="offers">
+                              <div class="p-2 bd-highlight">
+                                  <h6 class="m-0">OFFERS</h6>
+                              </div>
+                              <div class="px-2 bd-highlight">
+                                  <div class=" bd-highlight" >
+                                      <i class="fas fa-sort-down text-grey" style="font-size: 14px;"></i>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="collapse" id="offers">
+                              <div class="my-2">
+                                  <input type="checkbox" name="specialOffer" class="projected-click" data-projected-input="Special Offer">
+                                  <label for="" class="mx-2">Special Offer</label>
+                              </div>
+                          </div>
+                      </div> -->
+                      <!-- DISCOUNT -->
+                      <!-- <div class="card-footer bg-white" >
+                          <div class="d-flex justify-content-between "  data-bs-toggle="collapse" href="#discount" role="button" aria-expanded="false" aria-controls="discount">
+                              <div class="p-2 bd-highlight">
+                                  <h6 class="m-0">DISCOUNT</h6>
+                              </div>
+                              <div class="px-2 bd-highlight">
+                                  <div class=" bd-highlight">
+                                      <i class="fas fa-sort-down text-grey" style="font-size: 14px;"></i>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="collapse" id="discount">
+                              <div class="my-2">
+                                  <input type="checkbox" name="60% or more" class="projected-click" data-projected-input="60% or More">
+                                  <label for="" class="mx-2">60% or more</label>
+                              </div>
+                              <div class="my-2" >
+                                  <input type="checkbox" name="50% or more" class="projected-click" data-projected-input="50% or More">
+                                  <label for="" class="mx-2">50% or more</label>
+                              </div>
+                              <div class="my-2">
+                                  <input type="checkbox" name="40% or more" class="projected-click" data-projected-input="40% or More">
+                                  <label for="" class="mx-2">40% or more</label>
+                              </div>
+                              <div class="my-2">
+                                  <input type="checkbox" name="30% or more" class="projected-click" data-projected-input="30% or More">
+                                  <label for="" class="mx-2">30% or more</label>
+                              </div>
+                              <div class="my-2">
+                                  <input type="checkbox" name="30% or below" class="projected-click" data-projected-input="30% or below">
+                                  <label for="" class="mx-2">30% or below</label>
+                              </div>
+                          </div>
+
+                      </div>  -->
+                      <!-- COLOR -->
+                      <div class="card-footer bg-white cardBottom" >
+                          <div class="d-flex justify-content-between "  data-bs-toggle="collapse" href="#color" role="button" aria-expanded="false" aria-controls="color">
+                              <div class="p-2 bd-highlight">
+                                  <h6 class="m-0">COLOR</h6>
+                              </div>
+                              <div class="px-2 bd-highlight">
+                                  <div class=" bd-highlight">
+                                      <i class="fas fa-sort-down text-grey" style="font-size: 14px;"></i>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="collapse" id="color">
+                              <div class="my-2" *ngFor="let colors of colorsPro">
+                                  <input type="checkbox" name="{{colors.color}}" class="projected-click"  value="{{colors.pcolorId}" (change) = "colorsSelect($event, colors.pcolorid)">
+                                  <label for="{{colors.color}}" class="mx-2">{{colors.color}}</label>
+                              </div>
+                          </div>
+
+                      </div>
+                  </div>
+              </div>
+          </div>
+          </div>
+      </div>
+

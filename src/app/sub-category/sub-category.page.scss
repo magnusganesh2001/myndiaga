@@ -1,0 +1,35 @@
+section{
+    background-color: #fff;
+  }
+  .inner_cat{
+  padding: 0px;
+  }
+  .category{
+  padding: 6px 12px;
+  display: flex;
+  flex-wrap: wrap;
+  }
+  .catheader{
+  color: #fff;
+  padding: 4px ;
+  }
+  .catheader a{
+  color: #fff;
+  }
+  .card{
+  width: 33.33%;
+  padding: 8px;
+  margin-bottom: 4px;
+  }
+  .card img{
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+    border-radius: 50%;
+  }
+  .card p{
+  font-size: 12px;
+  text-align: center;
+  margin-bottom: 0;
+  }
+  

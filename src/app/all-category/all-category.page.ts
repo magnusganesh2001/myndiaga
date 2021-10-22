@@ -8,13 +8,25 @@ import { NavService } from 'src/app/services/nav.service';
 })
 export class AllCategoryPage implements OnInit {
 
+  baseUrl = this._nav.baseImgUrl+'/outerCategory'
   constructor(private _nav:NavService) { }
 
-  @Input() open:Boolean = false;
-  @Input() categories = [] as any;
+  // @Input() open:Boolean = false;
+  // @Input() categories = [] as any;
 
-  baseUrl = this._nav.baseImgUrl+'/outerCategory'
   ngOnInit() {
+
+    this.showOuterCategory()
+  }
+
+  
+  outerCategory:any;
+  showOuterCategory(){
+    this._nav.getOuterCategories().subscribe(
+      data=>{
+        this.outerCategory = data;
+      }
+    )
   }
 
 }
