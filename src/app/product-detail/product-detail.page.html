@@ -1,0 +1,668 @@
+<div class="container-fluid pt-3 px-0 pb-6 pt-4 bg-light" *ngFor = "let productDetails of lstProductDetailsHeadings">
+  <div class="pt-5">
+    <div class="container-fluid p-0 my-2 " >
+      <div class="card w-100 border-0 bg-white"  >
+          <div class="card-header bg-white px-3 py-4 border-0 text-center" >
+              <!-- <div id="carouselExampleIndicators" class="carousel slide touch" data-bs-ride="carousel" data-bs-touch=true >
+                  <div class="carousel-inner">
+                    <div class="carousel-item {{i==0?'active':''}}"  *ngFor = "let image of images; index as i">
+                      <img src="{{this._ApiServiceService.baseImgUrl}}/productImages{{image.imgurl}}" alt="{{productDetails?.p_name}}"  class="w-100 h-100 expand object-fit-contain cursor-pointer" (mouseover)=url(image.imgurl)>
+                    </div>
+                  </div>
+              </div> -->
+
+              <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                  <div class="carousel-item {{i==0?'active':''}}" style="height: 450px !important;"  *ngFor = "let image of images; index as i">
+                    <img src="{{this._ApiServiceService.baseImgUrl}}/productImages{{image.imgurl}}" alt="{{productDetails?.p_name}}"  class="w-100 h-100 expand  cursor-pointer" style="object-fit: contain;">
+                  </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+          </div>
+          <div class="card-body">
+            <div class="my-2">
+              <h2 class="m-0 orderHeadings">{{productDetails?.p_name}}</h2>
+            </div>
+
+            <div class="d-flex my-2" >
+              <div class="w-75">
+                <div class="my-2" *ngFor="let prices of colorsPro?.cust_attr" >
+                  <div class="my-1" *ngIf = "prices.cust.msn == this.msn">
+                      <div class="text-success font-weight-600" *ngIf="prices.cust.total_price_after_tax < prices.cust.original_price">Save ₹{{prices.cust.original_price-prices.cust.total_price_after_tax}}</div>
+                      <span class="orderHeadings" >₹{{prices.cust.total_price_after_tax}} </span>
+                      <span *ngIf="prices.cust.total_price_after_tax < prices.cust.original_price">
+                      <span class="mx-3 text-grey"> <s>₹{{prices.cust.original_price}}</s> </span>
+                      <span class="text-success">{{(((prices.cust.original_price-prices.cust.total_price_after_tax)/prices.cust.original_price)*100).toFixed(2)}}% off </span><i class="fa fa-info p-1 text-grey font-size-12 rounded-circle border-1 "></i>
+                      </span>
+                  </div>
+              </div>
+                <!-- <div class="my-2">
+                  <p class="m-0 text-grey ">FREE Delivery</p>
+                </div> -->
+
+              </div>
+              <div class="w-25 text-right">
+                <div class="col-lg-3 text-right">
+                  <div class="heartSign cursor-pointer" *ngIf="!addedToWishlist" (click)="wishList()">
+                      <label for="heart" class="nonSelected" ><i class="far fa-heart text-grey"></i></label>
+                  </div>
+                  <div class="hearSign cursor-pointer" *ngIf="addedToWishlist"  (click)="delwishlist()">
+                      <label for="heart"  class="nonSelected "><i class="fas fa-heart text-danger border-danger"></i></label>
+                  </div>
+              </div>
+              </div>
+            </div>
+
+            <div class="w-100 my-2" style="overflow-x:auto;">
+              <h6>Description</h6>
+
+              <div class="w-100">
+                <p class=" text-grey pt-2"  style="box-sizing: border-box !important;"  [innerHTML]="lstProductDetailsHeadings[0].p_discription">
+               </p>
+             </div>
+            </div>
+
+            <div class="my-2" style="font-size: 12px;" *ngIf="avgRating>0">
+              <span>
+                <span class="bg-success text-white" style="padding: 2px 4px; border-radius: 4px;">
+                  <span>{{avgRating}}</span> <span><i class="fas fa-star mx-1"></i></span>
+                </span>
+              </span>
+            </div>
+
+          </div>
+      </div>
+    </div>
+
+    <form action="" #attributes="ngForm" method="post" style="background-color: #fff;">
+      <div class="my-2">
+        <div class="d-flex flex-row bd-highlight flex-wrap">
+          <!-- <div class="p-2 pr-4 bd-highlight">
+            <p class="m-0 text-grey ">Colors</p>
+          </div> -->
+
+          <div class="p-2 bd-highlight" style="overflow-x: auto;" *ngIf="colorsPro?.color.length>1">
+            <div class="d-flex flex-row bd-highlight " style="overflow-x: auto;" >
+              <div class="p-2 bd-highlight cursor-pointer "
+                *ngFor="let pro of colorsPro?.color ; let index = index;">
+                <div *ngIf="this.pcolorId == pro.pcolorId" class="border-myndia-primary shadow">
+                  <input type="radio" id="{{pro.color}}" name="colorSelect" hidden checked
+                    value="{{pro.pcolorId}}" required>
+                  <label for="{{pro.color}}" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="{{pro.color}}" (click)=colorChangePrice(pro.pcolorId)>
+                    <img src="{{this._ApiServiceService.baseImgUrl}}/productImages{{pro.imgurl}}" height="80"
+                      class="border cursor-pointer" alt="{{pro.color}}">
+                  </label>
+                </div>
+                <div *ngIf="this.pcolorId != pro.pcolorId">
+                  <input hidden type="radio" id="{{pro.color}}" name="colorSelect" ng-model="myColor"
+                    value="{{pro.pcolorId}}" ngModel (click)="colorChangePrice(pro.pcolorId)" required>
+                  <label for="{{pro.color}}" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="{{pro.color}}" class="">
+                    <img src="{{this._ApiServiceService.baseImgUrl}}/productImages{{pro.imgurl}}" height="80"
+                      class="border cursor-pointer">
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="my-2" style="overflow-x: auto;">
+        <div class="d-flex flex-row bd-highlight" style="width: fit-content;"  *ngIf="colorsPro?.cust_attr[0]?.cust?.cust_attr_value?.length>0">
+          <div class="p-2 pr-4 bd-highlight"
+            *ngFor="let custAttri of colorsPro?.cust_attr; let colorindex= index">
+            <div *ngIf="custAttri.cust.pcolorId != this.pcolorId">
+              <input hidden type="radio" name="msn" id="{{custAttri.cust.msn}}" value="{{custAttri.cust.msn}}"
+                disabled (click)=custAttributeRadio(custAttri.cust.msn)>
+              <div class="border p-2 bg-light" [ngClass]="{
+                                    'border-danger':custAttri.cust.inventory.stock_quantity == 0  }">
+                <label for="{{custAttri.cust.msn}}" class="m-0 cursor-pointer text-grey"
+                  style="pointer-events: none;">
+                  <p class="m-0" *ngFor="let custA of custAttri.cust.cust_attr_value">
+                    <span>{{custA.attribute_name | titlecase}} : </span>
+                    <span>{{custA.cust_attr_value }}</span>
+                  </p>
+                </label>
+              </div>
+            </div>
+            <div *ngIf="custAttri.cust.pcolorId == this.pcolorId " style="width: max-content; font-size: 13px;">
+              <input hidden type="radio" name="msn" id="{{custAttri.cust.msn}}" value="{{custAttri.cust.msn}}"
+                [checked]="custAttri.cust.msn == this.msn" (click)=custAttributeRadio(custAttri.cust.msn)
+                [disabled]="custAttri.cust.inventory.stock_quantity == 0">
+              <div class=" border p-2 {{custAttri.cust.msn == this.msn ?'border-myndia-primary':''}}
+                                    {{custAttri.cust.inventory.stock_quantity == 0 ?'outOfStock':'' }}">
+                <label for="{{custAttri.cust.msn}}" class="m-0 cursor-pointer text-grey" [ngClass]="{
+                                        'curosr-none':custAttri.cust.inventory.stock_quantity == 0  }">
+                  <p class="m-0" *ngFor="let custA of custAttri.cust.cust_attr_value">
+                    <span>{{custA.attribute_name}} : </span>
+                     <span>{{custA.cust_attr_value }}</span>
+                  </p>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+
+    <div class="my-2" >
+        <div>
+          <div class="d-flex flex-row bd-highlight">
+            <div class="p-2 bd-highlight">
+              <p class="m-0 text-grey ">Highlights</p>
+            </div>
+            <div class="p-2 bd-highlight">
+              <ul>
+                <li *ngFor="let high of productDetails.highlight">
+                  <span class="text-font-600">{{high.prd_high_headings}} :</span> {{high.prd_high_value}}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div >
+          <div class="d-flex justify-content-between">
+            <div class="p-2 bd-highlight">
+              <p class="m-0 text-grey ">Services</p>
+            </div>
+            <div class="p-2 bd-highlight">
+              <p class="m-0" *ngIf="lstProductDetailsHeadings[0].refurndDuration"> <span><i class="fas fa-redo-alt text-primary mx-2 "></i></span> {{lstProductDetailsHeadings[0].refurndDuration}} Days
+                Replacement Policy </p>
+              <p class="m-0" *ngIf="lstProductDetailsHeadings[0].exchangeDuration"> <span><i class="fas fa-redo-alt text-primary mx-2 "></i></span> {{lstProductDetailsHeadings[0].exchangeDuration}} Days
+                Exchange Policy </p>
+              <p class="m-0"> <span> <i class="fas fa-truck text-primary mx-2 "></i> </span> Schedule your
+                delivery</p>
+              <p class="m-0" *ngIf="lstProductDetailsHeadings[0].COD"> <span><i class="fas fa-money-bill-wave text-primary  mx-2"></i></span> Cash on
+                Delivery available </p>
+            </div>
+          </div>
+      </div>
+    </div>
+    <div class="my-2 card px-4">
+      <div class="row ">
+          <div class="col-lg-2">
+              <p class="m-0 text-grey pt-2">Delivery</p>
+          </div>
+          <div class="col-lg-10 ">
+              <div>
+                  <form action="" (ngSubmit) = "checkPincode(pincode.value)" #pincode = "ngForm" >
+                      <div class="border border-primary border-top-0 border-start-0 border-end-0 text-left " >
+                          <div class="d-flex justify-content-between">
+                              <div class="p-2 bd-highlight ">
+                                  <i class="fas fa-map-marker-alt text-grey"></i>
+                              </div>
+                              <div class="p-2 bd-highlight">
+                                  <input type="text" class=" border-0 w-100" placeholder="Enter Delivery Pin Code" style=" outline: none;" name = "pincodes" ngModel required>
+                              </div>
+                              <div class="p-2 bd-highlight">
+                                  <button type="submit" class="text-primary nounderline btn border-0"> Check </button>
+                              </div>
+                          </div>
+                       </div>
+                  </form>
+                  <div>
+
+                      <p class="font-weight-bold font-size-13 m-0 text-success" *ngIf = "count > 0" >Estimated Delivery Date from {{estimated_date}} to {{daysAdded}}</p>
+
+                      <p class="font-weight-bold font-size-13 m-0 text-danger" *ngIf="count < 0" >Sorry No Delivery</p>
+                      <p class="font-weight-bold font-size-13 m-0 text-warning" *ngIf="nodelivery" >{{nodelivery}}</p>
+
+                      <p class="font-weight-bold font-size-13 m-0">Usually delivered in 7-8 days</p>
+                      <p class="m-0" style="font-size: 12px;">Enter pincode for exact delivery dates/charges</p>
+                  </div>
+              </div>
+
+          </div>
+      </div>
+  </div>
+    <!-- specifications -->
+    <div class="my-2">
+      <div class="card shadow">
+          <div class="card-header  bg-white" data-bs-toggle="collapse" href="#specifications" role="button" aria-expanded="false" aria-controls="specifications">
+              <div class="d-flex justify-content-between">
+                  <div class="p-2 bd-highlight">
+                      <h3 style="font-size: 16px;">Specifications </h3>
+                  </div>
+                  <div class="p-2 bd-highlight">
+                      <i class="fas fa-sort-down text-grey " ></i>
+                  </div>
+                </div>
+          </div>
+
+          <div class="card-footer bg-white collapse">
+              <h6>Specification</h6>
+              <div class="d-flex flex-row bd-highlight " *ngFor="let spec of productDetails?.specifications">
+                  <div class="p-2 bd-highlight w-25">
+                      <p class="m-0 text-grey ">{{spec.prd_specs_headings}}</p>
+                  </div>
+                  <div class="p-2 bd-highlight">
+                      <p class="m-0  ">{{spec.prd_specs_values}}</p>
+                  </div>
+              </div>
+          </div>
+          <div class="card-footer cardBottom bg-white collapse" id="specifications" >
+              <h6>Dimensions</h6>
+              <div class="d-flex flex-row bd-highlight ">
+                  <div class="p-2 bd-highlight w-25">
+                      <p class="m-0 text-grey ">Width</p>
+                  </div>
+                  <div class="p-2 bd-highlight">
+                      <p class="m-0  ">
+                          {{productDetails.width}} cm</p>
+                  </div>
+              </div>
+              <div class="d-flex flex-row bd-highlight ">
+                  <div class="p-2 bd-highlight w-25">
+                      <p class="m-0 text-grey">Length</p>
+                  </div>
+                  <div class="p-2 bd-highlight">
+                      <p class="m-0  ">
+                          {{productDetails.length}} cm</p>
+                  </div>
+              </div>
+              <div class="d-flex flex-row bd-highlight ">
+                  <div class="p-2 bd-highlight w-25">
+                      <p class="m-0 text-grey ">Height</p>
+                  </div>
+                  <div class="p-2 bd-highlight">
+                      <p class="m-0  ">
+                          {{productDetails.height}} cm</p>
+                  </div>
+              </div>
+              <div class="d-flex flex-row bd-highlight ">
+                  <div class="p-2 bd-highlight w-25">
+                      <p class="m-0 text-grey ">Weight</p>
+                  </div>
+                  <div class="p-2 bd-highlight">
+                      <p class="m-0  ">
+                          {{productDetails.weight}} {{productDetails.unit}}</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- ratings -->
+  <div class="my-2">
+      <div class="card shadow">
+          <div class="card-header  bg-white" data-bs-toggle="collapse" href="#ratings" role="button" aria-expanded="false" aria-controls="ratings">
+              <div class="d-flex justify-content-between">
+                  <div class="p-2 bd-highlight">
+                      <h3 style="font-size: 16px;">Ratings </h3>
+                  </div>
+                  <div class="p-2 bd-highlight">
+                      <i class="fas fa-sort-down text-grey " ></i>
+                  </div>
+                </div>
+
+          </div>
+          <div class="card-body collapse" id="ratings">
+              <!-- <div class="d-flex flex-row bd-highlight  ">
+                  <div class="p-2 bd-highlight" style="text-align: center;">
+                      <h4 class="m-0"> 4.1 <span><i class="fas fa-star " style="font-size: 20px;"></i></span> </h4>
+                      <br>
+                      <p class="m-0 text-grey">2584 Ratings & <br> 875 Reviews</p>
+                  </div>
+                  <div class="p-2 bd-highlight w-100 ">
+                      <div class="d-flex flex-row bd-highlight heightTop">
+                          <div class="p-2 bd-highlight" style="width: 8%;">
+                              <span>5</span> <span><i class="fas fa-star text-success"></i></span>
+                          </div>
+                          <div class="p-2 bd-highlight line w-75">
+                              <div class="row m-1" style="height:20px;">
+                                  <div class="col-lg-3 p-0 pt-1">
+                                    <div class="bg-success text-center text-white lineNavleft border border-end-0 " style="height:5px;">
+                                    </div>
+                                  </div>
+                                  <div class="col-lg-3 p-0 pt-1">
+                                    <div class="text-center bg-success  border border-start-0 border border-end-0" style="height:5px;">
+                                    </div>
+                                  </div>
+                                  <div class="col-lg-2 p-0 pt-1">
+                                      <div class="text-center bg-success  border border-start-0 border border-end-0" style="height:5px;">
+                                      </div>
+                                  </div>
+                                  <div class="col-lg-2 p-0 pt-1">
+                                      <div class="text-center bg-success  border border-start-0 border border-end-0" style="height:5px;">
+                                      </div>
+                                  </div>
+                                  <div class="col-lg-2 p-0 pt-1">
+                                      <div class="text-center bg-success  border border-start-0 border lineNavlRight " style="height:5px;">
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="p-2 bd-highlight" style="width: 8%;">
+                              <p class="m-0 text-grey ">2058</p>
+                          </div>
+                      </div>
+                      <div class="d-flex flex-row bd-highlight heightTop">
+                          <div class="p-2 bd-highlight" style="width: 8%;">
+                              <span>4</span> <span><i class="fas fa-star text-success"></i></span>
+                          </div>
+                          <div class="p-2 bd-highlight line w-75">
+                              <div class="row m-1" style="height:20px;">
+                                  <div class="col-lg-3 p-0 pt-1">
+                                    <div class="bg-success text-center text-white lineNavleft border border-end-0 " style="height:5px;">
+                                    </div>
+                                  </div>
+                                  <div class="col-lg-3 p-0 pt-1">
+                                    <div class="text-center bg-success  border border-start-0 border border-end-0" style="height:5px;">
+                                    </div>
+                                  </div>
+                                  <div class="col-lg-2 p-0 pt-1">
+                                      <div class="text-center bg-success  border border-start-0 border border-end-0" style="height:5px;">
+                                      </div>
+                                  </div>
+                                  <div class="col-lg-2 p-0 pt-1">
+                                      <div class="text-center bg-success  border border-start-0 border border-end-0" style="height:5px;">
+                                      </div>
+                                  </div>
+                                  <div class="col-lg-2 p-0 pt-1">
+                                      <div class="text-center bg-light  border border-start-0 border lineNavlRight " style="height:5px;">
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="p-2 bd-highlight" style="width: 8%;">
+                              <p class="m-0 text-grey ">2058</p>
+                          </div>
+                      </div>
+                      <div class="d-flex flex-row bd-highlight heightTop">
+                          <div class="p-2 bd-highlight" style="width: 8%;">
+                              <span>3</span> <span><i class="fas fa-star text-success"></i></span>
+                          </div>
+                          <div class="p-2 bd-highlight line w-75">
+                              <div class="row m-1" style="height:20px;">
+                                  <div class="col-lg-3 p-0 pt-1">
+                                    <div class="bg-success text-center text-white lineNavleft border border-end-0 " style="height:5px;">
+                                    </div>
+                                  </div>
+                                  <div class="col-lg-3 p-0 pt-1">
+                                    <div class="text-center bg-success  border border-start-0 border border-end-0" style="height:5px;">
+                                    </div>
+                                  </div>
+                                  <div class="col-lg-2 p-0 pt-1">
+                                      <div class="text-center bg-success  border border-start-0 border border-end-0" style="height:5px;">
+                                      </div>
+                                  </div>
+                                  <div class="col-lg-2 p-0 pt-1">
+                                      <div class="text-center bg-light  border border-start-0 border border-end-0" style="height:5px;">
+                                      </div>
+                                  </div>
+                                  <div class="col-lg-2 p-0 pt-1">
+                                      <div class="text-center bg-light  border border-start-0 border lineNavlRight " style="height:5px;">
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="p-2 bd-highlight" style="width: 8%;">
+                              <p class="m-0 text-grey ">2058</p>
+                          </div>
+                      </div>
+                      <div class="d-flex flex-row bd-highlight heightTop">
+                          <div class="p-2 bd-highlight" style="width: 8%;">
+                              <span>2</span> <span><i class="fas fa-star text-success"></i></span>
+                          </div>
+                          <div class="p-2 bd-highlight line w-75">
+                              <div class="row m-1" style="height:20px;">
+                                  <div class="col-lg-3 p-0 pt-1">
+                                    <div class="bg-orange text-center text-white lineNavleft border border-end-0 " style="height:5px;">
+                                    </div>
+                                  </div>
+                                  <div class="col-lg-3 p-0 pt-1">
+                                    <div class="text-center bg-orange  border border-start-0 border border-end-0" style="height:5px;">
+                                    </div>
+                                  </div>
+                                  <div class="col-lg-2 p-0 pt-1">
+                                      <div class="text-center bg-light  border border-start-0 border border-end-0" style="height:5px;">
+                                      </div>
+                                  </div>
+                                  <div class="col-lg-2 p-0 pt-1">
+                                      <div class="text-center bg-light  border border-start-0 border border-end-0" style="height:5px;">
+                                      </div>
+                                  </div>
+                                  <div class="col-lg-2 p-0 pt-1">
+                                      <div class="text-center bg-light  border border-start-0 border lineNavlRight " style="height:5px;">
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="p-2 bd-highlight" style="width: 8%;">
+                              <p class="m-0 text-grey ">2058</p>
+                          </div>
+                      </div>
+                      <div class="d-flex flex-row bd-highlight heightTop">
+                          <div class="p-2 bd-highlight" style="width: 8%;">
+                              <span>1</span> <span><i class="fas fa-star text-success"></i></span>
+                          </div>
+                          <div class="p-2 bd-highlight line w-75">
+                              <div class="row m-1" style="height:20px;">
+                                  <div class="col-lg-3 p-0 pt-1">
+                                    <div class="bg-danger text-center text-white lineNavleft border border-end-0 " style="height:5px;">
+                                    </div>
+                                  </div>
+                                  <div class="col-lg-3 p-0 pt-1">
+                                    <div class="text-center bg-light  border border-start-0 border border-end-0" style="height:5px;">
+                                    </div>
+                                  </div>
+                                  <div class="col-lg-2 p-0 pt-1">
+                                      <div class="text-center bg-light  border border-start-0 border border-end-0" style="height:5px;">
+                                      </div>
+                                  </div>
+                                  <div class="col-lg-2 p-0 pt-1">
+                                      <div class="text-center bg-light  border border-start-0 border border-end-0" style="height:5px;">
+                                      </div>
+                                  </div>
+                                  <div class="col-lg-2 p-0 pt-1">
+                                      <div class="text-center bg-light  border border-start-0 border lineNavlRight " style="height:5px;">
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="p-2 bd-highlight" style="width: 8%;">
+                              <p class="m-0 text-grey ">2058</p>
+                          </div>
+                      </div>
+                  </div>
+              </div> -->
+              <div class="border border-top-0 border-start-0 border-end-0 " *ngFor="let rarev of ratings">
+                  <div class="">
+                      <div class="h-50">
+                          <div class="">
+                              <div class="d-flex flex-row bd-highlight mb-3">
+                                  <div class="p-2 bd-highlight" >
+                                      <div class="bg-success text-white" style="border-radius:0.2rem;width:40px;">
+                                          <span class="px-1">{{rarev.rating}}</span> <span class=""><i class="fas fa-star"></i></span>
+                                      </div>
+                                  </div>
+                                  <div class="p-2 bd-highlight">
+                                  <p class="m-0" style="font-weight:500;">{{rarev.rating_head}}</p>
+                                  </div>
+                              </div>
+                          </div>
+                          <p class="my-2 w-75">{{rarev.review}}</p>
+                          <div class="text-right w-75">
+                          <p class="font-weight-bold">{{rarev.created_at}}</p>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- Question Answer -->
+  <div class="my-2">
+      <div class="card shadow">
+          <div class="card-header  bg-white" data-bs-toggle="collapse" href="#questions" role="button" aria-expanded="false" aria-controls="ratings">
+              <div class="d-flex justify-content-between">
+                  <div class="p-2 bd-highlight">
+                      <h3 style="font-size: 16px;">Question And Answers </h3>
+                  </div>
+                  <div class="p-2 bd-highlight">
+                      <i class="fas fa-sort-down text-grey " ></i>
+                  </div>
+                </div>
+          </div>
+          <div class="card-body collapse" id="questions">
+              <div class="my-2">
+                  <div class="text-right">
+                      <p class="m-0 text-primary" [hidden]="this._ApiServiceService.isLoggedIn()">Please Login To Ask Questions</p>
+                      <button class="btn btn-primary btn-sm"  data-bs-toggle="modal" [disabled]="!this._ApiServiceService.isLoggedIn()" data-bs-target="#ques"> + Ask A Question</button>
+                  </div>
+                  <!-- Modal -->
+                  <div class="modal fade" id="ques" tabindex="-1" aria-labelledby="ques" aria-hidden="true">
+                      <div class="modal-dialog">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Ask Your Question To Seller</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                  <form action="" method="post" (ngSubmit)="askQuestions(question.value)" #question="ngForm">
+                                      <br>
+                                      <input type="text" name="question" ngModel class="w-100 p-1 border" style="outline:none;" placeholder="Enter Your Question">
+                                      <br>
+                                      <br>
+                                      <div class="my-2 text-right">
+                                          <button type="submit" class="btn btn-success btn-sm">Save</button>
+                                      </div>
+                                  </form>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="my-2">
+                  <div class="card" *ngFor = "let questionAns of questionAns;let i = index;">
+                      <div class="card-body">
+                          <p class="m-0" style="font-weight:600;"> <span class="" style="padding-left:15px;">Q{{i+1}}.</span> {{questionAns.question}}? </p>
+                          <p class="m-0">
+                              <span style="padding-left:15px;">Ans:</span> {{questionAns.answer}}
+                          </p>
+
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="my-3">
+    <div class="card  border-0">
+        <div class="card-header bg-white  p-2 border-0">
+            <div class="d-flex justify-content-between">
+                <div class="p-2 bd-highlight">
+                    <h6 class=" m-0 font-weight-bold">You may like</h6>
+                </div>
+                <div class="p-2 bd-highlight ">
+                    <a class="btn btn-sm bg-myndia-primary text-white  buttonFont bg-myndia-primary  mx-2" href="#myndiaTopPick" role="button" data-bs-slide="prev">
+                        <i class="fa fa-arrow-left heading"></i>
+                    </a>
+                    <a class="btn btn-sm bg-myndia-primary buttonFont text-white  mx-2" href="#myndiaTopPick" role="button" data-bs-slide="next">
+                        <i class="fa fa-arrow-right heading"></i>
+                    </a>
+                </div>
+              </div>
+        </div>
+        <div class="card-body bg-transparent px-4 py-2 border-0">
+            <div id="myndiaTopPick" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item {{i==0?'active':''}}" *ngFor="let product of crossSellProduct; index as i">
+                        <div class="card cardBorder">
+                            <div class="d-flex justify-content-between">
+                                <div class="p-2 bd-highlight w-25">
+                            <img [src]="product.productImage[0].imgurl?'https://seller.myndia.in/productImages'+product.productImage[0].imgurl:'../../assets/image/dummy-product_2.png'" alt="" class="w-100">
+                          </div>
+                                <div class="p-2 bd-highlight w-75">
+                                  <a [routerLink]="['/',catName,subCatName,productName,product?.product_url]" [queryParams]="{prtid:product?.prtid,msn:product?.msn,pcolorId:product?.pcolorId}" class="m-0 nounderline productFont text-dark product_title">{{product.p_name}}</a>
+                                  <p class="m-0 productFont text-orange font-weight-bold">
+                                      Rs {{(product.total_price_after_tax).toFixed(0)}}
+                                  </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- <div class="my-2">
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex">
+            <div class="w-70">
+              <p class="m-0 address">Liked this Product ?</p>
+              <p class="m-0 address">Share it with your friends.</p>
+            </div>
+            <div class="w-30">
+              <a href="" class="btn border text-myndia-primary"> <span>             <i class="fas fa-share "></i></span> Share </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="my-2">
+      <div class="card">
+        <div class="card-header bg-white p-2">
+          <div class="d-flex justify-content-between">
+            <div class="p-2 bd-highlight">
+              <h6 class="m-0">Rating And Reviews</h6>
+            </div>
+            <div class="p-2 bd-highlight">
+              <a href="" class="nounderline border text-myndia-primary btn"> Rate Product </a>
+            </div>
+          </div>
+        </div>
+        <div class="card-body ">
+          <div class="row">
+            <div class="col-6 text-center border border-start-0 border-top-0 border-bottom-0">
+              <h2> 4.1 <span style="color: 	#ffa534;"><i class="fas fa-star"></i></span> </h2>
+              <p class="m-0 text-grey strike">2234 review</p>
+              <p class="m-0 text-grey strike">or</p>
+              <p class="m-0 text-grey strike">2234 ratings</p>
+            </div>
+            <div class="col-6">
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+
+  </div>
+  <br>
+  <br>
+</div>
+<footer class="bg-white shadow" style="z-index: 10000;">
+  <div class="">
+    <div class="d-flex">
+      <div class="w-50 bg-white py-3 text-center">
+        <button (click) = "postMsn()"  class="nounderline text-dark btn btn-sm">ADD TO CART</button>
+      </div>
+      <div class="w-50 py-3 text-center bg-myndia-secondary">
+        <button (click)= "localMSN()" class="nounderline text-white btn btn-sm">BUY NOW</button>
+      </div>
+    </div>
+  </div>
+</footer>
+
+

@@ -28,6 +28,11 @@ const routes: Routes = [
     path: ':category/:subcategory/:productList',
     loadChildren: () => import('./product-list/product-list.module').then( m => m.ProductListPageModule)
   },
+  {
+    path: ':category/:subcategory/:productList/:product',
+    loadChildren: () => import('./product-detail/product-detail.module').then( m => m.ProductDetailPageModule)
+  },
+
 
 
 
