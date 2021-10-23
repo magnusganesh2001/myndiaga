@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { image, ProductPIDHeadings } from '../class/headings';
-import { postProductId, questionAsking } from '../class/post';
+import { pin, postProductId, questionAsking } from '../class/post';
 import { CommunicateService } from '../services/communicate.service';
 import { NavService } from '../services/nav.service';
 
@@ -380,7 +380,7 @@ export class ProductDetailPage implements OnInit {
 
            this._ApiServiceService.postQuestions(ques,this.prtid).subscribe(
              res=>{
-               this.toastr.success('Question Sent To Seller');
+              //  this.toastr.success('Question Sent To Seller');
                window.location.reload();
              }
            )

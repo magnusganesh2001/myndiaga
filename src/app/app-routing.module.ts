@@ -32,6 +32,11 @@ const routes: Routes = [
     path: ':category/:subcategory/:productList/:product',
     loadChildren: () => import('./product-detail/product-detail.module').then( m => m.ProductDetailPageModule)
   },
+  {
+    path: 'accountGuestCart',
+    loadChildren: () => import('./guestcart/guestcart.module').then( m => m.GuestcartPageModule)
+  },
+
 
 
 

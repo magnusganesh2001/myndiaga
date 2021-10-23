@@ -1,0 +1,206 @@
+.text-grey{
+    color: #878787;
+  }
+  .text-left{
+    text-align: left;
+  }
+  .text-right{
+    text-align: right;
+  }
+  .nounderline{
+    text-decoration: none;
+  }
+  .checked {
+    color: orange !important;
+    text-shadow: none !important;
+  }
+
+  td{
+    width: 100% !important;
+  }
+  table{
+    width: 100% !important; 
+  }
+  .blankStar{
+    color: #fff;
+    text-shadow: 0 0 4px orange;
+  }
+  .orderHeadings{
+    color: black;
+    font-size: 16px;
+  }
+  .price{
+    font-size: 22px !important;
+  }
+  .address{
+    font-size: 15px !important;
+  }
+  .strike{
+    font-size: 13px;
+    font-weight: 0 !important;
+    color: #878787;
+  }
+  .font-weight-bold{
+    font-weight: bold;
+  }
+  footer {
+     position: fixed;
+     left: 0;
+     bottom: 0;
+     width: 100%;
+  }
+  .placeButton{
+    background-color: #fb641b;
+  }
+  .cardBorder{
+    border-radius: 0.9rem;
+}
+.sortingSticky{
+    position: sticky;
+    top: 50px;
+    bottom: 0;
+    z-index: 2;
+    -webkit-align-self: flex-start;
+    -ms-flex-item-align: start;
+    align-self: flex-start;
+  }
+  .cardRadius{
+    border-radius: 0.9rem;
+  }
+
+  footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+ }
+ .twist{
+   transform: rotate(180deg);
+ }
+
+.card-header button{
+
+  outline: none !important;
+  background: transparent !important ;
+  border: none !important;
+}
+
+
+
+.spanOverflow{
+  display: inline-block;
+  width: 180px;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+}
+
+.outOfStock {
+  border : 2px solid red !important;
+  opacity:0.5;
+  pointer-events: none;
+}
+.curosr-none{
+  cursor:not-allowed !important;
+}
+.font-size-12{
+  font-size:12px !important;
+}
+.font-size-13{
+  font-size:13px !important;
+}
+.font-size-14{
+  font-size:14px !important;
+}
+.font-size-15{
+  font-size: 15px !important;
+}
+.cardRadius{
+  border-radius: 2rem !important;
+}
+.cardTop{
+  border-top-left-radius: 2rem;
+  border-top-right-radius: 2rem;
+}
+.cardBottom{
+  border-bottom-left-radius: 2rem;
+  border-bottom-right-radius: 2rem;
+}
+.bg-orange{
+  background-color: #ff9f00;
+}
+.col1Sticky{
+  position: sticky;
+  top: 64px;
+  bottom: 0;
+  z-index: 2;
+  -webkit-align-self: flex-start;
+  -ms-flex-item-align: start;
+  align-self: flex-start;
+}
+.imageContainer{
+  display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    position: relative;
+    border: 1px solid #f0f0f0;
+}
+.pic{
+  display: inline-block;
+  max-height: 100%;
+  max-width: 100%;
+  vertical-align: top;
+  position: inherit;
+}
+.column {
+    width: 100% !important;
+    margin: 0px;
+    padding: 0px;
+    border: 2px solid #f0f0f0;
+    border-left: 2px solid #f0f0f0;;
+  }
+
+  /* Style the images inside the grid */
+  .column img {
+    opacity: 0.8;
+    cursor: pointer;
+  }
+
+  .column:hover{
+    border: 2px solid #2874f0;
+  }
+  .column img:hover {
+    opacity: 1;
+  }
+
+  /* Clear floats after the columns */
+  .topRow:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  /* The expanding image container (positioning is needed to position the close button and the text) */
+  .containerImage {
+    position: relative;
+    justify-content: center;
+  }
+
+  .text-grey{
+    color: #878787;
+  }
+  .text-left{
+    text-align: left;
+  }
+  .text-right{
+    text-align: right;
+  }
