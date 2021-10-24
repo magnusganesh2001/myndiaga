@@ -19,9 +19,9 @@ export class AppComponent {
   public appPages = [
     { title: 'Home', url: '/home', icon: 'home' },
     { title: 'All Category', url: '/all-category', icon: 'grid' },
-    { title: 'My Orders', url: '/folder/Favorites', icon: 'push' },
+    { title: 'My Orders', url: '/accountOrders', icon: 'push' },
     { title: 'My Cart', url: '/folder/Archived', icon: 'cart' },
-    { title: 'My Wishlist', url: '/folder/Trash', icon: 'heart' },
+    { title: 'My Wishlist', url: '/wishlist', icon: 'heart' },
     { title: 'My Account', url: '/folder/Spam', icon: 'person' },
 
     { title: 'Pan Card', url: '/folder/pan', icon: 'card' },

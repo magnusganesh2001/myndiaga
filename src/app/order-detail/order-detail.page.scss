@@ -1,0 +1,56 @@
+.text-grey{
+    color: #878787;
+  }
+  .text-left{
+    text-align: left;
+  }
+  .text-right{
+    text-align: right;
+  }
+  .nounderline{
+    text-decoration: none;
+  }
+  
+  .orderHeadings{
+    color: black;
+    font-size: 14px;
+  font-weight: 500;
+  }
+  .topP{
+    font-size: 0.8rem;
+  }
+  
+  .font-weight-bold{
+    font-weight: bold;
+  }
+  input{
+    outline: none;
+  }
+  .trackingGreen{
+    background-color: #26a541;
+      border: 2px solid #26a541;
+  }
+  .trackingGreenIcon{
+    height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  background-color: none;
+  border: 2px solid #26a541;
+  display: inline-block;
+  margin-right: 8px;
+  }
+  
+  .trackingWhite{
+    background-color: white;
+      border: 2px solid #878787;
+  }
+  .trackingWhiteIcon{
+    height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  background-color: none;
+  border: 2px solid #878787;
+  display: inline-block;
+  margin-right: 8px;
+  }
+  

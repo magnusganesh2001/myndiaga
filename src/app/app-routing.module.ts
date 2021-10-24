@@ -26,8 +26,16 @@ const routes: Routes = [
     loadChildren: () => import('./account-login/account-login.module').then( m => m.AccountLoginPageModule)
   },
   {
+    path: 'accountOrderDetails/:order_id',
+    loadChildren: () => import('./order-detail/order-detail.module').then( m => m.OrderDetailPageModule)
+  },
+  {
     path: 'all-category',
     loadChildren: () => import('./all-category/all-category.module').then( m => m.AllCategoryPageModule)
+  },
+  {
+    path: 'accountOrders',
+    loadChildren: () => import('./my-order/my-order.module').then( m => m.MyOrderPageModule)
   },
   {
     path: 'accountOrderBooked',
@@ -36,6 +44,10 @@ const routes: Routes = [
   {
     path: 'accountCartOrderOverview',
     loadChildren: () => import('./order-summary/order-summary.module').then( m => m.OrderSummaryPageModule)
+  },
+  {
+    path: 'wishlist',
+    loadChildren: () => import('./wishlist/wishlist.module').then( m => m.WishlistPageModule)
   },
   {
     path: 'accountCartPayment',
@@ -61,10 +73,13 @@ const routes: Routes = [
     path: ':category/:subcategory/:productList/:product',
     loadChildren: () => import('./product-detail/product-detail.module').then( m => m.ProductDetailPageModule)
   },
-  {
-    path: 'thankyou-order',
-    loadChildren: () => import('./thankyou-order/thankyou-order.module').then( m => m.ThankyouOrderPageModule)
-  },
+ 
+
+ 
+
+  
+ 
+
 
  
 

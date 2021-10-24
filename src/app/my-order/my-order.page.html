@@ -1,0 +1,134 @@
+
+
+<ion-content>
+  <div class="container-fluid px-0 pb-6  h-100 bg-light">
+    <div >
+      <div class="bg-blue border-0 p-2  position-relative text-center " style="margin-bottom:12%;    border-bottom-left-radius: 2.5rem;  border-bottom-right-radius: 2.5rem;height: 160px;">
+        <div class=" text-white p-3">
+          <h5 class="m-0 text-left"> My order </h5>
+        </div>
+        <div class="">
+          <div class="text-center pb-4">
+            <p class="m-0 text-white">Hello,</p>
+            <h5 class="m-0 text-white">{{name}}</h5>
+          </div>
+        </div>
+          <div class="text-center mx-auto   position-static w-100" style="  top: 0px;">
+            <img src="./assets/image/male.svg" alt="male" width="60" height="60" class="mx-auto position-relative shadow rounded-circle" style="top:-20px;">
+          </div>
+        </div>
+  
+        <div class="p-2" *ngIf="lstProductHeadings?.length">
+          <div class="my-2" *ngFor="let orders of lstProductHeadings" >
+            <a  class="nounderline text-dark cursor-pointer" (click)="onselect(orders.order_id)">
+              <div class="card">
+                <div class="card-body py-1 px-1">
+                  <div class="d-flex flex-wrap justify-content-between">
+                    <div class="p-2 bd-highlight w-25">
+                      <img src="{{this._ApiServiceService.baseImgUrl}}/productImages{{orders.imgurl}}" alt="product" class="w-100" style="width:75px; height: 100%; object-fit: contain;">
+                    </div>
+                    <div class="p-2 bd-highlight w-75  text-left " >
+                      <span class="orderHeadings">{{orders.p_name}}</span>
+                      <br>
+                      <span class=" text-grey detailsFont">
+                        <span>Color:</span> <span class="px-1">{{orders.color}}</span>
+                      </span>
+                      <span class="mx-2 text-grey detailsFont">
+                        <span>{{orders.attribute_name}}:</span> <span class="px-1">{{orders.cust_attr_value}}</span>
+                      </span>
+                      <br>
+                      <span class=" text-grey detailsFont">
+                        <span>Seller:</span> <span class="px-1">{{orders.name}}</span>
+                      </span>
+                      <br>
+                      <span class=" text-grey detailsFont">
+                        <span>Order Date:</span> <span class="px-1">{{orders.created_at}}</span>
+                      </span>
+                    </div>
+                    <div class="row w-100 px-2">
+                      <div class="p-2 col-4 bd-highlight text-dark orderHeadings" >Rs. {{orders.grand_total_price}}</div>
+                      <div class="p-2 col-8 bd-highlight text-left" >
+                        <span *ngIf="orders.order_status == 11">
+                          <span class="active bg-orange"></span>
+                          <span class="text-danger orderHeadings">Canceled By You</span>
+                          <br>
+                        </span>
+                        <span *ngIf="orders.order_status == 0">
+                          <span class="active bg-orange"></span>
+                          <span class="text-dark orderHeadings  text-dark">Order Placed</span>
+                          <br>
+                        </span>
+                        <span *ngIf="orders.order_status == 1">
+                          <span class="active bg-warning"></span>
+                          <span class="text-dark orderHeadings  text-dark">Product In Process</span>
+                          <br>
+                        </span>
+                        <span *ngIf="orders.order_status == 2">
+                          <span class="cancelIcon bg-danger"></span>
+                          <span class="text-dark orderHeadings  text-dark">Canceled</span>
+                          <br>
+                        </span>
+                        <span *ngIf="orders.order_status == 3">
+                          <span class="active bg-warning"></span>
+                          <span class="text-dark orderHeadings  text-dark">Ready To Ship</span>
+                          <br>
+                        </span>
+                        <span *ngIf="orders.order_status == 4">
+                          <span class="delivered deliveredIcon"></span>
+                          <span class="text-dark orderHeadings  text-dark">Delivered</span>
+                          <br>
+                          <p class="detailsFont text-dark">Your item has been dilevered</p>
+                        </span>
+                        <span *ngIf="orders.order_status == 5">
+                          <span class="returnIcon return"></span>
+                          <span class="text-dark orderHeadings  text-dark">Return Request</span>
+                          <br>
+                        </span>
+                        <span *ngIf="orders.order_status == 6">
+                          <span class="returnIcon return"></span>
+                          <span class="text-dark orderHeadings  text-dark">Return Completet</span>
+                          <br>
+                        </span>
+                        <span *ngIf="orders.order_status == 7">
+                          <span class="bg-info active"></span>
+                          <span class="text-dark orderHeadings  text-dark">Shipped</span>
+                          <br>
+                        </span>
+                        <span *ngIf="orders.order_status == 8">
+                          <span class="delivered deliveredIcon"></span>
+                          <span class="text-dark orderHeadings  text-dark">Out For Delivery</span>
+                          <br>
+                          <p class="detailsFont text-dark">Your item is out for delivery</p>
+                        </span>
+                        <span *ngIf="orders.order_status == 9">
+                          <span class="bg-danger active"></span>
+                          <span class="text-dark orderHeadings  text-dark">Undelivered</span>
+                          <br>
+                          <p class="detailsFont text-dark">Your item Was Not Delivered Due To Some Problem</p>
+                        </span>
+                        <span *ngIf="orders.order_status == 10">
+                          <span class="bg-primary active"></span>
+                          <span class="text-dark orderHeadings  text-dark">Pickup Done</span>
+                          <br>
+                          <p class="detailsFont text-dark">Your item will Delivered Soon</p>
+                        </span>
+                        <br>
+  
+  
+  
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="p-2 text-center" *ngIf="lstProductHeadings.length ===0">
+          <img src="../../assets/image/Empty-pana.png" alt="" width="80%">
+          <p>No order yet!</p>
+        </div>
+    </div>
+  </div>
+  
+</ion-content>

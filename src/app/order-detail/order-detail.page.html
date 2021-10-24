@@ -1,0 +1,442 @@
+
+<ion-content>
+  <div class="container-fluid px-0 pb-6  h-100 bg-light">
+    <div >
+      <div class="card my-2">
+        <div class="card-header bg-white p-2">
+          <p class="m-0 topP">Order ID - {{lstProductDetailsHeadings.order_id}}</p>
+        </div>
+        <div class="card-header bg-white px-0">
+          <div class="d-flex justify-content-between">
+            <div class="p-2 bd-highlight">
+              <!-- [routerLink]="['/',bestSellerProduct[0]?.outer_Category_name,bestSellerProduct[0]?.category_name,bestSellerProduct[0]?.sub_category_name,bestSellerProduct[0]?.product_url]" [queryParams]="{prtid:bestSellerProduct[0]?.prtid,msn:bestSellerProduct[0]?.msn,pcolorId:bestSellerProduct[0]?.pcolorId}" class="text-dark font-weight-bold product_title" -->
+              <h6 class="m-0">{{lstProductDetailsHeadings.p_name}}</h6>
+              <span class="pl-2 text-grey detailsFont">
+                <span>Color:</span> <span class="px-1">{{lstProductDetailsHeadings.color}}</span>
+              </span>
+              <span class="mx-2 text-grey detailsFont" *ngIf="lstProductDetailsHeadings.attribute_name != null">
+                <span>{{lstProductDetailsHeadings.attribute_name}}:</span> <span
+                  class="px-1">{{lstProductDetailsHeadings.cust_attr_value}}</span>
+              </span>
+              <br>
+              <span class="pl-2 text-grey detailsFont">
+                <span>Seller:</span> <span class="px-1">{{lstProductDetailsHeadings.name}}</span>
+              </span>
+              <br>
+              <span class="pl-2 text-grey detailsFont">
+                <span>Order Deate:</span> <span class="px-1">{{lstProductDetailsHeadings.created_at}}</span>
+              </span>
+              <!-- <p class="text-grey topP m-0">Seller: RetailMarket</p> -->
+              <h6 class="m-0">Rs {{lstProductDetailsHeadings.grand_total_price}}</h6>
+            </div>
+            <div class="p-2 bd-highlight w-25">
+              <img src="{{this._ApiServiceService.baseImgUrl}}/productImages{{lstProductDetailsHeadings.imgurl}}" alt=""
+                class="w-100">
+  
+            </div>
+          </div>
+        </div>
+        <div class="card-body p-2">
+          <div class="my-2">
+            <span>
+              <span
+                class="trackingGreenIcon  {{(status==1 || status==3 || status==10||status==7||status==8||status==4)? 'trackingGreen':'trackingWhite'}}"></span>
+              <span class="text-dark orderHeadings">Order Processed</span>
+            </span>
+          </div>
+          <div class="my-2">
+            <span>
+              <span
+                class="trackingWhiteIcon  {{status==7||status==8 ||status==4? 'trackingGreen':'trackingWhite'}}"></span>
+              <span class="text-dark orderHeadings">Shiping</span>
+            </span>
+          </div>
+          <div class="my-2">
+            <span>
+              <span class="trackingWhiteIcon  {{status==8||status==4? 'trackingGreen':'trackingWhite'}}"></span>
+              <span class="text-dark orderHeadings">Order on route</span>
+            </span>
+          </div>
+          <div class="my-2">
+            <span>
+              <span class="trackingWhiteIcon  {{status==4? 'trackingGreen':'trackingWhite'}}"></span>
+              <span class="text-dark orderHeadings">order arrived</span>
+            </span>
+          </div>
+  
+        </div>
+        <div class="card-fotter">
+          <div class="row">
+            <div class="col-6 text-center" *ngIf="status == 0">
+              <button type="button" class="btn btn-white w-100" data-bs-toggle="modal"
+                data-bs-target="#cancelOrder">Cancel</button>
+  
+              <!--cancel Modal -->
+              <div class="modal fade" id="cancelOrder" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Cancel Product</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <form action="" method="post" #cancel="ngForm" (ngSubmit)="cancelProducts(cancel.value)">
+                        <select name="cancelOptions" class="border p-2 box-sizing-border-box w-100 outline-none" ngModel
+                          required>
+                          <option value="Please choose your reason for cancelation of product" selected disabled>
+                            Please choose your reason for cancelation of product
+                          </option>
+                          <option value="I WANT TO CHANGE ADDDRESS FOR THE ORDER">I WANT TO CHANGE ADDDRESS FOR THE ORDER
+                          </option>
+                          <option value="I HAVE CHANGED MY MIND">I HAVE CHANGED MY MIND
+                          </option>
+                          <option value="EXPECTED DELIVERY TIME IS VERY LONG">EXPECTED DELIVERY TIME IS VERY LONG
+                          </option>
+                          <option value="I WANT TO CHANGE MY PHONE NO">
+                            I WANT TO CHANGE MY PHONE NO
+                          </option>
+                          <option value="PRICE FOR THE PRODUCT IS HIGH  ">
+                            PRICE FOR THE PRODUCT IS HIGH
+                          </option>
+                          <option value="I HAVE PURCHASED THE PRODUCT ELSEWHERE">
+                            I HAVE PURCHASED THE PRODUCT ELSEWHERE
+                          </option>
+                          <option value="I WANT FUEATURE DELIVERY">
+                            I WANT FUTURE DELIVERY
+                          </option>
+                          <option value="FOUND CHEAPER SOMEWHAREELSE">FOUND CHEAPER SOMEWHAREELSE
+                          </option>
+                          <option value="NEED TO CHANGE SHIPPING SPEED ">NEED TO CHANGE SHIPPING SPEED
+                          </option>
+                          <option value="NEED TO CHANGE PAYMENT METHOD">
+                            NEED TO CHANGE PAYMENT METHOD
+                          </option>
+                          <option value="OTHER">OTHER</option>
+                        </select>
+                        <br>
+                        <br>
+                        <div class="my-2 text-right">
+                          <button type="submit" class="btn btn-sm btn-success">SAVE</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 text-center" *ngIf="status != 0 && status != 11">
+              <strong class="text-myndia-primary m-0" style="font-size: 12px;">
+                Please contact customer care to cancel product.
+              </strong>
+            </div>
+            <div class="col-6 text-center" *ngIf="status == 11">
+              <strong class="text-danger m-0 px-2" style="font-size: 12px;">
+                Order is canceled By you.
+              </strong>
+            </div>
+            <div class="col-6 text-center">
+              <button type="button" class="btn btn-white w-100" data-bs-toggle="modal"
+                data-bs-target="#helpModel">Help?</button>
+  
+              <!-- help Modal -->
+              <div class="modal fade" id="helpModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Help Center</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <form method="post" #helpCenter="ngForm" (ngSubmit)="helpCenterQuery(helpCenter.value)">
+                        <div class="my-3">
+                          <label for="" class="text-left text-grey">Please write your query in detailed.</label>
+                          <textarea name="helpReason" class="box-sizing-border-box p-3 border outline-none w-100"
+                            placeholder="Please enter your query" ngModel></textarea>
+                        </div>
+                        <div class="my-2 text-right">
+                          <button type="submit" class="btn btn-sm btn-success">SAVE</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center">
+        <div class="p-2 bd-highlight">
+          <div class="mx-auto" *ngIf="status != 2 && status !=0 && status !=11">
+            <a href="{{this._ApiServiceService.trackUrl}}/order/tracking/{{lstProductDetailsHeadings.order_id}}/{{lstProductDetailsHeadings.shipment_id}}"
+              class="btn btn-primary btn-sm w-100 rounded " target="_blank">Detailed Tracking</a>
+          </div>
+        </div>
+        <div class="p-2 bd-highlight" *ngIf="status == 4 && lstProductDetailsHeadings.refund_done == 0">
+          <div class="mx-auto">
+            <a data-bs-toggle="modal" data-bs-target="#refund" class="btn btn-warning btn-sm w-100 rounded text-white"
+              target="_blank">Refund</a>
+          </div>
+        </div>
+      </div>
+      <div class="card my-2">
+        <div class="card-header bg-white p-2">
+          <p class="topP text-grey m-0">Shipping Details</p>
+        </div>
+        <div class="card-body px-0">
+          <div class="d-flex justify-content-between">
+            <div class="p-2 bd-highlight">
+              <h6>{{lstProductDetailsHeadings.cust_Name}}</h6>
+              <p class="topP  m-0">{{lstProductDetailsHeadings.cust_address}} </p>
+              <p class="topP  m-0">Near {{lstProductDetailsHeadings.custLandMark}}</p>
+              <p class="topP m-0">{{lstProductDetailsHeadings.custState}}, {{lstProductDetailsHeadings.custCity}}</p>
+            </div>
+  
+          </div>
+          <div class="d-flex justify-content-between">
+            <div class="p-2 bd-highlight topP">
+              <span class="font-weight-bold ">Phone: </span> <span>{{lstProductDetailsHeadings.order_phone}}</span>
+            </div>
+  
+          </div>
+        </div>
+        <div class="col-lg-4 p-0 text-center">
+          <div class="text-left">
+            <p class="m-0" *ngIf="!lstProductDetailsHeadings.invoice_url">
+              Invoice Will Be Generated When Order Is Accepted By Seller.
+            </p>
+          </div>
+          <div class="text-left" *ngIf="lstProductDetailsHeadings.invoice_url">
+            <p class="orderHeadings">Your Action</p>
+            <div class="d-flex justify-content-between">
+              <div class="p-2 bd-highlight">
+                <span class=" p-2 " style="background-color:#fcb600;">
+                  <i class="far  fa-file-pdf pdf text-center fa-2x text-white py-auto"></i>
+                </span>
+                <span class="px-2">Download Invoice</span>
+              </div>
+              <div class="p-2 bd-highlight">
+                <a href="{{lstProductDetailsHeadings.invoice_url}}" class="btn btn-primary btn-SM">DOWNLOAD</a>
+              </div>
+            </div>
+            <span>
+            </span>
+            <br>
+          </div>
+        </div>
+      </div>
+  
+      <div class="card my-2" *ngIf="status == 4">
+        <div class="card-body d-flex justify-content-around">
+          <button class="btn text-danger">Return</button>
+          <button class="btn text-warn">Exchange</button>
+        </div>
+      </div>
+  
+      <!-- <div class="card my-2">
+        <div class="card-header bg-white p-2">
+          <p class="topP text-grey m-0">Price Details</p>
+        </div>
+        <div class="card-body px-0">
+          <div class="d-flex justify-content-between">
+            <div class="p-2 bd-highlight">
+              <p class="topP  m-0">List Price</p>
+            </div>
+            <div class="p-2 bd-highlight">
+              <s class="topP m-0">Rs 5957</s>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between">
+            <div class="p-2 bd-highlight">
+              <p class="topP  m-0">Selling Price</p>
+            </div>
+            <div class="p-2 bd-highlight">
+              <p class="topP m-0">Rs 5957</p>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between">
+            <div class="p-2 bd-highlight">
+              <p class="topP  m-0">Extra Discount</p>
+            </div>
+            <div class="p-2 bd-highlight">
+              <p class="topP m-0">-Rs 3987</p>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between">
+            <div class="p-2 bd-highlight">
+              <p class="topP  m-0">Special Price</p>
+            </div>
+            <div class="p-2 bd-highlight">
+              <p class="topP m-0">Rs 2300</p>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between">
+            <div class="p-2 bd-highlight">
+              <p class="topP  m-0">Shipping Fees</p>
+            </div>
+            <div class="p-2 bd-highlight">
+              <p class="topP m-0">Rs 40</p>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between">
+            <div class="p-2 bd-highlight">
+              <p class="topP  m-0">Shipping Discount</p>
+            </div>
+            <div class="p-2 bd-highlight">
+              <p class="topP m-0">Rs 40</p>
+            </div>
+          </div>
+  
+        </div>
+        <div class="card-footer p-0 bg-white">
+          <div class="d-flex justify-content-between">
+            <div class="p-2 bd-highlight">
+              <p class="topP  m-0 font-weight-bold">Total Amount</p>
+            </div>
+            <div class="p-2 bd-highlight">
+              <p class="topP m-0 font-weight-bold">Rs 2499</p>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer p-0 bg-white">
+          <ul class="m-0 py-2">
+            <li>UPI: Rs 2499.0</li>
+          </ul>
+        </div>
+      </div> -->
+  
+    </div>
+  </div>
+  
+  
+  
+  
+  <!-- refund Modal -->
+  <div class="modal fade " id="refund" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content shadow">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{lstProductDetailsHeadings.p_name}} Refund Request</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body modelRelative">
+          <div class="my-2">
+            <form action="" #refund="ngForm" enctype="multipart/form-data">
+              <div class="my-2">
+                <h6>Please provide reason for your refund.</h6>
+  
+                <input type="radio" name="reason" value="Late Delivery" id="late" class="mx-2" ngModel required>
+                <label for="late">Late Delivery</label>
+                <br>
+                <input type="radio" name="reason" value="Not Available On Address" id="Address" class="mx-2" ngModel
+                  required>
+                <label for="Address">Not Available On Address</label>
+                <br>
+                <input type="radio" name="reason" value="Customer Want Future Delivery" id="Future" class="mx-2" ngModel
+                  required>
+                <label for="Future">Customer Want Future Delivery</label>
+                <br>
+                <input type="radio" name="reason" value="Purchase From Another Site" id="Site" class="mx-2" ngModel
+                  required>
+                <label for="Site">Purchase From Another Site</label>
+                <br>
+                <input type="radio" name="reason" value="Faulty Product Received" id="Faulty" class="mx-2" ngModel
+                  required>
+                <label for="Faulty">Faulty Product Received</label>
+                <br>
+                <input type="radio" name="reason" value="Product QTY less than order" id="QTY" class="mx-2" ngModel
+                  required>
+                <label for="QTY">Product QTY less than order</label>
+                <br>
+                <input type="radio" name="reason" value="Product QTY more than order" id="more" class="mx-2" ngModel
+                  required>
+                <label for="more">Product QTY more than order</label>
+                <br>
+                <input type="radio" name="reason" value="Product quality not good" id="quality" class="mx-2" ngModel
+                  required>
+                <label for="quality">Product quality not good</label>
+                <br>
+                <input type="radio" name="reason" value="Product weight discrepancy" id="discrepancy" class="mx-2" ngModel
+                  required>
+                <label for="discrepancy">Product weight discrepancy</label>
+                <br>
+                <input type="radio" name="reason" value="Other" id="Other" class="mx-2" ngModel required>
+                <label for="Other">Other</label>
+  
+                <br>
+                <br>
+                <!-- <div class="my-1 display-none" id="textarea">
+                  <textarea name="reasonDetailed" id="reasonDetails" class="border w-100 p-2 box-sizing-border-box" placeholder="Enter Your customized reason" ></textarea>
+                </div> -->
+              </div>
+  
+              <div class="my-2">
+                <h6 class="">Please select in which bank you want your refund. <span>
+                    <a href="/accountBankDetails" target="_blank">Add Bank</a>
+                  </span></h6>
+                <div class="card " *ngFor="let bank of banking">
+                  <div class="card-body">
+                    <div class="display-flex">
+                      <div class="w-10">
+                        <input type="radio" name="bankAccount" value="{{bank.bank_id}}" required ngModel>
+                      </div>
+                      <div class="w-90">
+                        <div class="d-flex justify-content-between">
+                          <div class=" bd-highlight">
+                            <div class="bg-light">
+                              <p><span style="font-weight: 600;">Bank Name: </span>{{bank.bank_name}}</p>
+                            </div>
+                          </div>
+                        </div>
+  
+                        <div class="">
+                          <p class="m-0"><span style="font-weight: 600;">Bank Holder Name: </span>
+                            {{bank.account_holder_name}}</p>
+                          <p class="m-0"> <span style="font-weight: 600;">Bank Account Number: </span>
+                            {{bank.bank_account_number}}</p>
+                          <p class="m-0"> <span style="font-weight: 600;">Bank IFSC Code: </span> {{bank.ifsc_code}}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="my-4">
+                <h6>Please submit Atleast 5 images from different angles. It is compulsary to upload 5 images.</h6>
+                <div class="d-flex flex-wrap">
+                  <div class="product_image col-4 p-1" *ngFor="let img of imageUrl; index as i">
+                    <img [src]="img" width="150" height="150" alt="" style="object-fit: cover;">
+                  </div>
+                </div>
+                <div class="my-2">
+                  <input type="file" name="refundImage" class="w-100 p-2 d-none  border" (change)="fileEvent($event)"
+                    id="productImageSelection" multiple accept="image/png, image/gif, image/jpeg">
+                  <div class=" w-100">
+                    <label for="productImageSelection" class="border w-100 px-2 py-1 cursor-pointer">
+                      <div class="d-flex justify-content-between">
+                        <div class="p-2 bd-highlight">
+                          Add Images
+                        </div>
+                        <div class="p-2 bd-highlight">+</div>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+              </div>
+  
+  
+            </form>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" (click)="refundForm(refund.value)" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</ion-content>
