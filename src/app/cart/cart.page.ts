@@ -4,17 +4,19 @@ import { NavService } from '../services/nav.service';
 import { ToastrService } from '../services/toastr.service';
 
 @Component({
-  selector: 'app-guestcart',
-  templateUrl: './guestcart.page.html',
-  styleUrls: ['./guestcart.page.scss'],
+  selector: 'app-cart',
+  templateUrl: './cart.page.html',
+  styleUrls: ['./cart.page.scss'],
 })
-export class GuestcartPage implements OnInit {
+export class CartPage implements OnInit {
+
   postAdress: any;
   msnArray: any;
 
   constructor(public _ApiServiceService:NavService,
     private router :Router,
-    private route:ActivatedRoute,private toastr:ToastrService) { }
+    private toastr: ToastrService,
+    private route:ActivatedRoute) { }
 
     public msnInput : any = [];
     public quantity : any = [];
@@ -26,63 +28,70 @@ export class GuestcartPage implements OnInit {
   minusBtn :any;
   qtyVal:any;
   ngOnInit(): void {
+
     this.getCartDetails();
+
   }
 
   // get cart daat
   getCartDetails()
   {
-    this._ApiServiceService.guestCartDetails(localStorage.getItem('unique_code')).subscribe(
+    this._ApiServiceService.showACartDetails().subscribe(
       data=>{
-        console.log(data);
-        
         this.listCart=data;
+
         for(let i = 0 ; i< this.listCart[0].cartsDetails.length ; i++)
         {
           if(!this.msnInput.includes(this.listCart[0].cartsDetails[i].msn)){
             this.msnInput.push(this.listCart[0].cartsDetails[i].msn);
-            this.quantity.push(this.listCart[0].cartsDetails[i].qty);
+            this.quantity.push(this.listCart[0].cartsDetails[i].cartprt_id);
           }
         }
+
       }
     )
   }
 
   allmsn:any;
   // delete cart data
-  deleteCartData(guest_cart_id:any,msn:any)
+  deleteCartData(cartprt_id:any,msn:any)
   {
-    this._ApiServiceService.removeProductGuest(guest_cart_id).subscribe(
+  //   this.allmsn = localStorage.getItem('msnCarts');
+  //   this.msnArray = this.allmsn.split(',');
+
+  //   var id = this.msnArray.indexOf(msn); // 2
+  //   var removedMsn = this.msnArray.splice(id,  1);
+
+
+
+    this._ApiServiceService.cartData(cartprt_id).subscribe(
       res=>{
         this.toastr.successToast('Deleted');
-        this.ngOnInit();
+        this.router.navigate(['/accountCart'])
+        .then(() => {
+          window.location.reload();
+        });
       }
     )
   }
 
   postMsnFromCart()
   {
-    if(localStorage.getItem('msnCarts'))
-    {
-      localStorage.removeItem('msnCarts');
-      localStorage.setItem('msnCarts',this.msnInput);
-    }
-    else{
-      localStorage.setItem('msnCarts',this.msnInput);
-    }
+    localStorage.setItem('msnCarts',this.msnInput);
+
     // localStorage.setItem('qtyCart',quantity.quantity14);
-    this.router.navigate(['/accountLogin']);
+    this.router.navigate(['/accountCartAddress']);
   }
 
 
   // adding quantity
-  addingqty(quantity:any,guest_cart_id:any) {
+  addingqty(quantity:any,cart_id:any) {
     this.plusBtn = document.getElementById('plus');
     this.minusBtn = document.getElementById('minus');
 
     var qty= parseInt(quantity)+1 ;
 
-    this._ApiServiceService.updateQuantityGuest(qty,guest_cart_id).subscribe(
+    this._ApiServiceService.updateQuantity(qty,cart_id).subscribe(
       res=>{
 
         if(res == true)
@@ -99,15 +108,13 @@ export class GuestcartPage implements OnInit {
   }
 
   // minu quantity
-  minusqty(quantity:any,guest_cart_id:any) {
+  minusqty(quantity:any,cart_id:any) {
     this.plusBtn = document.getElementById('plus');
     this.minusBtn = document.getElementById('minus');
 
-    console.log(guest_cart_id);
-    
     var qty= parseInt(quantity)-1 ;
 
-    this._ApiServiceService.updateQuantityMinusGuest(qty,guest_cart_id).subscribe(
+    this._ApiServiceService.updateQuantityMinus(qty,cart_id).subscribe(
       res=>{
         if(res == true)
         {

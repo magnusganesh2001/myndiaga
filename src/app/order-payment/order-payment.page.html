@@ -1,0 +1,207 @@
+
+
+<ion-content>
+  <div class="container-fluid px-0 pb-6 ">
+    <div class=" mb-4" style="padding-bottom: 55px !important;">
+      <div class="bg-blue text-white p-3">
+        <h5 class="m-0">Payments</h5>
+      </div>
+      <div class="">
+        <div class="d-flex justify-content-center">
+          <div class="p-2 bd-highlight ">
+            <div class="rounded-circle border border-primary bg-success text-center  navigation mx-auto ">
+              <i class="fas fa-check text-center text-white"></i>
+            </div>
+            <p class="text-center topP">Address</p>
+          </div>
+          <div class="p-2 bd-highlight w-20">
+            <img src="./assets/image/dotted_line.svg" alt="" class="w-100 h-100">
+          </div>
+  
+          <div class="p-2 bd-highlight ">
+            <div class="rounded-circle border border-primary bg-success text-center  navigation mx-auto ">
+              <i class="fas fa-check text-center text-white"></i>
+            </div>
+            <p class="text-center topP">Summary</p>
+          </div>
+          <div class="p-2 bd-highlight w-20">
+            <img src="./assets/image/dotted_line.svg" alt="" class="w-100 h-100">
+          </div>
+  
+          <div class="p-2 bd-highlight">
+            <div class="rounded-circle border border-primary bg-primary mx-auto  navigation">
+              <p class="topP m-0 text-center text-white">3</p>
+            </div>
+            <p class="text-center topP font-weight-bold">Payment</p>
+          </div>
+        </div>
+      </div>
+  
+      <form action="" method="post" #productPlacement="ngForm" (ngSubmit)="paymentAddData(productPlacement.value)">
+  
+        <div class="card my-2">
+          <div class="card-header bg-white">
+            <h6 class="m-0">Payment Methods</h6>
+          </div>
+          <div class="card-body">
+            <div class="">
+              <div class="d-flex flex-row bd-highlight ">
+                <div class="p-2 bd-highlight">
+                  <input type="radio" name="modeOfPayment" (click)="Pay()" value="Prepaid">
+                </div>
+                <div class="p-2 bd-highlight">
+                  <label for="modeOfPayment" class="topP"> Online Payment</label>
+                </div>
+              </div>
+            </div>
+            <hr class="w-100">
+            <div class="">
+              <div class="d-flex flex-row bd-highlight ">
+                <div class="p-2 bd-highlight">
+                  <input type="radio" name="modeOfPayment" [disabled]="modes > 0" value="COD" ngModel>
+                </div>
+                <div class="p-2 bd-highlight">
+                  <label for="modeOfPayment" class="topP">Cash On Delivery</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- price -->
+        <div class="card my-2">
+          <div class="card-header bg-white">
+            <p class="text-grey topP m-0">PRICE DETAILS</p>
+          </div>
+          <div class="card-body" *ngFor="let price of  totalPricings">
+            <div class="">
+              <div class="d-flex justify-content-between">
+                <div class="p-2 bd-highlight text-left">
+                  <p class="m-0 topP">Price ({{price.length}} item)</p>
+                </div>
+                <div class="p-2 bd-highlight text-right">
+                  <p class="m-0 topP">Rs {{(price.totalOriginalPrice).toFixed(0)}}</p>
+                </div>
+              </div>
+            </div>
+            <div class="">
+              <div class="d-flex justify-content-between">
+                <div class="p-2 bd-highlight text-left">
+                  <p class="m-0 topP">Discount</p>
+                </div>
+                <div class="p-2 bd-highlight text-right">
+                  <p class="m-0 topP text-success ">-Rs {{(price.totalDiscount).toFixed(0)}}</p>
+                </div>
+              </div>
+            </div>
+  
+            <!-- <div class="text-right">
+            <div class="d-flex justify-content-between">
+              <div class="p-2 bd-highlight">
+                <p class="m-0 topP">Dilevery Charges</p>
+              </div>
+              <div class="p-2 bd-highlight">
+                <p class="m-0 topP text-success">FREE</p>
+              </div>
+            </div>
+          </div> -->
+            <div class="card-footer bg-white">
+              <div class="">
+                <div class="d-flex justify-content-between ">
+                  <div class="p-2 bd-highlight text-left">
+                    <p class="m-0 topP font-weight-bold">Total Amount</p>
+                  </div>
+                  <div class="p-2 bd-highlight text-right">
+                    <p class="m-0 topP font-weight-bold">Rs {{(price.totalPrice).toFixed(0) }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <footer class="bg-white shadow" style="z-index: 10000;">
+  
+          <div class="px-2">
+            <div class="d-flex justify-content-between">
+              <div class="p-2 bd-highlight text-left">
+                <h6 class="m-0"> Rs {{(this.totalPricings[0]?.totalPrice).toFixed(0) }}</h6>
+                <p class="mb-0"><a class="text-primary" data-bs-toggle="modal" data-bs-target="#priceModal">View Price
+                    Detail</a></p>
+  
+              </div>
+              <div class="p-2 bd-highlight text-right">
+                <button type="submit" class="btn continueButton shadow text-white">Continue</button>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </form>
+    </div>
+    <br>
+  </div>
+  
+  
+  
+  
+  
+  <!-- price model box -->
+  <div class="modal fade" id="priceModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    style="z-index: 10000;">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg m-0 h-100">
+      <div class="modal-content" style="position:absolute;bottom:0;margin:0;width:100%;">
+        <div class="modal-header">
+          <h5 class="modal-title text-primary" id="exampleModalLabel">Price detail</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" *ngIf="totalPricings[0]">
+  
+          <div class="card my-2">
+            <div class="card-header bg-white">
+              <p class="text-grey topP m-0">PRICE DETAILS</p>
+            </div>
+            <div class="card-body">
+              <div class="">
+                <div class="d-flex justify-content-between">
+                  <div class="p-2 bd-highlight text-left">
+                    <p class="m-0 topP">Price ({{totalPricings[0]?.length}}) items</p>
+                  </div>
+                  <div class="p-2 bd-highlight text-right">
+                    <p class="m-0 topP">Rs {{(totalPricings[0].totalOriginalPrice ).toFixed(0)}}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="" *ngIf="totalPricings[0].totalOriginalPrice>totalPricings[0].totalDiscount">
+                <div class="d-flex justify-content-between">
+                  <div class="p-2 bd-highlight text-left">
+                    <p class="m-0 topP">Discount</p>
+                  </div>
+                  <div class="p-2 bd-highlight text-right">
+                    <p class="m-0 topP text-success ">-Rs {{(totalPricings[0].totalDiscount).toFixed(0) }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer bg-white">
+              <div class="">
+                <div class="d-flex justify-content-between ">
+                  <div class="p-2 bd-highlight text-left">
+                    <p class="m-0 topP font-weight-bold">Total Amount</p>
+                  </div>
+                  <div class="p-2 bd-highlight text-right">
+                    <p class="m-0 topP font-weight-bold">Rs {{ (totalPricings[0].totalPrice).toFixed(0) }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer bg-white">
+              <p *ngIf="totalPricings[0].totalOriginalPrice - totalPricings[0].totalDiscount && totalPricings[0].originalTotalPrice>totalPricings[0].totalDiscount"
+                class="font-weight-bold topP text-success">You will save Rs {{(
+                totalPricings[0].totalDiscount).toFixed(0)}} on this order</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end model box -->
+  
+</ion-content>

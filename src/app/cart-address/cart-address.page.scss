@@ -1,0 +1,60 @@
+.text-grey{
+    color: #878787;
+  }
+  .text-left{
+    text-align: left;
+  }
+  .text-right{
+    text-align: right;
+  }
+  .nounderline{
+    text-decoration: none;
+  }
+  
+  .footer-none{
+    display:none !important;
+  }
+  .buttonPlace{
+    background-color: #fb641b;
+  }
+  
+  .orderHeadings{
+    color: black;
+    font-size: 14px;
+  font-weight: 500;
+  }
+  .topP{
+    font-size: 0.8rem;
+  }
+  
+  .font-weight-bold{
+    font-weight: bold;
+  }
+  
+  footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: #ebebeb;
+    padding: 6px 12px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+  .deliverButton{
+    background-color: #fb641b;
+  }
+  
+  .navigation{
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  .w-20{
+    width: 20%;
+  }
+  
+  p{
+    font-size: 12px;
+  }
+  

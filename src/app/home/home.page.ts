@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 
 import { NavService } from '../services/nav.service';
 import { CommunicateService } from '../services/communicate.service';
+import { ToastController } from '@ionic/angular';
+import { ToastrService } from '../services/toastr.service';//yaha h
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -12,7 +14,7 @@ export class HomePage implements OnInit {
 
   unique_code: any;
 
-  constructor(private _nav:NavService, private router:Router,private communicate:CommunicateService) { }
+  constructor(private _nav:NavService, private router:Router,private communicate:CommunicateService, private toast:ToastrService) { }
 
   slider = [] as any;
   products = [] as any;
@@ -116,13 +118,14 @@ baseUrl = this._nav.baseImgUrl+'/outerCategory'
     if(localStorage.getItem('token'))
     {
       this._nav.postMsnToCart(msn,prtid).subscribe(
-        res=>{
+       async res=>{
           if(res.id == 0)
           {
             this.communicate.updateCart()
-            // this.toastr.success('Added to cart');
+             this.toast.successToast('Added to cart.')
           }
           else{
+            this.toast.warnToast('Already In Cart');
             // this.toastr.warning('Already In Cart');
           }
 
@@ -141,9 +144,11 @@ baseUrl = this._nav.baseImgUrl+'/outerCategory'
             if(res[0].id == 0)
             {
               this.communicate.updateCart()
+              this.toast.successToast('Added to Cart');
               // this.toastr.success('Added to cart');
             }
             else{
+              this.toast.warnToast('Already In Guest Cart');
               // this.toastr.warning('Already In Guest Cart');
             }
 
@@ -151,14 +156,16 @@ baseUrl = this._nav.baseImgUrl+'/outerCategory'
         );
       }else{
         this._nav.guestCartAddition(msn,this.unique_code).subscribe(
-          res=>{
+         async res=>{
 
             if(res[0].id == 0)
             {
               this.communicate.updateCart()
+              this.toast.successToast('Added to cart');
               // this.toastr.success('Added to cart');
             }
             else{
+              this.toast.warnToast('Already In Guest Cart');
               // this.toastr.warning('Already In Guest Cart');
             }
 

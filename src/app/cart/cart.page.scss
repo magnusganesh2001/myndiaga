@@ -1,0 +1,52 @@
+.text-grey{
+    color: #878787;
+  }
+  .text-left{
+    text-align: left;
+  }
+  .text-right{
+    text-align: right;
+  }
+  .nounderline{
+    text-decoration: none;
+  }
+  .topP{
+    font-size: 0.8rem;
+  }
+  
+  .font-weight-bold{
+    font-weight: bold;
+  }
+  .textWrap {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  select{
+    outline: none;
+  }
+  footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+  }
+  .placeButton{
+    background-color: #fb641b;
+  }
+  
+  .card-body span{
+    font-size: 12px;
+  }
+  
+  
+  .orderHeadings{
+    color: black;
+    font-size: 14px !important;
+  font-weight: 500;
+  }
+  
+  .buttonPlace{
+    background-color: #fb641b;
+  }
+  

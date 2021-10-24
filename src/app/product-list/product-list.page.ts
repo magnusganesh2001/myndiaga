@@ -2,6 +2,7 @@ import { LabelType, Options } from '@angular-slider/ngx-slider';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NavService } from '../services/nav.service';
+import { ToastrService } from '../services/toastr.service';
 
 @Component({
   selector: 'app-product-list',
@@ -15,7 +16,7 @@ export class ProductListPage implements OnInit {
   catName:any;
   subCatName:any;
 
-  constructor(private route:ActivatedRoute,private router:Router, private _service:NavService) {
+  constructor(private route:ActivatedRoute,private toastr:ToastrService,private router:Router, private _service:NavService) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
    }
 
@@ -129,6 +130,7 @@ export class ProductListPage implements OnInit {
       this._service.postProduct(this.filter).subscribe(
         res=>{
           this.product=res;
+          this.toastr.successToast('Filter Applied')
           // this.toastr.success('Filter Applied');
           this.filteingProducts()
         }

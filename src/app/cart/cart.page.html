@@ -1,0 +1,224 @@
+
+
+<ion-content>
+  <div class="container-fluid px-0 pb-6  bg-light" *ngFor="let cartDetails of listCart">
+    <div  >
+      <div class="bg-blue text-white p-3">
+        <h5 class="m-0">My Cart ({{cartDetails.length}})</h5>
+      </div>
+      <!-- product1 -->
+      <div *ngIf="cartDetails?.length">
+      <div class="card my-2" *ngFor="let cartProducts of cartDetails.cartsDetails; let indexes = index;">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <div class=" bd-highlight textWrap">
+              <p class="w-100 m-0" style="cursor:pointer; font-weight: 500px;" [routerLink]="['/',cartProducts.outer_Category_name,cartProducts.category_name,cartProducts.sub_category_name,cartProducts.product_url]" [queryParams]="{prtid:cartProducts?.prtid,msn:cartProducts?.msn,pcolorId:cartProducts?.pcolorid}">{{cartProducts.p_name}}</p>
+              <span class="pl-2 text-grey detailsFont">
+                <span>{{cartProducts.attribute_name}}  </span> <span class="px-1">{{cartProducts.cust_attr_value}}</span>
+              </span>
+              <span class="pl-2 text-grey detailsFont">
+                <span>Color  </span> <span class="px-1">{{cartProducts.color}}</span>
+              </span>
+              <br>
+              <span class="pl-2 text-grey detailsFont">
+                <span>Seller:</span> <span class="px-1">{{cartProducts.sellar_name}}</span>
+              </span>
+              <br>
+              <br>
+              <span class="orderHeadings">Rs</span>
+              <span class="orderHeadings px-2">{{(cartProducts.total_charges).toFixed(0)}}</span>
+              <span  *ngIf="cartProducts.total_price_after_tax < cartProducts.original_price">
+              <s class="discount font-12 text-grey">Rs {{(cartProducts.original_price).toFixed(0)}}</s>
+              <span class="text-success mx-2">{{(((cartProducts.original_price-cartProducts.discounted_price)/cartProducts.original_price)*100).toFixed(2)}}% off </span>
+              </span>
+            </div>
+            <div class="p-2 d-flex flex-column w-50">
+              <img src="{{this._ApiServiceService.baseImgUrl}}/productImages{{cartProducts.productImage.imgurl}}" alt=""
+                style=" height:112px; object-fit: contain;" style="cursor:pointer;" [routerLink]="['/',cartProducts.outer_Category_name,cartProducts.category_name,cartProducts.sub_category_name,cartProducts.product_url]" [queryParams]="{prtid:cartProducts?.prtid,msn:cartProducts?.msn,pcolorId:cartProducts?.pcolorid}">
+                    <div class="d-flex justify-content-center text-center">
+                      <div class="d-flex flex-row bd-highlight ">
+                        <div class="px-2 bd-highlight">
+                          <button [disabled]="cartProducts.qty==1" class="btn  rounded-pill outline-none border-0 p-0" id="minus" (click)="minusqty(cartProducts.qty,cartProducts.cartprt_id)">
+                            <i class="fas fa-minus-circle text-danger"></i>
+                          </button>
+                        </div>
+                        <div class="px-2 bd-highlight">
+                          <span class="text-grey  px-2" id="quantity">{{cartProducts.qty}}</span>
+                        </div>
+                        <div class="px-2 bd-highlight">
+                          <button  (click)="addingqty(cartProducts.qty,cartProducts.cartprt_id)" class="btn  rounded-pill outline-none border-0 p-0" id="plus">
+                            <i class="fas fa-plus-circle text-success"></i>
+                          </button>
+                    </div>
+                  </div>
+  
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer bg-white">
+          <div class="row">
+            <div class="col text-center">
+              <a (click)="deleteCartData(cartProducts.cartprt_id,cartProducts.msn)" class="orderHeadings px-3 nounderline text-danger cursor-pointer">REMOVE</a>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-lg-4 mb-5" *ngIf="cartDetails?.length">
+        <div class="card shadow mb-4" >
+          <div class="card-header bg-white">
+            <h5>Price Details</h5>
+          </div>
+          <div class="card-body">
+            <div class="">
+              <div class="d-flex justify-content-between">
+                <div class="p-2 bd-highlight">Total Price ({{cartDetails.length}}) items</div>
+                <div class="p-2 bd-highlight text-left ">Rs {{(  cartDetails.originalTotalPrice).toFixed(0)}}</div>
+              </div>
+            </div>
+            <div class="" *ngIf="listCart[0].discountMinus >0">
+              <div class="d-flex justify-content-between">
+                <div class="p-2 bd-highlight ">Discount</div>
+                <div class="p-2 bd-highlight text-left text-success">-Rs {{cartDetails.discountMinus }}</div>
+              </div>
+            </div>
+            <!-- <div class="">
+              <div class="d-flex justify-content-between">
+                <div class="p-2 bd-highlight ">IGST</div>
+                <div class="p-2 bd-highlight text-left ">Rs {{cartDetails.igst}}</div>
+              </div>
+            </div> -->
+            <div class="">
+              <div class="d-flex justify-content-between">
+                <div class="p-2 bd-highlight ">Delivery</div>
+                <div class="p-2 bd-highlight " *ngIf="cartDetails.deliveryCharges != 0">Rs {{cartDetails.deliveryCharges}}</div>
+                <div class="p-2 bd-highlight text-success " *ngIf="cartDetails.deliveryCharges == 0">FREE</div>
+              </div>
+            </div>
+            <!-- <hr>
+            <div class="">
+              <div class="d-flex justify-content-between">
+                <div class="p-2 bd-highlight">
+                  <h5>Total Charges</h5>
+                </div>
+                <div class="p-2 bd-highlight">
+                  <h5>Rs {{ cartDetails.total_price }}</h5>
+                  <p class="mb-0"><a class="text-primary" data-bs-toggle="modal" data-bs-target="#priceModal">View Price Detail</a></p>
+  
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div class="display-flex">
+              <div class="w-60">
+            <p class="my-0"  *ngIf="cartDetails.discountMinus && cartDetails.originalTotalPrice>cartDetails.total_discounted_price">
+                  You will save Rs {{cartDetails.discountMinus}} in this order
+                </p>
+              </div>
+              <div class="w-40 text-right" >
+                <button type="submit" (click)="postMsnFromCart()" class="btn buttonPlace text-white cursor-pointer" [disabled]="!cartDetails.total_discounted_price && !cartDetails.total_price">Place Order</button>
+              </div>
+            </div> -->
+  
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="cartDetails?.length==0" class="text-center">
+      <img src="../../assets/image/Empty-rafiki.png" alt="" width="80%">
+      <p>No product in cart!</p>
+    </div>
+    </div>
+    <br>
+    <br>
+    <br>
+  
+  
+  <footer class="bg-white shadow" style="z-index: 10000;">
+  
+    <div class="px-2">
+      <div class="d-flex justify-content-between">
+        <div class="p-2 bd-highlight text-left">
+          <h6 class="m-0"> Rs {{ (cartDetails.total_price).toFixed(0) }}</h6>
+          <p class="mb-0"><a class="text-primary" data-bs-toggle="modal" data-bs-target="#priceModal">View Price Detail</a></p>
+        </div>
+        <div class="p-2 bd-highlight text-right">
+          <button type="submit" (click)="postMsnFromCart()" class="btn buttonPlace text-white cursor-pointer" [disabled]="!cartDetails.total_discounted_price && !cartDetails.total_price">Place Order</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+   <!-- price model box -->
+   <div class="modal fade" id="priceModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 10000;">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg m-0 h-100" >
+      <div class="modal-content"  style="position:absolute;bottom:0;margin:0;width:100%;">
+        <div class="modal-header">
+          <h5 class="modal-title text-primary" id="exampleModalLabel">Price detail</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" *ngIf="listCart[0]">
+  
+          <div class="card my-2">
+            <div class="card-header bg-white">
+              <p class="text-grey topP m-0">PRICE DETAILS</p>
+            </div>
+            <div class="card-body">
+              <div class="">
+                <div class="d-flex justify-content-between">
+                  <div class="p-2 bd-highlight text-left">
+                    <p class="m-0 topP">Price ({{listCart[0]?.length}}) items</p>
+                  </div>
+                  <div class="p-2 bd-highlight text-right">
+                    <p class="m-0 topP">Rs {{(listCart[0].originalTotalPrice>listCart[0].total_discounted_price ?listCart[0].originalTotalPrice+listCart[0].igst : listCart[0].total_price).toFixed(0)}}</p>
+                  </div>
+                </div>
+              </div>
+              <div class=""  *ngIf="listCart[0]?.discountMinus">
+                <div class="d-flex justify-content-between">
+                  <div class="p-2 bd-highlight text-left">
+                    <p class="m-0 topP">Discount</p>
+                  </div>
+                  <div class="p-2 bd-highlight text-right">
+                    <p class="m-0 topP text-success ">-Rs {{(listCart[0].discountMinus).toFixed(0) }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer bg-white">
+              <div class="">
+                <div class="d-flex justify-content-between ">
+                  <div class="p-2 bd-highlight text-left">
+                    <p class="m-0 topP font-weight-bold">Total Amount</p>
+                  </div>
+                  <div class="p-2 bd-highlight text-right">
+                    <p class="m-0 topP font-weight-bold">Rs {{ (listCart[0].total_price).toFixed(0) }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer bg-white">
+              <p *ngIf="listCart[0].discountMinus && listCart[0].originalTotalPrice>listCart[0].total_discounted_price" class="font-weight-bold topP text-success">You will save Rs {{(listCart[0].discountMinus).toFixed(0)}} on this order</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end model box -->
+  
+</ion-content>

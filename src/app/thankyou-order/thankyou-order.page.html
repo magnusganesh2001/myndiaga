@@ -1,0 +1,49 @@
+
+
+<ion-content>
+  <div class="container-fluid bg-light h-100"  style="min-height: 100vh;">
+    <div class="container h-100" style=" padding-bottom: 60px;">
+      <div class="card">
+        <div class="card-body">
+          <div class="">
+            <div class="p-2 bd-highlight w-100">
+              <div class="row">
+                <div class="col-lg-2">
+                    <img src="../../assets/image/Delivery-cuate.svg" alt="" width="100">
+                </div>
+                <div class="col-lg-8 " *ngFor = "let price of  totalPricings">
+                  <h4 *ngIf="priceIngs" class="text-primary font-weight-bold">Order placed for Rs {{(+priceIngs).toFixed(0)}}</h4>
+                  <p *ngIf="deliveryDatet">Your order will be delivered by <span class="font-weight-bold">{{deliveryDatet}}</span> </p>
+                </div>
+              </div>
+            </div>
+            <div class="p-2 bd-highlight">
+              <div class="row">
+                <div class="col-lg-8">
+                  <h5>Why call? Just Click</h5>
+                  <p>Easily track all your orders!</p>
+                  <a (click)="home()" class="btn cursor-pointer btn-primary btn-sm">Continue Shopping</a>
+                </div>
+                <div class="col-lg-2">
+                  <img src="./assets/images/Checking boxes-bro.svg" alt="" width="100">
+                </div>
+              </div>
+  
+            </div>
+  
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="border border-success bg-white p-3">
+        <h4 class="text-success">Thank You for shopping with us.</h4>
+        <p>Please check your mail for payment Receipt.</p>
+        <br>
+        <div *ngFor="let add of addressCust">
+          <p> <span class="font-weight-bold"> Shiping to {{add.cust_name}}, </span> {{add.cust_address}} , <span>{{add.custState}}</span> , <span>{{add.custCity}}</span> , <span>{{add.custPincode}}</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</ion-content>

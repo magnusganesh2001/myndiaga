@@ -138,6 +138,7 @@ getWishlistQuantity():Observable<InstanceType<any>>
 
   getCategories(outCid:any):Observable<InstanceType<any>>
   {
+    console.trace('here')
     return this.httpclient.get<any[]>(this.baseUrl+'Category/phone/'+outCid);
   }
 

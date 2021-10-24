@@ -13,8 +13,37 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },
   {
+    path: 'accountGuestCart',
+    loadChildren: () => import('./guestcart/guestcart.module').then( m => m.GuestcartPageModule)
+  },
+  {
+    path: 'accountCartAddress',
+    loadChildren: () => import('./cart-address/cart-address.module').then( m => m.CartAddressPageModule)
+  },
+  
+  {
+    path: 'accountLogin',
+    loadChildren: () => import('./account-login/account-login.module').then( m => m.AccountLoginPageModule)
+  },
+  {
     path: 'all-category',
     loadChildren: () => import('./all-category/all-category.module').then( m => m.AllCategoryPageModule)
+  },
+  {
+    path: 'accountOrderBooked',
+    loadChildren: () => import('./thankyou-order/thankyou-order.module').then( m => m.ThankyouOrderPageModule)
+  },
+  {
+    path: 'accountCartOrderOverview',
+    loadChildren: () => import('./order-summary/order-summary.module').then( m => m.OrderSummaryPageModule)
+  },
+  {
+    path: 'accountCartPayment',
+    loadChildren: () => import('./order-payment/order-payment.module').then( m => m.OrderPaymentPageModule)
+  },
+  {
+    path: 'accountCart',
+    loadChildren: () => import('./cart/cart.module').then( m => m.CartPageModule)
   },
   {
     path: ':category', 
@@ -33,9 +62,18 @@ const routes: Routes = [
     loadChildren: () => import('./product-detail/product-detail.module').then( m => m.ProductDetailPageModule)
   },
   {
-    path: 'accountGuestCart',
-    loadChildren: () => import('./guestcart/guestcart.module').then( m => m.GuestcartPageModule)
+    path: 'thankyou-order',
+    loadChildren: () => import('./thankyou-order/thankyou-order.module').then( m => m.ThankyouOrderPageModule)
   },
+
+ 
+
+ 
+
+
+ 
+
+ 
 
 
 

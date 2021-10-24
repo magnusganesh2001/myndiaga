@@ -5,6 +5,7 @@ import { image, ProductPIDHeadings } from '../class/headings';
 import { pin, postProductId, questionAsking } from '../class/post';
 import { CommunicateService } from '../services/communicate.service';
 import { NavService } from '../services/nav.service';
+import { ToastrService } from '../services/toastr.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -21,7 +22,7 @@ export class ProductDetailPage implements OnInit {
   daysAdded:any;
   public count  = 0;
   constructor(public _ApiServiceService:NavService,public route:ActivatedRoute,
-    public router :Router,private titleService: Title,    private communicate:CommunicateService) {
+    public router :Router,private titleService: Title,    private communicate:CommunicateService,private toast:ToastrService) {
       this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     }
     colorsPro :any;
@@ -159,7 +160,8 @@ export class ProductDetailPage implements OnInit {
     this._ApiServiceService.onclickCart(pidPost).subscribe(
       res=>{
         this.communicate.updateCart()
-        // this.toastr.success('Added To','Cart');
+        // this.toast.successToast('Added To','Cart');
+        this.toast.successToast('Added to cart');
         this.router.navigate(['/accountCart']);
       }
     );
@@ -178,6 +180,7 @@ export class ProductDetailPage implements OnInit {
             this.router.navigate(['/accountCart']);
           }
           else{
+            this.toast.warnToast('Already in cart');
             // this.toastr.warning('Already In Cart');
           }
 
@@ -199,6 +202,7 @@ export class ProductDetailPage implements OnInit {
                 this.router.navigate(['/accountGuestCart']);
               }
               else{
+                this.toast.warnToast('Already in guest cart');
                 // this.toastr.warning('Already In Guest Cart');
               }
 
@@ -214,6 +218,7 @@ export class ProductDetailPage implements OnInit {
               this.communicate.updateCart()
             }
             else{
+              this.toast.warnToast('Already in guest cart');
               // this.toastr.warning('Already In Guest Cart');
             }
 
@@ -241,6 +246,7 @@ export class ProductDetailPage implements OnInit {
               this.router.navigate(['/accountCartAddress']);
             }
             else{
+              this.toast.warnToast('Already in cart cart');
               // this.toastr.warning('Already In Cart','Please Purchase From Cart');
             }
 
@@ -252,6 +258,7 @@ export class ProductDetailPage implements OnInit {
         localStorage.setItem('pppppp81258',this.prtid);
         // this.communicate.navbarOpen.next(true),  // login popup in nav bar
           this.router.navigate(['/accountLogin']);
+          this.toast.warnToast('Please login first');
         // this.toastr.warning("Please login first")
       }
 
@@ -338,14 +345,17 @@ export class ProductDetailPage implements OnInit {
                {
                  this.communicate.updateWishlist()
                  this.addedToWishlist = true;
-                 this
-                //  this.toastr.success('Product Sent To Wishlist');
+                
+                 this.toast.successToast('Product sent to wishlist');
+                //  this.toast.successToast('Product Sent To Wishlist');
                }
                else{
+                this.toast.warnToast('Already in wishlist');
                 //  this.toastr.warning('Already In Wishlist');
                }
 
              },err=>{
+              this.toast.warnToast('Please login first');
               //  this.toastr.warning('Please Login First');
              }
            )
@@ -356,6 +366,7 @@ export class ProductDetailPage implements OnInit {
            this._ApiServiceService.delwishlist(this.msn,this.prtid).subscribe(
              res=>{
                this.addedToWishlist = false;
+               this.toast.warnToast('Product remove from wishlist');
               //  this.toastr.warning('Product Removed From Wishlist');
                this.ngOnInit();
              }
@@ -380,7 +391,8 @@ export class ProductDetailPage implements OnInit {
 
            this._ApiServiceService.postQuestions(ques,this.prtid).subscribe(
              res=>{
-              //  this.toastr.success('Question Sent To Seller');
+              this.toast.successToast('Question sent to seller');
+              //  this.toast.successToast('Question Sent To Seller');
                window.location.reload();
              }
            )

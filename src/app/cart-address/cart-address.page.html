@@ -1,0 +1,405 @@
+
+
+<ion-content>
+  <form action="" method="post" #address =  "ngForm" (ngSubmit) = "postAddressId(address.value)">
+    <div class="container-fluid p-0">
+      <div class=" mb-4">
+        <div class="bg-blue text-white p-3">
+          <h5 class="m-0">Select Address</h5>
+        </div>
+         <div class="">
+           <div class="d-flex justify-content-center">
+              <div class="p-2 bd-highlight ">
+                <div class="rounded-circle border border-primary bg-primary  navigation mx-auto" >
+                  <p class="topP m-0 text-center text-white">1</p>
+                </div>
+                <p class="text-center topP">Address</p>
+              </div>
+              <div class="p-2 bd-highlight w-20">
+                <img src="./assets/image/dotted_line.svg" alt="" class="w-100 h-100">
+              </div>
+    
+              <div class="p-2 bd-highlight ">
+                <div class="rounded-circle border border-primary  navigation mx-auto" >
+                  <p class="topP m-0 text-center text-primary">2</p>
+                </div>
+                <p class="text-center topP">Summary</p>
+              </div>
+              <div class="p-2 bd-highlight w-20">
+                <img src="./assets/image/dotted_line.svg" alt="" class="w-100 h-100">
+              </div>
+    
+              <div class="p-2 bd-highlight">
+                <div class="rounded-circle border border-primary mx-auto  navigation" >
+                  <p class="topP m-0 text-center text-primary">3</p>
+                </div>
+                <p class="text-center topP">Payment</p>
+              </div>
+           </div>
+         </div>
+         <br>
+         <div class="my-2">
+          <div class="border p-2">
+            <button href="#" class="nounderline border-0 bg-white text-primary w-100" >
+              <div class="d-flex flex-row bd-highlight">
+    
+                <div class="p-2 bd-highlight">
+                  <a class="btn text-white cursor-pointer text-myndia-primary font-weight-500 border addAddressModal" data-bs-toggle="modal" data-bs-target="#addAddCart">+ Add New Address</a>
+                </div>
+              </div>
+            </button>
+          </div>
+        </div>
+    
+    
+        <!-- first address -->
+         <div class="card" *ngFor = "let custAddress of listAddressDetails; index as i">
+           <div class="card-body p-0">
+             <div class="d-flex ">
+               <div class="p-2 bd-highlight">
+                 <input type="radio" name="addressID"  value="{{custAddress.custAddress_id}}" ngModel >
+               </div>
+                <div class="p-2 bd-highlight">
+                  <span>
+                    <span class="orderHeadings topP">{{custAddress.cust_Name | titlecase}}</span>
+                    <span class="bg-light mx-3 topP"> {{custAddress.address_type | titlecase}} </span>
+                  </span>
+                  <div class="" style="margin-top:2%;">
+                    <p class="m-0">{{custAddress.cust_address | titlecase}}</p>
+                    <p class="m-0">{{custAddress.custCity | titlecase}}</p>
+                    <p class="m-0">{{custAddress.custState | titlecase}} - {{custAddress.custPincode}}</p>
+                    <p class="m-0">{{custAddress.custLandMark | titlecase}}</p>
+                  </div>
+    
+                  <button class="btn" type="button" data-bs-toggle="modal" data-bs-target="#editCart" (click)="editAddress(i,custAddress.custAddress_id)">Edit</button>
+                </div>
+    
+             </div>
+    
+           </div>
+         </div>
+         <!-- second ADDRESS -->
+         <!-- <div class="card">
+           <div class="card-body p-0">
+             <div class="d-flex justify-content-between">
+               <div class="p-2 bd-highlight">
+                 <input type="radio" name="address" value="Sudha Niwas 2 mai ji ki bagia">
+               </div>
+                <div class="p-2 bd-highlight">
+                  <span>
+                    <span class="orderHeadings topP">SARTHAK GARG</span>
+                    <span class="bg-light mx-3 topP"> Work </span>
+                  </span>
+                  <div class="" style="margin-top:2%;">
+                    <p class="m-0 topP" >Sudha Niwas 2 mai ji ki bagia </p>
+                    <p class="m-0 topP">Bara chandganj</p>
+                    <p class="m-0 topP">Lucknow</p>
+                    <p class="topP m-0">Uttar Pradesh - <span class="orderHeadings">226006</span> </p>
+                    <p class="topP m-0"> <span class="orderHeadings">7785803618</span> </p>
+                  </div>
+                </div>
+                <div class="p-2 bd-highlight">
+                  <a href="#" class="nounderline font-weight-bold">x</a>
+                </div>
+             </div>
+    
+           </div>
+         </div> -->
+      </div>
+      <br>
+    </div>
+    <!-- <footer class="bg-white shadow py-2" style="z-index: 10000;">
+      <button type="submit" class="btn buttonPlace text-white" style="z-index: 1000001 !important;">DELIVER HERE</button>
+    </footer> -->
+    <footer class="bg-white shadow" style="z-index: 10000;">
+    
+      <div class="px-2 w-100">
+        <div class="d-flex justify-content-between">
+          <div class="p-2 bd-highlight text-left">
+            <h6 class="m-0"> Rs {{(this.totalPricings[0]?.totalPrice ).toFixed(0) }}</h6>
+            <p class="mb-0"><a class="text-primary" data-bs-toggle="modal" data-bs-target="#priceModal">View Price Detail</a></p>
+    
+          </div>
+          <div class="p-2 bd-highlight text-right">
+            <button type="submit" class="btn buttonPlace text-white" style="z-index: 1000001 !important;">DELIVER HERE</button>      </div>
+        </div>
+      </div>
+    </footer>
+    
+    </form>
+    
+    
+    
+         <!-- edit address model box -->
+         <div class="modal fade" id="editCart" tabindex="-1" aria-labelledby="editCart" aria-hidden="true" style="z-index: 10000;">
+          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title text-primary" id="exampleModalLabel">Edit Address</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body" *ngIf="editAddressModel">
+    
+                <div class="card addressForm" >
+                  <div class="card-body bg-light">
+                    <form class=""  method="post" #EditAddress='ngForm' (ngSubmit)="onEditAddress(EditAddress.value)">
+                      <div class="pt-3 ">
+                        <!-- <div class="row">
+                          <div class="col-lg-6">
+                            <button type="button" class="btn btn-primary btn-sm p-2 w-100"> <span class="mx-2"><i class="fas fa-map-marker-alt"></i></span> Use my current location</button>
+                          </div>
+                          <div class="col-lg-6">
+    
+                          </div>
+                        </div> -->
+    
+                      </div>
+                      <div class="my-3" >
+                        <div class="row">
+                          <div class="col-lg-6 mb-3">
+                            <input type="text" name="name" placeholder="Name" class="w-100 p-2 border" required  [(ngModel)]="editAddressModel.cust_Name">
+                          </div>
+                          <div class="col-lg-6">
+                            <input type="number" name="phone" placeholder="10-digit mobile number" class="w-100 p-2 border" required [(ngModel)]="editAddressModel.order_phone"  pattern="^\d{10}$" required #phone = "ngModel"  [class.border-danger]="phone.invalid && phone.touched" >
+                            <div class="mx-auto">
+                              <small class="px-2 text-danger" [class.display-none]="phone.valid || phone.untouched">10 Digit Number Is Required</small>
+                          </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="my-3">
+                        <div class="row">
+                          <div class="col-lg-6 mb-3">
+                            <input type="text" name="pincode" placeholder="Pincode" class="w-100 p-2 border" required [(ngModel)]="editAddressModel.custPincode">
+                          </div>
+                          <div class="col-lg-6">
+                            <input type="text" name="locality" placeholder="Locality" class="w-100 p-2 border" required [(ngModel)]="editAddressModel.locality">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="my-3">
+                        <textarea name="address" rows="3" class="w-100 p-2 border" placeholder="Address (Area and Streat)" required [(ngModel)]="editAddressModel.cust_address"> </textarea>
+                      </div>
+                      <div class="my-3">
+                        <div class="row">
+                          <div class="col-lg-6 mb-3">
+                            <select name="state" class="w-100 h-100 border" required [(ngModel)]="editAddressModel.custState" (change)="getCity(EditAddress.value.state)">
+                              <option value="" selected disabled >--Select State--</option>
+                              <option value="{{states.id}}" *ngFor = "let states of statesDetails" >{{states.name}}</option>
+                            </select>
+                          </div>
+    
+                          <div class="col-lg-6">
+                            <select name="city" class="w-100 h-100 border" required [(ngModel)]="editAddressModel.custCity">
+                              <option value="" selected disabled >--Select City--</option>
+                              <option value="{{city.name}}" *ngFor = "let city of cities" >{{city.name}}</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="my-3">
+                        <div class="row">
+                          <div class="col-lg-6">
+                            <input type="text" name="landmark" placeholder="Landmark" class="w-100 p-2 border" required [(ngModel)]="editAddressModel.custLandMark">
+                          </div>
+                          <div class="col-lg-6">
+    
+                          </div>
+                        </div>
+                      </div>
+                      <div class="my-3">
+                        <p class="text-grey">Address Type</p>
+    
+                          <input type="radio" name="addressType" value="Home" required [(ngModel)]="editAddressModel.address_type">
+                          <label for="addressType"  style="margin-right:2%;margin-left:2%;" >Home</label>
+    
+                          <input type="radio" name="addressType"  value="Work" class="pl-4" style="margin-right:2%;margin-left:2%;" [(ngModel)]="editAddressModel.address_type">
+                          <label for="addressType" >Work</label>
+                      </div>
+                      <div class="">
+                        <div class="row">
+                          <div class="col-lg-6 mb-3">
+                            <button type="submit" class="btn btn-primary btn-sm p-2 w-100 my-1 submitAddress">Submit</button>
+                          </div>
+                          <div class="col-lg-6">
+                            <button type="reset" class="btn btn-danger btn-sm p-2 w-100 cancelButton">Cancel</button>
+                          </div>
+                        </div>
+                      </div>
+    
+                    </form>
+    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end model box -->
+         <!-- add address model box -->
+         <div class="modal fade" id="addAddCart" tabindex="-1" aria-labelledby="addAddCart" aria-hidden="true" style="z-index: 10000;">
+          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title text-primary" id="exampleModalLabel">Add Address</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+    
+                <div class="card addressForm" >
+                  <div class="card-body bg-light">
+                    <form class=""  method="post" #addAddress = 'ngForm' (ngSubmit) = "onSubmitAddress(addAddress.value)">
+                      <div class="pt-3 ">
+                        <!-- <div class="row">
+                          <div class="col-lg-6">
+                            <button type="button" class="btn btn-primary btn-sm p-2 w-100"> <span class="mx-2"><i class="fas fa-map-marker-alt"></i></span> Use my current location</button>
+                          </div>
+                          <div class="col-lg-6">
+    
+                          </div>
+                        </div> -->
+    
+                      </div>
+                      <div class="my-3" >
+                        <div class="row">
+                          <div class="col-lg-6 mb-3">
+                            <input type="text" name="name" placeholder="Name" class="w-100 p-2 border" required  ngModel>
+                          </div>
+                          <div class="col-lg-6">
+                            <input type="number" name="phone" placeholder="10-digit mobile number" class="w-100 p-2 border" required ngModel  pattern="^\d{10}$" required #phone = "ngModel"  [class.border-danger]="phone.invalid && phone.touched" >
+                            <div class="mx-auto">
+                              <small class="px-2 text-danger" [class.display-none]="phone.valid || phone.untouched">10 Digit Number Is Required</small>
+                          </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="my-3">
+                        <div class="row">
+                          <div class="col-lg-6 mb-3">
+                            <input type="text" name="pincode" placeholder="Pincode" class="w-100 p-2 border" required ngModel>
+                          </div>
+                          <div class="col-lg-6">
+                            <input type="text" name="locality" placeholder="Locality" class="w-100 p-2 border" required ngModel>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="my-3">
+                        <input type="text" name="address" placeholder="Address (Area and Streat)" class="w-100 p-2 border" required ngModel>
+                      </div>
+                      <div class="my-3">
+                        <div class="row">
+                          <div class="col-lg-6 mb-3">
+                            <select name="state" class="w-100 h-100 border" required ngModel (change)="getCity(addAddress.value.state)">
+                              <option value="" selected disabled >--Select State--</option>
+                              <option value="{{states.id}}" *ngFor = "let states of statesDetails" >{{states.name}}</option>
+                            </select>
+                          </div>
+    
+                          <div class="col-lg-6">
+                            <select name="city" class="w-100 h-100 border" required ngModel>
+                              <option value="" selected disabled >--Select City--</option>
+                              <option value="{{city.name}}" *ngFor = "let city of cities" >{{city.name}}</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="my-3">
+                        <div class="row">
+                          <div class="col-lg-6 mb-3">
+                            <input type="text" name="landmark" placeholder="Landmark" class="w-100 p-2 border" required ngModel>
+                          </div>
+                          <div class="col-lg-6">
+    
+                          </div>
+                        </div>
+                      </div>
+                      <div class="my-3">
+                        <p class="text-grey">Address Type</p>
+    
+                          <input type="radio" name="addressType" value="Home" required ngModel>
+                          <label for="addressType"  style="margin-right:2%;margin-left:2%;" >Home</label>
+    
+                          <input type="radio" name="addressType"  value="Work" class="pl-4" style="margin-right:2%;margin-left:2%;" ngModel>
+                          <label for="addressType" >Work</label>
+                      </div>
+                      <div class="">
+                        <div class="row">
+                          <div class="col-lg-6 mb-3">
+                            <button type="submit" class="btn btn-primary btn-sm p-2 w-100 my-1 submitAddress">Submit</button>
+                          </div>
+                          <div class="col-lg-6">
+                            <button type="reset" class="btn btn-danger btn-sm p-2 w-100 cancelButton">Cancel</button>
+                          </div>
+                        </div>
+                      </div>
+    
+                    </form>
+    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end model box -->
+    
+    
+         <!-- price model box -->
+     <div class="modal fade" id="priceModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 10000;">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg m-0 h-100" >
+        <div class="modal-content"  style="position:absolute;bottom:0;margin:0;width:100%;">
+          <div class="modal-header">
+            <h5 class="modal-title text-primary" id="exampleModalLabel">Price detail</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" *ngIf="totalPricings[0]">
+    
+            <div class="card my-2">
+              <div class="card-header bg-white">
+                <p class="text-grey topP m-0">PRICE DETAILS</p>
+              </div>
+              <div class="card-body">
+                <div class="">
+                  <div class="d-flex justify-content-between">
+                    <div class="p-2 bd-highlight text-left">
+                      <p class="m-0 topP">Price ({{totalPricings[0]?.length}}) items</p>
+                    </div>
+                    <div class="p-2 bd-highlight text-right">
+                      <p class="m-0 topP">Rs {{(+totalPricings[0].totalOriginalPrice).toFixed(0)}}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class=""  *ngIf="totalPricings[0].totalDiscount">
+                  <div class="d-flex justify-content-between">
+                    <div class="p-2 bd-highlight text-left">
+                      <p class="m-0 topP">Discount</p>
+                    </div>
+                    <div class="p-2 bd-highlight text-right">
+                      <p class="m-0 topP text-success ">-Rs {{(totalPricings[0].totalDiscount).toFixed(0) }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer bg-white">
+                <div class="">
+                  <div class="d-flex justify-content-between ">
+                    <div class="p-2 bd-highlight text-left">
+                      <p class="m-0 topP font-weight-bold">Total Amount</p>
+                    </div>
+                    <div class="p-2 bd-highlight text-right">
+                      <p class="m-0 topP font-weight-bold">Rs {{ (totalPricings[0].totalPrice).toFixed(0) }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer bg-white">
+                <p *ngIf="totalPricings[0].totalDiscount && totalPricings[0].originalTotalPrice>totalPricings[0].totalDiscount" class="font-weight-bold topP text-success">You will save Rs {{(totalPricings[0].totalDiscount).toFixed(0)}} on this order</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end model box -->
+    
+</ion-content>
