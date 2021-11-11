@@ -1,0 +1,102 @@
+
+<ion-content>
+  <div class="container-fluid px-0  bg-light h-100">
+    <div >
+      <div class="bg-blue border-0 p-2  position-relative text-center " style="margin-bottom:12%;    border-bottom-left-radius: 2.5rem;  border-bottom-right-radius: 2.5rem;height: 160px;">
+        <div class=" text-white p-3">
+          <h5 class="m-0 text-left"> My Profile </h5>
+        </div>
+        <div class="">
+          <div class="text-center pb-4">
+            <p class="m-0 text-white">Hello,</p>
+            <h5 class="m-0 text-white">{{listSettingsDetails?.name}}</h5>
+            <p class="m-0 text-white">{{listSettingsDetails?.email}}</p>
+          </div>
+        </div>
+          <div class="text-center mx-auto   position-static w-100" style="  top: 0px;">
+            <img src="./assets/image/male.svg" alt="male" width="60" height="60" class="mx-auto position-relative shadow rounded-circle" style="top:-20px;">
+          </div>
+        </div>
+      <div class="my-2 py-2s">
+        <div class="my-2"  *ngIf="!formEditable">
+          <button class="btn  btn-sm text-white editButton bg-myndia-secondary" (click)="formEditable = true">Edit</button>
+        </div>
+      <form method="post" #editDet = "ngForm" (ngSubmit) = "editDetails(editDet.value)">
+        <fieldset [disabled]="!formEditable">
+        <div class="card">
+          <div class="card-body py-4">
+              <div class="my-4 border border-start-0 border-top-0 border-end-0">
+                <label for="name">Name</label>
+                <input type="text"  name="name" [ngModel]="listSettingsDetails.name"  class="w-100  border-0">
+              </div>
+              <div class="my-4 border border-start-0 border-top-0 border-end-0">
+                <label for="Email Address">Email</label>
+                <input type="email" name="email" [ngModel]="listSettingsDetails.email" class="w-100 border-0" >
+              </div>
+              <div class="my-4 border border-start-0 border-top-0 border-end-0">
+                <label for="Email Address">Phone Number</label>
+                <input type="tel" name="phone" [ngModel]="listSettingsDetails.phone" class="w-100 border-0" >
+              </div>
+          </div>
+          <div class="text-right submitSystem" *ngIf="formEditable">
+            <!-- we will be sending otp and modal box should be open old and new phone to be given -->
+            <button type="submit" data-bs-toggle="modal" data-bs-target="#otpModal" class="btn btn-primary btn-sm block submitBtn mx-2" >Submit</button>
+            <button type="button" class="btn btn-sm btn-danger cancelBtn mx-2" (click)="formEditable=false">Cancel</button>
+          </div>
+          <!-- <div class="card-footer bg-white">
+            <div class="row">
+              <div class="col col-sm-6">
+                <button type="submit" class="btn btn-primary w-100 topP btn-sm" name="button">SAVE</button>
+              </div>
+              <div class="col col-sm-6">
+                <button type="submit" class="btn btn-danger w-100 topP btn-sm" name="button">DELETE ACCOUNT</button>
+              </div>
+            </div>
+  
+          </div> -->
+        </div>
+        </fieldset>
+      </form>
+              <!-- otp modal -->
+                <div class="modal fade" id="otpModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Varify your account</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <form (ngSubmit)="varifyOtp(otpform.value)" #otpform="ngForm">
+                        <div class="modal-body">
+                            <div class="">
+                              <p *ngIf="!otpResponse">Sending OTP... </p>
+                              <p *ngIf="otpResponse">OTP sent </p>
+                            </div>
+                            <div class="border p-2 my-4" *ngIf="otpResponse==3">
+                              <label>Enter OTP sent at ***-***-{{this?.previousPhone % 10000}}</label>
+                              <input type="number" name="otp2" ngModel placeholder="Enter OTP" class="w-100 border-0 " required>
+                            </div>
+                            <div class="border p-2 my-4" >
+                              <label>Enter OTP sent at ***-***-{{this.otpPayload?.phone % 10000}}</label>
+                              <input type="number" name="otp1" ngModel placeholder="PIN" class="w-100 border-0 " required>
+                            </div>
+                            <div class="border p-2 my-4" >
+                              <p *ngIf="this.time">Resend otp in {{time}}</p>
+                              <label *ngIf="!this.time">Did not get otp? </label>
+                              <button type="button" *ngIf="!this.time" class="text-blue btn" (click)="editDetails(this.otpPayload)">Resend</button>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="submit" [disabled]="otpform.invalid" class="btn btn-primary btn-block w-100">Varify</button>
+                        </div>
+  
+                      </form>
+  
+                    </div>
+                  </div>
+                </div>
+                             <!-- otp modal -->
+      </div>
+    </div>
+  </div>
+  
+</ion-content>

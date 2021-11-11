@@ -1,61 +1,28 @@
-import { ModalController } from '@ionic/angular';
-import { LoginmodalPage } from './modals/loginmodal/loginmodal.page';
-import { NavService } from './services/nav.service';
-import { Router } from '@angular/router';
-import {loginUp, phonenumber, resetPassword, signupData} from './class/post';
 import { Location } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
+import { loginUp, phonenumber, resetPassword, signupData } from 'src/app/class/post';
 import { CommunicateService } from 'src/app/services/communicate.service';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { SigninComponent } from './modals/signin/signin.component';
+import { NavService } from 'src/app/services/nav.service';
+
 @Component({
-  selector: 'app-root',
-  templateUrl: 'app.component.html',
-  styleUrls: ['app.component.scss'],
+  selector: 'app-signin',
+  templateUrl: './signin.component.html',
+  styleUrls: ['./signin.component.scss'],
 })
-export class AppComponent {
-  // @ViewChild('loginBtn') loginBtn :any;
-  @ViewChild('continue') continueBtn:any;
-  
-  public appPages = [
-    { title: 'Home', url: '/home', icon: 'home' },
-    { title: 'All Category', url: '/all-category', icon: 'grid' },
-    { title: 'My Orders', url: '/accountOrders', icon: 'push' },
-    { title: 'My Cart', url:this._ApiServiceService.isLoggedIn()? '/accountCart' :'/accountGuestCart', icon: 'cart' },
-    { title: 'My Wishlist', url: '/wishlist', icon: 'heart' },
-    { title: 'My Account', url: '/accountNavigation', icon: 'person' },
+export class SigninComponent implements OnInit {
+  continueBtn: any;
 
-    { title: 'Pan Card', url: '/accountPAN', icon: 'card' },
-    { title: 'Change Password', url: '/accountPassword', icon: 'key' },
 
-    { title: 'Address', url: '/accountAddress', icon: 'locate' },
-    { title: 'Bank Details', url: '/accountBankDetails', icon: 'cash' },
-    { title: 'Rating And Reviews', url: '/folder/rating', icon: 'star' },
-  ];
-  constructor(public modalController: ModalController,private router :Router,private _location:Location, public _communicate:CommunicateService,private _ApiServiceService:NavService,) {}
+  constructor(public modalController: ModalController,private _nav:NavService,private router :Router,private _location:Location, public _communicate:CommunicateService,private _ApiServiceService:NavService,) {}
 
-  dataReturned: any;
-  async openModal() {
-    const modal = await this.modalController.create({
-      component: SigninComponent,
-      componentProps: {
-        "paramID": 123,
-        "paramTitle": "Test Title"
-      }
-    });
-
-    modal.onDidDismiss().then((dataReturned) => {
-      if (dataReturned !== null) {
-        this.dataReturned = dataReturned.data;
-        //alert('Modal Sent Data :'+ dataReturned);
-      }
-    });
-
-    return await modal.present();
+  async closeModal() {
+    const onClosedData: string = "Wrapped Up!";
+    await this.modalController.dismiss(onClosedData);
   }
 
   
-
 
 
   signUp: any;
@@ -76,17 +43,13 @@ this._location.onUrlChange(()=>{
 })
     // show outercat
     this.showOuterCategory();
-this._communicate.navbarOpen.subscribe(res=>{
-  // if(res) this.loginBtn.nativeElement.click();
-})
+
 
   }
 
   searchProduct(product:any){
 this.router.navigate(['search',product.productName.split(' ').join('-')]);
   }
-
-  
 
   imgUrl(path:any) {
     return this._ApiServiceService.baseImgUrl+'/productImages'+path;
@@ -224,7 +187,7 @@ this.router.navigate(['search',product.productName.split(' ').join('-')]);
     login.phone = val;
     this._ApiServiceService.postPhone(login).subscribe(
       res=>{
-        this.continueBtn.nativeElement.style.display = "none";
+        // this.continueBtn.nativeElement.style.display = "none";
         this.response = res;
         if(res.phone != null)
         {
@@ -233,8 +196,9 @@ this.router.navigate(['search',product.productName.split(' ').join('-')]);
           // this.toastr.warning('You Are Already Registered With This Number');
         }
         else{
+          console.log("No phone");
+          document.getElementById("contnueBtn")?.classList.add('display-none');
           document.querySelector('.signup')?.classList.remove('display-none');
-          document.querySelector('.continue')?.classList.add('display-none');
           var phone= <HTMLElement>document.querySelector('.phone');
           phone.remove();
           localStorage.setItem('phone',val);
@@ -352,5 +316,4 @@ this.router.navigate(['search',product.productName.split(' ').join('-')]);
     document.querySelector('.createAccount')?.classList.add('display-none');
     document.querySelector('.loginPart')?.classList.add('display-none');
   }
-
 }

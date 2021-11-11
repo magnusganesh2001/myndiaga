@@ -6,6 +6,7 @@ import {SignUpPost,signupData,loginUp, panUpdate,postProductId , addressAddition
 import { Routes, RouterModule ,Router} from '@angular/router';
 import 'rxjs/Rx';
 import { ratingsPost } from '../class/headings';
+import { environment } from 'src/environments/environment';
 function _window() : any {
   // return the global native browser window object
   return window;
@@ -56,9 +57,9 @@ getCrossSell(msn:any){
   // public baseUrl = "http://localhost:8000/api/";
   // public trackUrl = "http://localhost:8000";
 
-  public baseImgUrl = "https://seller.myndia.in"
-  public baseUrl = "https://seller.myndia.in/api/";
-  public trackUrl = "https://seller.myndia.in";
+  public baseImgUrl = 'https://seller.myndia.in/';
+  public baseUrl = environment.url+"api/";
+  public trackUrl = environment.url;
 
 
 

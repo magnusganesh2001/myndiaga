@@ -1,0 +1,417 @@
+
+<ion-content>
+  <div class="container-fluid px-0 ">
+    <div >
+      <div class="bg-blue border-0 p-2  position-relative text-center "
+        style="margin-bottom:12%;    border-bottom-left-radius: 2.5rem;  border-bottom-right-radius: 2.5rem;height: 160px;">
+        <div class=" text-white p-3">
+          <h5 class="m-0 text-left"> Manage Address </h5>
+        </div>
+        <div class="">
+          <div class="text-center pb-4">
+            <p class="m-0 text-white">Hello,</p>
+            <h5 class="m-0 text-white">{{name}}</h5>
+          </div>
+        </div>
+        <div class="text-center mx-auto   position-static w-100" style="  top: 0px;">
+          <img src="./assets/image/male.svg" alt="male" width="60" height="60"
+            class="mx-auto position-relative shadow rounded-circle" style="top:-20px;">
+        </div>
+      </div>
+  
+      <div>
+        <div class="card cardRadius  pb-0 shadow">
+          <div class="card-body">
+            <div class="border p-2 addAddress">
+              <button href="#" class="nounderline border-0 bg-white text-primary w-100" style="outline:none;">
+                <div class="d-flex flex-row bd-highlight">
+                  <div class="p-2 bd-highlight">
+                    <i class="fas fa-plus"></i>
+                  </div>
+                  <div class="p-2 bd-highlight">
+                    ADD A NEW ADDRESS
+                  </div>
+                </div>
+              </button>
+            </div>
+  
+            <div class="card addressForm" hidden>
+              <div class="card-body bg-light">
+                <div class="text-primary">
+                  <h6>ADD A NEW ADDRESS</h6>
+                </div>
+                <form class="" action="index.html" method="post" #addAddress='ngForm'
+                  (ngSubmit)="onSubmitAddress(addAddress.value)">
+                  <!-- <div class="pt-3 ">
+                    <div>
+                      <button type="button" class="btn btn-primary btn-sm p-2 w-100"> <span class="mx-2"><i
+                            class="fas fa-map-marker-alt"></i></span> Use my current location</button>
+                    </div>
+  
+  
+                  </div> -->
+                  <div class="my-3">
+                    <div class="mb-3">
+                      <input type="text" name="name" placeholder="Name" class="w-100 p-2 border" required ngModel>
+                    </div>
+                    <div>
+                      <input type="text" name="phone" placeholder="10-digit mobile number" class="w-100 p-2 border"
+                        required ngModel pattern="^\d{10}$" required #phone="ngModel"
+                        [class.border-danger]="phone.invalid && phone.touched">
+                      <div class="mx-auto">
+                        <small class="px-2 text-danger" [class.display-none]="phone.valid || phone.untouched">10 Digit
+                          Number Is Required</small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="my-3">
+                    <div class="mb-3">
+                      <input type="text" name="pincode" placeholder="Pincode" class="w-100 p-2 border" required ngModel>
+                    </div>
+                    <div>
+                      <input type="text" name="locality" placeholder="Locality" class="w-100 p-2 border" required ngModel>
+                    </div>
+                  </div>
+                  <div class="my-3">
+                    <textarea name="address" rows="3" class="w-100 p-2 mb-3 border" placeholder="Address (Area and Streat)"
+                      required ngModel> </textarea>
+                  </div>
+                  <div class="my-3">
+                    <div class="mb-3">
+                      <select name="state" class="w-100 h-100 border" required ngModel
+                        (change)="getCity(addAddress.value.state)">
+                        <option value="" selected disabled>--Select State--</option>
+                        <option value="{{states.id}}" *ngFor="let states of statesDetails">{{states.name}}</option>
+                      </select>
+                    </div>
+  
+                    <div *ngIf="cities && cities?.length>0">
+                      <select name="city" class="w-100 h-100 border" required ngModel>
+                        <option value="" selected disabled>--Select City--</option>
+                        <option value="{{city.name}}" *ngFor="let city of cities">{{city.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="my-3">
+                    <div class="mb-3">
+                      <input type="text" name="landmark" placeholder="Landmark" class="w-100 p-2 border" required ngModel>
+                    </div>
+                    <div>
+  
+                    </div>
+                  </div>
+                  <div class="my-3">
+                    <p class="text-grey">Address Type</p>
+  
+                    <input type="radio" name="addressType" value="Home" ngModel>
+                    <label for="addressType" style="margin-right:2%;margin-left:2%;">Home</label>
+  
+                    <input type="radio" name="addressType" value="Work" class="pl-4"
+                      style="margin-right:2%;margin-left:2%;" ngModel>
+                    <label for="addressType">Work</label>
+                  </div>
+                  <div class="row">
+                    <div class="col-6">
+                      <button type="submit" class="btn btn-primary btn-sm p-2 w-100 mb-2 submitAddress">Submit</button>
+                    </div>
+                    <div class="col-6">
+                      <button type="reset" class="btn btn-danger btn-sm p-2 w-100 cancelButton">Cancel</button>
+                    </div>
+                  </div>
+  
+                </form>
+  
+              </div>
+            </div>
+            <br>
+            <br>
+            <div class="card " *ngFor="let custAddress of listAddressDetails; index as i">
+              <div class="card-body">
+                <div class="d-flex justify-content-between">
+                  <div class=" bd-highlight">
+                    <div class="bg-light">
+                      <p>{{custAddress.address_type}}</p>
+                    </div>
+                  </div>
+                  <div class="px-2 py-0 bd-highlight">
+                    <!-- Split dropstart button -->
+                    <div class="btn-group">
+                      <div class="btn-group dropstart" role="group">
+                        <button type="button" class="btn btn-white dropdown-toggle dropdown-toggle-split"
+                          data-bs-toggle="dropdown" aria-expanded="false" style="outline:none;">
+                          <span class="visually-hidden">Toggle Dropstart</span>
+                        </button>
+                        <ul class="dropdown-menu w-25">
+                          <!-- Dropdown menu links -->
+                          <li><a class="dropdown-item " style="cursor:pointer;"
+                              (click)="deleteAddress(custAddress.custAddress_id)">Delete</a></li>
+                          <li><a data-bs-toggle="modal" data-bs-target="#editCart" (click)="editAddress(i,custAddress.custAddress_id)" class="dropdown-item " style="cursor:pointer;" >Edit</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="">
+                  <span>
+                    <span class="lableHeadings"> {{custAddress.cust_Name}}</span> <span
+                      class="mx-3 lableHeadings">{{custAddress.order_phone}}</span> <span
+                      class="mx-3 lableHeadings"></span>
+                  </span>
+                  <br>
+                  <br>
+                  <p class="m-0">{{custAddress.cust_address}}</p>
+                  <p class="m-0">{{custAddress.custCity}}</p>
+                  <p class="m-0">{{custAddress.custState}} - {{custAddress.custPincode}}</p>
+                  <p class="m-0">{{custAddress.custLandMark}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer cardFooter p-0 bg-white border-0">
+            <img src="./assets/images/bottom.jpg" alt="" class="w-100 cardFooter" style="opacity:0.9;">
+          </div>
+        </div>
+      </div>
+  
+      <!-- <div class="">
+        <div class="card">
+          <div class="card-header bg-white" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+            <div class="">
+                <div class="d-flex flex-row bd-highlight  border-0 bg-white text-primary w-100">
+                  <div class="p-2 bd-highlight">
+                    <i class="fas fa-plus"></i>
+                  </div>
+                  <div class="p-2 bd-highlight">
+                    ADD A NEW ADDRESS
+                  </div>
+                </div>
+            </div>
+          </div>
+          <div class="card-body pr-0 pl-4 collapse bg-light"  id="collapseExample">
+            <div class="w-90 border p-2 bg-orange my-2">
+              <h6 class="text-white m-0 text-center">Add Address</h6>
+            </div>
+            <br>
+            <div class="mx-auto">
+              <form class="" action="index.html" method="post" >
+                <div class="my-2">
+                  <input type="text" name="name" placeholder="Name" class="w-90 border pl-2 ">
+                </div>
+                <div class="my-2">
+                  <input type="tel" name="phone" placeholder="Phone Number" class="w-90 border pl-2 ">
+                </div>
+                <div class="my-2">
+                  <input type="text" name="pinCode" placeholder="Pin Code" class="w-90 border pl-2  ">
+                </div>
+                <div class="my-2">
+                  <input type="text" name="locality" placeholder="Locality" class="w-90 border pl-2  ">
+                </div>
+                <div class="my-2">
+                  <textarea name="address" rows="3" class="w-90 border pl-2 " placeholder="Address(Area & Street)"></textarea>
+                </div>
+                <div class="my-2">
+                  <input type="text" name="city" placeholder="City" class="w-90 border pl-2  ">
+                </div>
+                <div class="my-2">
+                  <input type="text" name="State" placeholder="State" class="w-90 border pl-2 ">
+                </div>
+                <div class="my-2">
+                  <input type="text" name="landmark" placeholder="Landmark(Optional)" class="w-90 border pl-2 ">
+                </div>
+                <div class="my-2">
+                  <input type="tel" name="alternatePhone" placeholder="Alternate Phone " class="w-90 border pl-2  ">
+                </div>
+                <div class="my-2">
+                  <p class="text-grey topP my-1">Address Type</p>
+                  <div class="">
+                    <input type="radio" name="typeOfAddress" value="home">
+                    <label for="typeOfAddress" class="px-2">Home</label>
+                  </div>
+                  <div class="">
+                    <input type="radio" name="typeOfAddress" value="work">
+                    <label for="typeOfAddress" class="px-2">Work</label>
+                  </div>
+                </div>
+                <div class="my-2">
+                  <button type="submit" class="btn btn-primary btn-sm w-90 border pl-2 " >SUBMIT</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <br>
+      <!-- first address -->
+      <!-- <div class="card">
+         <div class="card-body p-0">
+           <div class="d-flex justify-content-between">
+             <div class="p-2 bd-highlight">
+               <input type="radio" name="address" value="Sudha Niwas 2 mai ji ki bagia">
+             </div>
+              <div class="p-2 bd-highlight">
+                <span>
+                  <span class="orderHeadings topP">SARTHAK GARG</span>
+                  <span class="bg-light mx-3 topP"> Work </span>
+                </span>
+                <div class="" style="margin-top:2%;">
+                  <p class="m-0 topP" >Sudha Niwas 2 mai ji ki bagia </p>
+                  <p class="m-0 topP">Bara chandganj</p>
+                  <p class="m-0 topP">Lucknow</p>
+                  <p class="topP m-0">Uttar Pradesh - <span class="orderHeadings">226006</span> </p>
+                  <p class="topP m-0"> <span class="orderHeadings">7785803618</span> </p>
+                </div>
+              </div>
+              <div class="p-2 bd-highlight">
+                <a href="#" class="nounderline font-weight-bold">Edit</a>
+              </div>
+           </div>
+  
+         </div>
+       </div> -->
+      <!-- second ADDRESS -->
+      <!-- <div class="card">
+         <div class="card-body p-0">
+           <div class="d-flex justify-content-between">
+             <div class="p-2 bd-highlight">
+               <input type="radio" name="address" value="Sudha Niwas 2 mai ji ki bagia">
+             </div>
+              <div class="p-2 bd-highlight">
+                <span>
+                  <span class="orderHeadings topP">SARTHAK GARG</span>
+                  <span class="bg-light mx-3 topP"> Work </span>
+                </span>
+                <div class="" style="margin-top:2%;">
+                  <p class="m-0 topP" >Sudha Niwas 2 mai ji ki bagia </p>
+                  <p class="m-0 topP">Bara chandganj</p>
+                  <p class="m-0 topP">Lucknow</p>
+                  <p class="topP m-0">Uttar Pradesh - <span class="orderHeadings">226006</span> </p>
+                  <p class="topP m-0"> <span class="orderHeadings">7785803618</span> </p>
+                </div>
+              </div>
+              <div class="p-2 bd-highlight">
+                <a href="#" class="nounderline font-weight-bold">Edit</a>
+              </div>
+           </div>
+  
+         </div>
+       </div> -->
+    </div>
+    <br>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+       <!-- edit address model box -->
+       <div class="modal fade" id="editCart" tabindex="-1" aria-labelledby="editCart" aria-hidden="true" style="z-index: 10000;">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title text-primary" id="exampleModalLabel">Edit Address</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+  
+              <div class="card addressForm" >
+                <div class="card-body bg-light">
+                  <form class=""  method="post" #EditAddress='ngForm' (ngSubmit)="onEditAddress(EditAddress.value)">
+                    <div class="pt-3 ">
+                      <!-- <div class="row">
+                        <div class="col-lg-6">
+                          <button type="button" class="btn btn-primary btn-sm p-2 w-100"> <span class="mx-2"><i class="fas fa-map-marker-alt"></i></span> Use my current location</button>
+                        </div>
+                        <div class="col-lg-6">
+  
+                        </div>
+                      </div> -->
+  
+                    </div>
+                    <div class="my-3" >
+                      <div class="row">
+                        <div class="col-lg-6 mb-3">
+                          <input type="text" name="name" placeholder="Name" class="w-100 p-2 border" required  [(ngModel)]="editAddressModel.cust_Name">
+                        </div>
+                        <div class="col-lg-6">
+                          <input type="text" name="phone" placeholder="10-digit mobile number" class="w-100 p-2 border" required [(ngModel)]="editAddressModel.order_phone"  pattern="^\d{10}$" required #phone = "ngModel"  [class.border-danger]="phone.invalid && phone.touched" >
+                          <div class="mx-auto">
+                            <small class="px-2 text-danger" [class.display-none]="phone.valid || phone.untouched">10 Digit Number Is Required</small>
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="my-3">
+                      <div class="row">
+                        <div class="col-lg-6 mb-3">
+                          <input type="text" name="pincode" placeholder="Pincode" class="w-100 p-2 border" required [(ngModel)]="editAddressModel.custPincode">
+                        </div>
+                        <div class="col-lg-6">
+                          <input type="text" name="locality" placeholder="Locality" class="w-100 p-2 border" required [(ngModel)]="editAddressModel.locality">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="my-3">
+                      <input type="text" name="address" placeholder="Address (Area and Streat)" class="w-100 p-2 border" required ngModel>
+  
+                     </div>
+                    <div class="my-3">
+                      <div class="row">
+                        <div class="col-lg-6 mb-3">
+                          <select name="state" class="w-100 h-100 border" required [(ngModel)]="editAddressModel.custState" (change)="getCity(EditAddress.value.state)">
+                            <option value="" selected disabled >--Select State--</option>
+                            <option value="{{states.id}}" *ngFor = "let states of statesDetails" >{{states.name}}</option>
+                          </select>
+                        </div>
+  
+                        <div class="col-lg-6">
+                          <select name="city" class="w-100 h-100 border" required [(ngModel)]="editAddressModel.custCity">
+                            <option value="" selected disabled >--Select City--</option>
+                            <option value="{{city.name}}" *ngFor = "let city of cities" >{{city.name}}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="my-3">
+                      <div class="row">
+                        <div class="col-lg-6 mb-3">
+                          <input type="text" name="landmark" placeholder="Landmark" class="w-100 p-2 border" required [(ngModel)]="editAddressModel.custLandMark">
+                        </div>
+                        <div class="col-lg-6">
+  
+                        </div>
+                      </div>
+                    </div>
+                    <div class="my-3">
+                      <p class="text-grey">Address Type</p>
+  
+                        <input type="radio" name="addressType" value="Home" required [(ngModel)]="editAddressModel.address_type">
+                        <label for="addressType"  style="margin-right:2%;margin-left:2%;" >Home</label>
+  
+                        <input type="radio" name="addressType"  value="Work" class="pl-4" style="margin-right:2%;margin-left:2%;" [(ngModel)]="editAddressModel.address_type">
+                        <label for="addressType" >Work</label>
+                    </div>
+                    <div class="">
+                      <div class="row">
+                        <div class="col-lg-6 mb-3">
+                          <button type="submit" class="btn btn-primary btn-sm p-2 w-100 my-1 submitAddress">Submit</button>
+                        </div>
+                        <div class="col-lg-6">
+                          <button type="reset" class="btn btn-danger btn-sm p-2 w-100 cancelButton">Cancel</button>
+                        </div>
+                      </div>
+                    </div>
+  
+                  </form>
+  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end model box -->
+  
+</ion-content>

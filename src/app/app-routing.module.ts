@@ -50,8 +50,36 @@ const routes: Routes = [
     loadChildren: () => import('./wishlist/wishlist.module').then( m => m.WishlistPageModule)
   },
   {
+    path: 'all-products/:title/:id',
+    loadChildren: () => import('./all-products/all-products.module').then( m => m.AllProductsPageModule)
+  },
+  {
     path: 'accountCartPayment',
     loadChildren: () => import('./order-payment/order-payment.module').then( m => m.OrderPaymentPageModule)
+  },
+  {
+    path: 'accountSettings',
+    loadChildren: () => import('./account-setting/account-setting.module').then( m => m.AccountSettingPageModule)
+  },
+  {
+    path: 'accountNavigation',
+    loadChildren: () => import('./account-navigation/account-navigation.module').then( m => m.AccountNavigationPageModule)
+  },
+  {
+    path: 'accountAddress',
+    loadChildren: () => import('./account-address/account-address.module').then( m => m.AccountAddressPageModule)
+  },
+  {
+    path: 'accountPassword',
+    loadChildren: () => import('./account-password/account-password.module').then( m => m.AccountPasswordPageModule)
+  },
+  {
+    path: 'accountPAN',
+    loadChildren: () => import('./account-pan/account-pan.module').then( m => m.AccountPANPageModule)
+  },
+  {
+    path: 'accountBankDetails',
+    loadChildren: () => import('./account-bank-details/account-bank-details.module').then( m => m.AccountBankDetailsPageModule)
   },
   {
     path: 'accountCart',
@@ -73,6 +101,10 @@ const routes: Routes = [
     path: ':category/:subcategory/:productList/:product',
     loadChildren: () => import('./product-detail/product-detail.module').then( m => m.ProductDetailPageModule)
   },
+  
+
+
+
  
 
  

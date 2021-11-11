@@ -1,0 +1,71 @@
+
+<ion-content>
+  <div class="container-fluid px-0 ">
+    <div >
+      <div class="bg-blue border-0 p-2  position-relative text-center " style="margin-bottom:12%;    border-bottom-left-radius: 2.5rem;  border-bottom-right-radius: 2.5rem;height: 160px;">
+        <div class=" text-white p-3">
+          <h5 class="m-0 text-left"> Pan Card </h5>
+        </div>
+        <div class="">
+          <div class="text-center pb-4">
+            <p class="m-0 text-white">Hello,</p>
+            <h5 class="m-0 text-white">{{name}}</h5>
+          </div>
+        </div>
+          <div class="text-center mx-auto   position-static w-100" style="  top: 0px;">
+            <img src="./assets/image/male.svg" alt="male" width="60" height="60" class="mx-auto position-relative shadow rounded-circle" style="top:-20px;">
+          </div>
+        </div>
+  
+      <div class="card">
+        <div class="card-body">
+          <form   method="post"  #panDetails = "ngForm" *ngIf="!checkPan()" (ngSubmit) = "uploadPANcard(panDetails.value)" enctype="multipart/form-data">
+            <div class="my-3">
+              <input type="text" name="panNumber" ngModel placeholder="PAN Card Number" class="w-100 py-1">
+            </div>
+            <div class="my-4">
+              <input type="text" name="name" ngModel placeholder="Full Name" class="w-100 py-1">
+            </div>
+            <div class="border my-4 p-1">
+              <p class="topP text-grey my-1">Upload PAN Card(Only JPEG File Allowed)</p>
+              <input accept="image/*" type="file" name="panNumbeImgr" name="panImg"  class="w-100 p-2  border" (change)="fileEvent($event)" ngModel >
+            </div>
+            <div class="">
+              <div class="d-flex flex-row bd-highlight mb-3">
+                <div class="p-2 bd-highlight">
+                  <input type="checkbox" name="athority" value="1" ngModel>
+                </div>
+                <div class="p-2 bd-highlight">
+                  <p class="m-0 topP">I do hereby declare that PAN furnished/stated above is correct and belongs to me, registered as an account holder with www.myndia.com. I further declare that I shall solely be held responsible for the consequences, in case of any false PAN declaration.</p>
+                </div>
+              </div>
+            </div>
+            <div class="my-4">
+              <button type="submit" class="btn btn-primary btn-sm px-4">Upload</button>
+            </div>
+          </form>
+          <div class="my-2 row" *ngIf="checkPan()">
+            <div class="my-2 col-6">
+              <h5>Pan Card holder name</h5>
+              <p class="text-grey">{{listSettingsPAN?.pan_card_full_name}}</p>
+            </div>
+            <div class="my-2 col-6">
+              <h5>Pan Number</h5>
+              <p class="text-grey">{{listSettingsPAN?.pan_number}}</p>
+            </div>
+            <div class="my-3">
+              <h5>Document</h5>
+              <a href="{{this._ApiServiceService.baseImgUrl}}/customerDocuments{{listSettingsPAN.pan_image.trim()}}" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-2x fa-file-word"></i>
+              </a>
+            </div>
+        </div>
+        </div>
+        <div class="card-footer cardFooter p-0 bg-white border-0">
+          <img src="./assets/images/bottom.jpg" alt="" class="w-100 cardFooter" style="opacity:0.9;">
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</ion-content>

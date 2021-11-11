@@ -14,13 +14,16 @@
         <ion-list-header>
           <a (click)="openModal()" *ngIf="!isLoggedIn()"
           class="text-myndia-primary">Login</a>
+          <a class="text-myndia-primary" *ngIf="isLoggedIn()">
+            <ion-icon slot="start" [ios]="'person-outline'" [md]="'person-sharp'"></ion-icon>
+            {{getUser()}}</a>
         </ion-list-header>
         
         <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
           <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
             <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
             <ion-label class="px-4">{{ p.title }}</ion-label>
-          </ion-item>
+          </ion-item> 
         </ion-menu-toggle>
         
         <ion-menu-toggle auto-hide="false" *ngIf="isLoggedIn()">

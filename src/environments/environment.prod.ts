@@ -3,6 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  url:'https://seller.myndia.in/',
   production: false,
   RAZORPAY_KEY:'rzp_live_EhL5fIwjAzx4gw'
 };

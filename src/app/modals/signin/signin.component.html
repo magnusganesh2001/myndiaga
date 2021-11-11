@@ -1,0 +1,231 @@
+<!-- my-modal.page.html -->
+<ion-header>
+  <ion-toolbar color="blue" class="bg-primary">
+    <ion-title>
+      <img src="../../../assets/image/myndiaLogo.svg" alt="" height="40" class="px-3">
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()" class="btn btn-light btn-sm mx-2">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding bg-myndia-primary">
+  <div class=" w-100 loginPart ">
+    <div class="my-4 text-center">
+      <h2 class="text-myndia-secondary">Login </h2>
+    </div>
+    <br>
+    <form action="" class="" #signin="ngForm" (ngSubmit)="login(signin.value)">
+      <div class="my-4">
+        <div class=" w-100 mx-auto">
+
+            <ion-input name="phone" type="tel" class="w-100 border-myndia-primary px-4 rounded-2rem outline-none"
+            placeholder="Enter Phone" style="background: none;" ngModel required #phoneLogin="ngModel"
+            [class.border-danger]="phoneLogin.invalid && phoneLogin.touched"></ion-input>
+        </div>
+        <div class="w-100 mx-auto">
+          <small class="px-2 text-danger"
+            [class.display-none]="phoneLogin.valid || phoneLogin.untouched">Phone Is Required</small>
+        </div>
+      </div>
+      <div class="my-4">
+        <div class=" w-100 mx-auto">
+          <ion-input name="password" type="password" class="w-100 border-myndia-primary rounded-2rem px-4 outline-none"
+            placeholder="Enter Password" style="background: none;" ngModel required #passwordCheck="ngModel"
+            [class.border-danger]="passwordCheck.invalid && passwordCheck.touched"></ion-input>
+        </div>
+        <div class="w-75 mx-auto">
+          <small class="px-2 text-danger"
+            [class.display-none]="passwordCheck.valid || passwordCheck.untouched">Password Is Required</small>
+        </div>
+      </div>
+
+      <div class="my-4 text-center">
+        <a class="decoration-none cursor-pointer" (click)="forgotClick()">Forgot Password?</a>
+      </div>
+
+      <div class="my-4 text-center">
+        <button [disabled]="!signin.valid"
+          class="bg-myndia-secondary text-white w-100 btn btn-lg  rounded-2rem">Login</button>
+      </div>
+
+      <br>
+      <div class="my-4 text-center" (click)="singupPage()">
+        <p class="accountCreate loginNadCreate">New to Myndia? <span class="text-myndia-secondary">Create an account</span> </p>
+      </div>
+      <br>
+      <br>
+
+    </form>
+  </div>
+
+  <div class="w-100 forgotPassword display-none">
+    <div class="my-4 text-center">
+      <h2 class="">Forgot Password </h2>
+    </div>
+    <br>
+    <form (ngSubmit)="resetPassword(forgotPassword.value)" class="" #forgotPassword="ngForm">
+
+      <div class="my-4 phoneForgot">
+        <div class=" w-100 mx-auto ">
+          <ion-input name="phone" type="tel" class="w-100 border-myndia-primary rounded-2rem px-4 outline-none"
+            placeholder="Enter Phone" style="background: none;" ngModel pattern="^\d{10}$" required
+            #phone="ngModel" [class.border-danger]="phone.invalid && phone.touched"></ion-input>
+        </div>
+        <div class="w-100 mx-auto">
+          <small class="px-2 text-danger" [class.display-none]="phone.valid || phone.untouched">10 Digit
+            Number Is Required</small>
+        </div>
+      </div>
+
+      <div class="my-4 text-center continue">
+        <button type="button" class="bg-orange w-75 btn btn-lg text-white rounded-pill"
+          (click)="forgotPasword(forgotPassword.value.phone)">Continue</button>
+      </div>
+
+      <div class="display-none  changePassword">
+        <div class="my-4">
+          <div class=" w-100 mx-auto">
+            <ion-input name="otp" type="tel" class="w-100 border-myndia-primary rounded-2rem px-4 outline-none"
+              placeholder="Enter OTP" style="background: none;" ngModel required #otp="ngModel"
+              [class.border-danger]="otp.invalid && otp.touched"></ion-input>
+          </div>
+          <div class="w-100 mx-auto">
+            <small class="px-2 text-danger" [class.display-none]="otp.valid || otp.untouched">OTP Is
+              Required</small>
+          </div>
+        </div>
+
+        <div class="my-4">
+          <div class=" w-100 mx-auto">
+            <ion-input name="password" type="password"
+              class="w-100 border-myndia-primary rounded-2rem px-4 outline-none" placeholder="Enter Password"
+              style="background: none;" ngModel required #password="ngModel"
+              [class.border-danger]="password.invalid && password.touched"></ion-input>
+          </div>
+          <div class="w-75 mx-auto">
+            <small class="px-2 text-danger"
+              [class.display-none]="password.valid || password.untouched">Password Is Required</small>
+          </div>
+        </div>
+
+        <div class="my-4">
+          <div class=" w-100 mx-auto">
+            <ion-input name="confirmpassword" type="password"
+              class="w-100 border-myndia-primary rounded-2rem px-4 outline-none" placeholder="Enter Confirm Password"
+              style="background: none;" ngModel required #confirmPass="ngModel"
+              [class.border-danger]="confirmPass.invalid && confirmPass.touched"></ion-input>
+          </div>
+          <div class="w-100 mx-auto">
+            <small class="px-2 text-danger"
+              [class.display-none]="confirmPass.valid || confirmPass.untouched">Confirm Password Is
+              Required</small>
+          </div>
+        </div>
+        <br>
+        <div class="my-4 text-center">
+          <button class="bg-myndia-secondary w-100 btn btn-lg text-white rounded-pill" type="submit"
+            [disabled]="!forgotPassword.valid">Change Password</button>
+        </div>
+      </div>
+
+
+      <div class=" text-center login" style="margin-top: 100px; margin-bottom: 20px;" (click)="loginPage()">
+        <p class="login loginNadCreate">Existing user? <span class="text-myndia-secondary">Login</span></p>
+      </div>
+    </form>
+  </div>
+
+  <div class=" w-100 createAccount display-none">
+    <div class="my-4 text-center ">
+      <h2 class="">Create Account </h2>
+    </div>
+    <br>
+    <form (ngSubmit)="onSubmitRegistration(signUp.value)" class="" #signUp="ngForm">
+      <div class="my-4 phone">
+        <div class=" w-100 mx-auto ">
+          <ion-input name="phone" type="tel" class="w-100 border-myndia-primary rounded-2rem px-4 outline-none"
+            placeholder="Enter Phone" style="background: none;" ngModel pattern="^\d{10}$" required
+            #phone="ngModel" [class.border-danger]="phone.invalid && phone.touched"></ion-input>
+        </div>
+        <div class="w-100 mx-auto">
+          <small class="px-2 text-danger" [class.display-none]="phone.valid || phone.untouched">10 Digit
+            Number Is Required</small>
+        </div>
+      </div>
+
+      <div class="my-4 text-center continue" #continue id="contnueBtn">
+        <button type="button" class="bg-myndia-secondary w-100 btn btn-lg text-white rounded-pill"
+          (click)="signIn(signUp.value.phone)">Continue</button>
+      </div>
+
+      <div class="display-none  signup">
+        <div class="my-4">
+          <div class=" w-100 mx-auto">
+            <ion-input name="otp" type="tel" class="w-100 border-myndia-primary rounded-2rem px-4 outline-none"
+              placeholder="Enter OTP" style="background: none;" ngModel pattern="^\d{5}$" required
+              #otp="ngModel" [class.border-danger]="otp.invalid && otp.touched" maxlength="5"></ion-input>
+          </div>
+          <div class="w-100 mx-auto">
+            <small class="px-2 text-danger" [class.display-none]="otp.valid || otp.untouched">5 Digit OTP Is
+              Required</small>
+          </div>
+        </div>
+        <div class="my-4">
+          <div class='text-center mt-4 resent'><a class='outline-none cursor-pointer' style='color:#ff4244'
+              (click)="resendOtp()">Resend OTP</a></div>
+
+        </div>
+        <div class="my-4">
+          <div class=" w-100 mx-auto">
+            <ion-input name="name" type="text"
+            class="w-100 border-myndia-primary rounded-2rem px-4 outline-none"
+              placeholder="Enter Name" style="background: none;" ngModel required #name="ngModel" required
+              [class.border-danger]="name.invalid && name.touched"></ion-input>
+          </div>
+          <div class="w-100 mx-auto">
+            <small class="px-2 text-danger" [class.display-none]="name.valid || name.untouched">Name Is
+              Required</small>
+          </div>
+        </div>
+
+        <div class="my-4">
+          <div class=" w-100 mx-auto">
+            <ion-input name="email" type="email"
+              class="w-100 border-myndia-primary rounded-2rem px-4 outline-none"
+              placeholder="Enter Email" style="background: none;" ngModel required #email="ngModel" required
+              [class.border-danger]="email.invalid && email.touched"></ion-input>
+          </div>
+          <div class="w-75 mx-auto">
+            <small class="px-2 text-danger" [class.display-none]="email.valid || email.untouched">Email Is
+              Required</small>
+          </div>
+        </div>
+        <div class="my-4">
+          <div class=" w-100 mx-auto">
+            <ion-input name="password" type="password"
+              class="w-100 border-myndia-primary rounded-2rem px-4 outline-none" placeholder="Enter Password"
+              style="background: none;" ngModel required #password="ngModel"
+              [class.border-danger]="password.invalid && password.touched"></ion-input>
+          </div>
+          <div class="w-100 mx-auto">
+            <small class="px-2 text-danger"
+              [class.display-none]="password.valid || password.untouched">Password Is Required</small>
+          </div>
+        </div>
+        <br>
+
+        <div class="my-4 text-center">
+          <button class="bg-myndia-secondary w-100 btn btn-lg text-white rounded-pill" type="submit"
+            [disabled]="!signUp.valid">Create Account</button>
+        </div>
+      </div>
+
+
+      <div class=" text-center login" style="margin-top: 100px; margin-bottom: 20px;" (click)="loginPage()">
+        <p class="login loginNadCreate">Existing user? Login</p>
+      </div>
+    </form>
+  </div>
+</ion-content>

@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
 import { LoginmodalPageRoutingModule } from './loginmodal-routing.module';
 
 import { LoginmodalPage } from './loginmodal.page';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -15,6 +15,7 @@ import { LoginmodalPage } from './loginmodal.page';
     IonicModule,
     LoginmodalPageRoutingModule,
   ],
+  exports:[FormsModule],
   declarations: [LoginmodalPage]
 })
 export class LoginmodalPageModule {}

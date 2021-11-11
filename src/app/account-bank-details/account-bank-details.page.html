@@ -1,0 +1,128 @@
+
+<ion-content>
+  <div class="container-fluid px-0 ">
+    <div >
+      <div class="bg-blue border-0 p-2  position-relative text-center " style="margin-bottom:12%;    border-bottom-left-radius: 2.5rem;  border-bottom-right-radius: 2.5rem;height: 160px;">
+        <div class=" text-white p-3">
+          <h5 class="m-0 text-left"> Bank detail </h5>
+        </div>
+        <div class="">
+          <div class="text-center pb-4">
+            <p class="m-0 text-white">Hello,</p>
+            <h5 class="m-0 text-white">{{name}}</h5>
+          </div>
+        </div>
+          <div class="text-center mx-auto   position-static w-100" style="  top: 0px;">
+            <img src="./assets/image/male.svg" alt="male" width="60" height="60" class="mx-auto position-relative shadow rounded-circle" style="top:-20px;">
+          </div>
+        </div>
+  
+      <div class="card">
+        <div class="card-body">
+          <div class="card cardRadius  pb-0 shadow">
+            <div class="card-body" style="padding:12px;">
+                <div class="">
+                  <h3 class="orderHeadings">Manage Bank Details</h3>
+                </div>
+                <br>
+                <div class="border p-2 addAddress">
+                  <button href="#" class="nounderline border-0 bg-white text-primary w-100" style="outline:none;">
+                    <div class="d-flex flex-row bd-highlight">
+                      <div class="p-2 bd-highlight">
+                        <i class="fas fa-plus"></i>
+                      </div>
+                      <div class="p-2 bd-highlight">
+                        ADD A NEW BANK DETAILS
+                      </div>
+                    </div>
+                  </button>
+                </div>
+  
+                <div class="card addressForm" hidden>
+                  <div class="card-body bg-light">
+                    <div class="text-primary">
+                      <h6>ADD A NEW BANK DETAILS</h6>
+                    </div>
+                    <form class="" action="index.html" method="post" #banks = 'ngForm' (ngSubmit) = "bankSubmit(banks.value)">
+                      <div class="my-3">
+                          <input type="text" name="bank_name" placeholder="Please give your bank name" class="w-100 p-2 border" required  ngModel>
+                      </div>
+                      <div class="my-3">
+                          <input type="text" name="bank_holder_name" placeholder="Bank Holder Name" class="w-100 p-2 border" required  ngModel>
+                      </div>
+                      <div class="my-3">
+                          <input type="text" name="accountNumebr" placeholder="Please give your account Numeber" class="w-100 p-2 border" required ngModel  required #numebr = "ngModel"  [class.border-danger]="numebr.invalid && numebr.touched" >
+                          <div class="mx-auto">
+                              <small class="px-2 text-danger" [class.display-none]="numebr.valid || numebr.untouched">Please give your account Numeber</small>
+                          </div>
+                      </div>
+                      <div class="my-3">
+                          <input type="text" name="ifsc" placeholder="IFSC Code" class="w-100 p-2 border" required ngModel  required #ifsc = "ngModel"  [class.border-danger]="ifsc.invalid && ifsc.touched" >
+                          <div class="mx-auto">
+                              <small class="px-2 text-danger" [class.display-none]="ifsc.valid || ifsc.untouched">Please give your IFSC Code</small>
+                          </div>
+                      </div>
+  
+                      <div class="">
+                        <div class="row">
+                          <div class="col-lg-6">
+                            <button type="submit" class="btn btn-primary btn-sm p-2 w-100 submitAddress">Submit</button>
+                          </div>
+                          <div class="col-lg-6 mt-2">
+                            <button type="reset" class="btn btn-danger btn-sm p-2 w-100 cancelButton">Cancel</button>
+                          </div>
+                        </div>
+                      </div>
+  
+                    </form>
+  
+                  </div>
+                </div>
+                <br>
+                <br>
+                <div class="card " *ngFor = "let bank of bankDetails">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                      <div class=" bd-highlight">
+                        <div class="bg-light">
+                          <p><span style="font-weight: 600;">Bank Name: </span>{{bank.bank_name}}</p>
+                        </div>
+                      </div>
+                      <div class="px-2 py-0 bd-highlight">
+                        <!-- Split dropstart button -->
+                        <div class="btn-group">
+                          <div class="btn-group dropstart" role="group">
+                            <button type="button" class="btn btn-white dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false" style="outline:none;">
+                              <span class="visually-hidden">Toggle Dropstart</span>
+                            </button>
+                            <ul class="dropdown-menu w-25">
+                              <!-- Dropdown menu links -->
+                              <li><a class="dropdown-item " style="cursor:pointer;" (click)="deleteBank(bank.bank_id)">Delete</a></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+  
+                    <div class="">
+                      <p class="m-0"><span style="font-weight: 600;">Bank Holder Name: </span> {{bank.account_holder_name}}</p>
+                      <p class="m-0"> <span style="font-weight: 600;">Bank Account Number: </span> {{bank.bank_account_number}}</p>
+                      <p class="m-0"> <span style="font-weight: 600;">Bank IFSC Code: </span> {{bank.ifsc_code}}</p>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="card-footer cardFooter p-0 bg-white border-0">
+              <img src="./assets/images/bottom.jpg" alt="" class="w-100 cardFooter" style="opacity:0.9;">
+            </div>
+          </div>
+  
+        </div>
+        <div class="card-footer cardFooter p-0 bg-white border-0">
+          <img src="./assets/images/bottom.jpg" alt="" class="w-100 cardFooter" style="opacity:0.9;">
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</ion-content>
