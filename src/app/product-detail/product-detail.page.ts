@@ -122,16 +122,16 @@ export class ProductDetailPage implements OnInit {
   {
     this._ApiServiceService.getProductsDetails(this.prtid,this.msn,this.pcolorId,this.product_url).subscribe(
       data=>{
-    if(data != 0)
-    {
-        this.p_name = data[0].p_name;
-        this.product_url = data[0].product_url;
-        this.lstProductDetailsHeadings=data;
-        this.titleService.setTitle(this.p_name);
-        this.router.navigate(['/',this.catName,this.subCatName,this.productName,this.product_url], { queryParams: { prtid: this.prtid,msn:this.msn,pcolorId:this.pcolorId } });
-}else{
-  this.router.navigate(['/']);
-}
+        if(data != 0)
+        {
+            this.p_name = data[0].p_name;
+            this.product_url = data[0].product_url;
+            this.lstProductDetailsHeadings=data;
+            this.titleService.setTitle(this.p_name);
+            this.router.navigate(['/',this.catName,this.subCatName,this.productName,this.product_url], { queryParams: { prtid: this.prtid,msn:this.msn,pcolorId:this.pcolorId } });
+        }else{
+          this.router.navigate(['/']);
+        }
       }
     )
   }
